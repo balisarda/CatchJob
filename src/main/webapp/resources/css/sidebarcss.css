@@ -1,0 +1,122 @@
+	li a {
+	    display: block;
+	    color: #FFFFFF;
+	    padding: 8px 16px;
+	    text-decoration: none;
+
+	}
+	li a.active {
+	    background-color: #4CAF50;
+	    color: white;
+	}
+	li a:hover:not(.active) {
+	    background-color: #c0c0c0;
+	    color: #535353;
+	    font-weight: bold;
+	}
+	
+
+	
+		.list{
+		font-color: #FFFFFF;
+	}
+	.sidebar-top{
+		height: 127px; 
+		width: 220px; 
+		position: fixed; 
+		
+	}
+	
+
+nav {
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  
+  width: 220px;
+  -webkit-box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+     -moz-box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+          box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.menu-item {
+position : relative;
+right : 30px;
+  background: #fff;
+  width: 220px; 
+  margin-top: 0px;
+
+
+}
+
+/*Menu Header Styles*/
+.menu-item h4 {
+	margin: 0px;
+  padding: 0px;
+  border-bottom: 1px solid rgba(0,0,0,0.3);
+  border-top: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 7px 12px;
+  
+  /*Gradient*/
+  background: -webkit-linear-gradient(top,  #2f93c7 0%,#1d608b 100%); /* Chrome10+,Safari5.1+ */
+  background: -ms-linear-gradient(top,  #2f93c7 0%,#1d608b 100%); /* IE10+ */
+}
+
+.menu-item h4:hover {  
+  background: -webkit-linear-gradient(top,  #1d608b 0%, #2f93c7 100%); /* Chrome10+,Safari5.1+ */
+  background: -ms-linear-gradient(top,  #1d608b 0%, #2f93c7 100%); /* IE10+ */
+}
+
+.menu-item h4 a {
+  color: white;
+  display: block;
+  text-decoration: none;
+  width: 220px;
+}
+
+/*ul Styles*/
+.menu-item ul {
+  background: #fff;
+  font-size: 13px;
+  line-height: 30px;
+  list-style-type: none;
+  overflow: hidden;
+  padding: 0px;
+  
+  /*Animation*/
+  -webkit-transition: height 1s ease;
+          transition: height 1s ease;
+}
+
+
+
+
+.menu-item ul a {
+  margin-left: 0px;
+  text-decoration: none;
+  color: #4c4c4c;
+  display: block;
+  width: 220px;
+}
+
+/*li Styles*/
+
+
+.menu-item li:hover {
+  background: #eee;
+}
+/*main.css에 있던 얘*/
+	.sidebar {
+		list-style-type: none;
+		padding: 0;
+		margin-top: 127px;
+		margin-bottom: 0px;
+		list-style: none;
+		position: fixed;
+		width: 220px;
+		text-align: left;
+	}
+

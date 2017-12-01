@@ -1,0 +1,19 @@
+	#container{width:90%;height:950px;margin: 20px auto;}
+	#header{width:90%;height:50px;margin: 5px auto;}
+	#left_box{width:50%;height:950px;float:left;margin: 0px auto;}
+	#right_box{width:49%;height:950px;float:right;margin: 0px auto;}
+	@media ( max-width: 100px ) {
+		#container {
+          width: auto;
+        }#header {
+          width: auto;
+        }
+        #right_box {
+          float: none;
+          width: auto;
+        }
+        #left_box {
+          float: none;
+          width: auto;
+        }
+      }		

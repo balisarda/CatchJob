@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.care.CatchJob.IDAO.JobDao">
+
+	<insert id="AddJob" parameterType="com.care.CatchJob.DTO.Job">
+		INSERT INTO job
+		(no, 
+   		member_nickname, 
+    	job_comment, 
+		job_pay, 
+		latitude, 
+		longitude, 
+		road_address, 
+		address, 
+		detail_address, 
+		job_name, 
+		member_phone, 
+		job_num, 
+		job_option, 
+		job_date, 
+		job_time_start, 
+		job_time_end, 
+		board_date)
+		VALUES ((SELECT NVL(MAX(no),0)+1 FROM job), 
+		#{member_nickname}, 
+		#{job_comment},
+		#{job_pay},
+		#{latitude}, 
+		#{longitude}, 
+		#{road_address}, 
+		#{address},
+		#{detail_address}, 
+		#{job_name}, 
+		#{member_phone}, 
+		#{job_num},
+		#{job_option}, 
+		#{job_date}, 
+		#{job_time_start}, 
+		#{job_time_end},
+		sysdate)
+	</insert>
+
+	<select id="FindJob" resultType="com.care.CatchJob.DTO.Job">
+		SELECT * FROM job
+	</select>
+	<select id="InfoJob" resultType="com.care.CatchJob.DTO.Job">
+		SELECT * FROM job where
+		member_nickname= #{id}
+	</select>
+	<delete id="DeleteJob" parameterType="String">
+		DELETE FROM job where
+		no=#{no}
+	</delete>
+	<update id="UpdateJob" parameterType="com.care.CatchJob.DTO.Job">
+		UPDATE job
+		SET job_name =
+		#{job_name}, job_num = #{job_num}, job_option= #{job_option},
+		job_comment= #{job_comment}
+		WHERE no=#{no}
+	</update>
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="datasource"
+	p:driverClassName="oracle.jdbc.OracleDriver" p:url="jdbc:oracle:thin:@localhost:1521:xe"
+	p:username="yoon" p:password="1234" />
+
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean" 
+	p:dataSource-ref="datasource" p:mapperLocations="WEB-INF/Mapper/*.xml" />
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="memberMapperBean" 
+	p:mapperInterface="com.care.CatchJob.IDAO.MemberDao" p:sqlSessionFactory-ref="sqlSessionFactoryBean"/>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="subMemberMapperBean" 
+	p:mapperInterface="com.care.CatchJob.IDAO.subMemberDao" p:sqlSessionFactory-ref="sqlSessionFactoryBean" />
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="boardMapperBean" 
+	p:mapperInterface="com.care.CatchJob.IDAO.BoardDao" p:sqlSessionFactory-ref="sqlSessionFactoryBean" />
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="jobMapperBean" 
+	p:mapperInterface="com.care.CatchJob.IDAO.JobDao" p:sqlSessionFactory-ref="sqlSessionFactoryBean"/>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="balisarda88@gmail.com" />
+		<property name="password" value="vhshvhsh1" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<context:component-scan base-package="com.care.CatchJob.Service" />		
+</beans>

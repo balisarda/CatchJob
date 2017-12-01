@@ -1,0 +1,55 @@
+
+
+.selectBtn div {
+	padding: 30px;
+	width: 1000px;
+	height: 90px;
+
+}
+
+.selectBtn form {
+	position: relative;
+	width: 350px;
+	margin: 0 auto;
+}
+.selectBtn {
+	background: aqua;
+	width: 1000px;
+	height: 90px;
+	position: relative;
+}
+
+.selectBtn:after {
+	content: "";
+	clear: both;
+	display: table
+}
+
+.selectBtn form {
+	width: auto;
+	float: right;
+	margin-right: 30px;
+}
+
+.selectBtn input {
+	width: 250px;
+	height: 42px;
+	padding-left: 15px;
+	border-radius: 42px;
+	border: 2px solid #324b4e;
+	background: #F9F0DA;
+	outline: none;
+	position: relative;
+	transition: .3s linear;
+}
+
+.selectBtn input:focus {
+	width: 300px;
+}
+
+
+
+
+
+
+

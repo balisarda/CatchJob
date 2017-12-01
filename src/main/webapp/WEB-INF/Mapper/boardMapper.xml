@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.care.CatchJob.IDAO.BoardDao">
+<sql id="conditional">
+<where>
+	<choose>
+		<when test='searchOpt eq "id"'>
+		id like '%'||#{searchWord}||'%'
+		</when>
+		<when test='searchOpt eq "title"'>
+		title like '%'||#{searchWord}||'%'
+		</when>
+		<when test='searchOpt eq "all"'>
+		title like '%'||#{searchWord}||'%' 
+		OR id like '%'||#{searchWord}||'%'
+		</when>
+	</choose>
+</where>
+</sql>
+<!-- 알바 등록 게시판 -->
+	<select id="selectBoard" resultType="com.care.CatchJob.DTO.Board">
+		SELECT board_idx, board_title, member_nickname,
+		board_date, board_contents
+		FROM board
+		ORDER BY board_idx DESC
+	</select>
+	<select id="selectBoardCnt" parameterType="Map" resultType="int">
+		SELECT COUNT(*) FROM board
+		<include refid="conditional"></include>
+	</select>
+	<select id="detailView" parameterType="int" resultType="com.care.CatchJob.DTO.Board">
+		SELECT * FROM (
+		SELECT board.*, 
+		member.member_name, 
+		member.member_age, 
+		member.member_gender, 
+		member.member_phone
+		FROM board, member
+		WHERE board.member_nickname = member.member_nickname)
+		where board_idx=#{board_idx}
+	</select>
+	<insert id="insertProc" parameterType="com.care.CatchJob.DTO.Board">
+		INSERT INTO board
+		(board_idx,
+		member_nickname,
+		board_title,
+		board_date,
+		board_type,
+		board_time,
+		board_pay,
+		board_addr,
+		board_contents)
+		VALUES
+		((SELECT NVL(MAX(board_idx), 0)+1 FROM board),
+		#{member_nickname},
+		#{board_title},
+		sysdate,
+		#{board_type, jdbcType=VARCHAR}, 		<!-- , jdbcType=VARCHAR 부적합한 열유형 오류 해결 -->
+		#{board_time, jdbcType=VARCHAR},
+		#{board_pay},
+		#{board_addr},
+		#{board_contents})
+	</insert>
+	<update id="boardupdateProc" parameterType="com.care.CatchJob.DTO.Board">
+		UPDATE board
+		SET
+  		board_idx=#{board_idx}, 
+		member_nickname=#{member_nickname},
+		board_title=#{board_title},
+		board_date=sysdate,
+		board_type=#{board_type, jdbcType=VARCHAR},
+		board_time=#{board_time, jdbcType=VARCHAR},
+		board_pay=#{board_pay},
+		board_addr=#{board_addr},
+		board_contents=#{board_contents}
+		WHERE board_idx=#{board_idx}
+	</update>
+	<delete id="boarddeleteProc" parameterType="com.care.CatchJob.DTO.Board">
+		DELETE FROM board
+		WHERE board_idx=#{board_idx}
+	</delete>
+<!-- 공지 사항 게시판 -->
+	<select id="noticeselectBoard" resultType="com.care.CatchJob.DTO.Board_Notice">
+		SELECT notice_idx, member_nickname, notice_title,
+		notice_date, notice_contents
+		FROM table_noticeboard
+		ORDER BY notice_idx DESC
+	</select>
+	<select id="noticeselectBoardCnt" parameterType="Map" resultType="int">
+		SELECT COUNT(*) FROM table_noticeboard
+		<include refid="conditional"></include>
+	</select>
+	<select id="noticedetailView" parameterType="int" resultType="com.care.CatchJob.DTO.Board_Notice">
+		SELECT *
+		FROM table_noticeboard
+		WHERE notice_idx=#{notice_idx}
+	</select>
+	<insert id="noticewriteProc" parameterType="com.care.CatchJob.DTO.Board_Notice">
+		INSERT INTO table_noticeboard
+		(notice_idx,
+		member_nickname,
+		notice_title,
+		notice_date,
+		notice_contents)
+		VALUES
+		((SELECT NVL(MAX(notice_idx), 0)+1 FROM table_noticeboard),
+		#{member_nickname},
+		#{notice_title},
+		sysdate,
+		#{notice_contents})
+	</insert>
+	<update id="noticeupdateProc" parameterType="com.care.CatchJob.DTO.Board_Notice">
+		UPDATE table_noticeboard
+		SET
+  		notice_idx=#{notice_idx},
+ 		member_nickname=#{member_nickname}, 
+ 		notice_title=#{notice_title}, 
+ 		notice_date=sysdate, 
+ 		notice_contents=#{notice_contents}
+		WHERE notice_idx=#{notice_idx}
+	</update>
+	<delete id="noticedeleteProc" parameterType="com.care.CatchJob.DTO.Board_Notice">
+		DELETE FROM table_noticeboard
+		WHERE notice_idx = #{notice_idx}
+	</delete>
+<!-- 일 등록 게시판 가져오기 -->
+	<select id="selectjobBoard" parameterType="com.care.CatchJob.DTO.Job">
+		SELECT no
+		FROM job
+		ORDER BY no DESC;
+	</select>
+</mapper>
+
+
+
+
+
+
+

@@ -1,0 +1,141 @@
+package com.care.CatchJob.Controller;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.care.CatchJob.DTO.Board;
+import com.care.CatchJob.DTO.Board_Notice;
+import com.care.CatchJob.IService.BoardService;
+
+@Controller
+@RequestMapping("board")
+@SessionAttributes("sessionMember")
+public class BoardController {
+	@Autowired
+	private BoardService boardSrv;
+
+	// 세션
+	@ModelAttribute("sessionMember")
+	public Map<String, Object> getSessionInfo() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("authNumOk", false);
+		return map;
+	}
+
+	// 구인 구직 게시판
+	@RequestMapping("selectBoard")
+	public String selectBoard(Model model) {
+		// 구직 게시판
+		model.addAttribute("boardLst", boardSrv.selectBoard());
+		// 구인 게시판
+		return "forward:/board_findForm";
+	}
+
+	// 구직 게시판 상세정보 보기
+	@RequestMapping("detailView")
+	public String detailRead(Model model, @RequestParam("boardNo") String board_idx, @RequestParam("updateNo") String updateNo, @ModelAttribute("sessionMember") Map<String, Object> Nickname) {
+		model.addAttribute("Nickname", Nickname.get("Nickname"));
+		model.addAttribute("detailView", boardSrv.detailView(board_idx));
+		if (updateNo.equals("update")) {
+			return "forward:/board_updateForm";
+		}
+		return "forward:/board_viewForm";
+	}
+
+	// 구직 게시판 글쓰기
+	@RequestMapping("writeProc")
+	public String writeProc(Model model, Board board, @ModelAttribute("sessionMember") Map<String, Object> sessionNickname) {
+		// 세션 받아서 값 저장
+
+		if (sessionNickname.get("nickname") == null) { // 세션 값이 없으면 로그인 해달라고 요청
+			model.addAttribute("msg", "로그인을 후 사용 가능한 서비스 입니다.");
+			return "forward:/boardwriteForm";
+		} else if (board.getBoard_title().length() == 0) { // 제목 필수 입력사항 요청
+			model.addAttribute("msg", "제목을 입력하세요.");
+			return "forward:/board_writeForm";
+		} else {
+			boardSrv.insertProc(board);
+			return "redirect:/board/selectBoard";
+		}
+	}
+
+	// 구직 업데이트
+	@RequestMapping("boardupdateProc")
+	public String boardupdateProc(Model model, Board board,
+			@ModelAttribute("sessionMember") Map<String, Object> sessionNickname) {
+		if (board.getBoard_title().length() == 0) {
+			model.addAttribute("msg", "제목을 입력하세요");
+			return "forward:/board_updateForm";
+		} else {
+			boardSrv.boardupdateProc(board);
+			return "redirect:/board/selectBoard";
+		}
+	}
+	
+	// 구직 삭제
+	@RequestMapping("boarddeleteProc")
+	public String boarddeleteProc(Model model, @RequestParam("deleteNo") int board_idx) {
+		boardSrv.boarddeleteProc(board_idx);
+		return "redirect:/board/selectBoard";
+	}
+	
+	// 공지 사항 게시판
+	@RequestMapping("noticeBoard")
+	public String noticeBoard(Model model, @ModelAttribute("sessionMember") Map<String, Object> sessionNickname) {
+		model.addAttribute("noticeLst", boardSrv.noticeselectBoard());
+		return "forward:/board_noticeForm";
+	}
+
+	// 공지 사항 게시판 뷰 폼
+	@RequestMapping("noticedetailView")
+	public String noticedetailView(Model model, @RequestParam("writeNo") String notice_idx,	@RequestParam("updateNo") String updateNo) {
+		model.addAttribute("noticedetail", boardSrv.noticedetailView(notice_idx));
+		if (updateNo.equals("update")) {
+			return "forward:/board_noticeupdateForm";
+		}
+		return "forward:/board_noticeviewForm";
+	}
+	
+	// 공지 사항 게시판 글쓰기
+	@RequestMapping("noticewriteProc")
+	public String noticewriteProc(Model model, Board_Notice noticeBoard, @ModelAttribute("sessionMember") Map<String, Object> sessionNickname) {
+		if (noticeBoard.getNotice_title().length() == 0) {
+			model.addAttribute("msg", "제목을 입력하세요");
+			return "forward:/board_noticewriteForm";
+		} else {
+			boardSrv.noticewriteProc(noticeBoard);
+			return "redirect:/board/noticeBoard";
+		}
+	}
+
+	// 공지 사항 게시판 글 수정
+	@RequestMapping("noticeupdateProc")
+	public String noticeupdateProc(Model model, Board_Notice noticeBoard,
+			@ModelAttribute("sessionMember") Map<String, Object> sessionNickname) {
+
+		if (noticeBoard.getNotice_title().length() == 0) {
+			model.addAttribute("msg", "제목을 입력하세요");
+			return "forward:/board_noticeupdateForm";
+		} else {
+			boardSrv.noticeupdateProc(noticeBoard);
+			return "redirect:/board/noticeBoard";
+		}
+	}
+	
+	// 공지 사항 게시판 글 삭제
+	@RequestMapping("noticedeleteProc")
+	public String noticedeleteProc(Model model, @RequestParam("deleteNo") int notice_idx) {
+		boardSrv.noticedeleteProc(notice_idx);
+		return "redirect:/board/noticeBoard";
+	}
+	
+	
+}
