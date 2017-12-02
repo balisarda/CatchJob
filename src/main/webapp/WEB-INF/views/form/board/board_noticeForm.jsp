@@ -2,12 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:url var="css" value="/resources/css/" />
-<c:url var="js" value="/resources/js/" />
-<c:url var="img" value="/resources/img/" />
 <c:url var="home" value="/" />
-<!-- 공지 사항 게시판 -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="${css }select.css" type="text/css">
 <link rel="stylesheet" href="${css }buttonst.css" type="text/css">
@@ -21,20 +16,20 @@
 </style>
 <script>
 <!--
-function noticedetailView(notice_title){
+function noticeDetailView(notice_title){
 	document.getElementById('writeNo').value=notice_title;
 	document.getElementById('updateNo').value="notice";
 	document.getElementById('frm').submit();
 }
 function writeFrm(home){
-	document.getElementById('frm').action=home+"noticewriteForm";
+	document.getElementById('frm').action=home+"board_noticewriteForm";
 	document.getElementById('frm').submit();
 }
 //-->
 </script>
 
 <!-- 게시글 세부사항 보기 -->
-<form id='frm' action="${home }board/noticedetailView">
+<form id='frm' action="${home }board/noticeDetailView">
 	<input type="hidden" name="writeNo" id="writeNo"> 
 	<input type="hidden" name="updateNo" id="updateNo">
 </form>
@@ -59,7 +54,7 @@ function writeFrm(home){
 						<td style="width: 40px; height: 40px;" align="center">${notice.notice_idx}</td>
 						<td style="width: 330px; height: 40px;" align="center">
 							<div class="title"
-								onclick="detailNoticeView('${notice.notice_idx}')">${notice.notice_title }</div>
+								onclick="noticeDetailView('${notice.notice_idx}')">${notice.notice_title }</div>
 						</td>
 						<td style="width: 80px; height: 40px;" align="center">${notice.member_nickname }</td>
 						<td style="width: 120px; height: 40px;" align="center">${notice.notice_date }</td>

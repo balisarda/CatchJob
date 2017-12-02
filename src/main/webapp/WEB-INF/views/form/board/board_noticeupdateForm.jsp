@@ -3,7 +3,7 @@
 <c:url var="home" value="/" />
 
 <center>
-	<form action="${home }board/noticeupdateProc" method="post">
+	<form action="${home }board/noticeUpdateProc" method="post">
 	<!-- 닉네임 세션 값 받아서 히든으로 숨겨서 넘겨줌 -->
 	<input type="hidden" name="member_nickname" value="${sessionMember.nickname}">
 	<input type="hidden" name="notice_idx" value="${noticedetail.notice_idx }">

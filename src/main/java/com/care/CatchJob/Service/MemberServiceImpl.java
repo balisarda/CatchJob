@@ -114,8 +114,8 @@ public class MemberServiceImpl implements MemberService{
 		List<HashMap<String, Object>> record = submemberDao.loadInfo_record(nickname);
 		List<HashMap<String, Object>> license = submemberDao.loadInfo_license(nickname);
 		List<HashMap<String, Object>> empinfo = submemberDao.loadInfo_empinfo(nickname);
-		System.out.println(record);
-		System.out.println(record.size());
+//		System.out.println(record);
+	//	System.out.println(record.size());
 		for(int i = 0; i<record.size()-1;i++) {
 			HashMap<Integer, Object> str = new HashMap<Integer, Object>();
 			str.put(i, record.get(i));//0=record.get(0)

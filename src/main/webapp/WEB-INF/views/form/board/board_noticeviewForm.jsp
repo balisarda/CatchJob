@@ -6,13 +6,6 @@
 <c:url var="home" value="/" />
 <c:url var="css" value="/resources/css/" />
 
-<!DOCTYPE html>
-<html class="no-js" lang="ko">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>게시글 페이지</title>
-
 <link rel="stylesheet" href="${css }viewboard.css" />
 <script>
 <!--
@@ -29,10 +22,10 @@
 </script>
 
 </head>
-<form id='delete' action="${home }board/noticedeleteProc">
+<form id='delete' action="${home }board/noticeDeleteProc">
 	<input type="hidden" name="deleteNo" id="deleteNo">
 </form>
-<form id='frm' action="${home }board/noticedetailView">
+<form id='frm' action="${home }board/noticeDetailView">
 	<input type="hidden" name="writeNo" id="writeNo"> <input
 		type="hidden" name="updateNo" id="updateNo">
 </form>
@@ -67,16 +60,15 @@
 							${noticedetail.notice_contents }</td>
 					</tr>
 				</tbody>
-				<!-- 세션 아이디가 관리자, 일반회원, 없다. 3가지로 나눔. -->
-				<!-- board 값이 잇다, 없다.  notice 값이 잇다, 없다-->
+
 				<c:set var="nickname" value="${sessionMember.nickname }" />
 				<tr>
 					<c:choose>
 						<c:when test="${nickname eq 'CatchJob'}">
 							<td colspan=2 align="center"><input type="button" value='수정'
-								onclick="noticedetailView('${noticedetail.notice_idx}')" /> <input
+								onclick="noticeDetailView('${noticedetail.notice_idx}')" /> <input
 								type="button" value='삭제'
-								onclick="noticeDelete('${noticedetail.notice_idx}')" /> <input
+								onclick="noticeDeleteProc('${noticedetail.notice_idx}')" /> <input
 								type="button" value='목록'
 								onclick="location.href='${home }board/noticeBoard'" /></td>
 						</c:when>
@@ -125,6 +117,3 @@
 	<!-- 0 : ${list[0].title} 
 	1 : ${list[1].title}
 	2 : ${list[2].title}-->
-
-</body>
-</html>

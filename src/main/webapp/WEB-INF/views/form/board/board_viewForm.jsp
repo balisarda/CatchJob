@@ -17,7 +17,7 @@
 		document.getElementById('updateNo').value = "update";
 		document.getElementById('frm').submit();
 	}
-	function boardDelete(deleteNo) {
+	function boardDeleteProc(deleteNo) {
 		document.getElementById('deleteNo').value = deleteNo;
 		document.getElementById('delete').submit();
 	}
@@ -25,7 +25,7 @@
 </script>
 
 </head>
-<form id='delete' action="${home }board/deleteProc">
+<form id='delete' action="${home }board/boardDeleteProc">
 	<input type="hidden" name="deleteNo" id="deleteNo">
 </form>
 <form id='frm' action="${home }board/detailView">
@@ -108,7 +108,7 @@
 								type="button" value='수정'
 								onclick="detailView('${detailView.board_idx}')" /> <input
 								type="button" value='삭제'
-								onclick="boardDelete('${detailView.board_idx}')" /> <input
+								onclick="boardDeleteProc('${detailView.board_idx}')" /> <input
 								type="button" value='목록'
 								onclick="location.href='${home }board/selectBoard'" /></td>
 						</c:when>

@@ -9,7 +9,6 @@ import com.care.CatchJob.DTO.Job;
 
 public interface BoardDao {
 	// 알바 등록에 관한 서비스
-	public int selectBoardCnt(Map<String, String> map);
 	public List<Board> selectBoard(Map<String, Object> map);
 	public Board detailView(int board_idx);
 	public void insertProc(Board board);

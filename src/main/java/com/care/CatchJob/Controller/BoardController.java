@@ -41,7 +41,7 @@ public class BoardController {
 
 	// 구직 게시판 상세정보 보기
 	@RequestMapping("detailView")
-	public String detailRead(Model model, @RequestParam("boardNo") String board_idx, @RequestParam("updateNo") String updateNo, @ModelAttribute("sessionMember") Map<String, Object> Nickname) {
+	public String detailView(Model model, @RequestParam("boardNo") String board_idx, @RequestParam("updateNo") String updateNo, @ModelAttribute("sessionMember") Map<String, Object> Nickname) {
 		model.addAttribute("Nickname", Nickname.get("Nickname"));
 		model.addAttribute("detailView", boardSrv.detailView(board_idx));
 		if (updateNo.equals("update")) {
@@ -57,7 +57,7 @@ public class BoardController {
 
 		if (sessionNickname.get("nickname") == null) { // 세션 값이 없으면 로그인 해달라고 요청
 			model.addAttribute("msg", "로그인을 후 사용 가능한 서비스 입니다.");
-			return "forward:/boardwriteForm";
+			return "forward:/board_writeForm";
 		} else if (board.getBoard_title().length() == 0) { // 제목 필수 입력사항 요청
 			model.addAttribute("msg", "제목을 입력하세요.");
 			return "forward:/board_writeForm";
@@ -68,8 +68,8 @@ public class BoardController {
 	}
 
 	// 구직 업데이트
-	@RequestMapping("boardupdateProc")
-	public String boardupdateProc(Model model, Board board,
+	@RequestMapping("boardUpdateProc")
+	public String boardUpdateProc(Model model, Board board,
 			@ModelAttribute("sessionMember") Map<String, Object> sessionNickname) {
 		if (board.getBoard_title().length() == 0) {
 			model.addAttribute("msg", "제목을 입력하세요");
@@ -81,8 +81,8 @@ public class BoardController {
 	}
 	
 	// 구직 삭제
-	@RequestMapping("boarddeleteProc")
-	public String boarddeleteProc(Model model, @RequestParam("deleteNo") int board_idx) {
+	@RequestMapping("boardDeleteProc")
+	public String boardDeleteProc(Model model, @RequestParam("deleteNo") int board_idx) {
 		boardSrv.boarddeleteProc(board_idx);
 		return "redirect:/board/selectBoard";
 	}
@@ -95,8 +95,8 @@ public class BoardController {
 	}
 
 	// 공지 사항 게시판 뷰 폼
-	@RequestMapping("noticedetailView")
-	public String noticedetailView(Model model, @RequestParam("writeNo") String notice_idx,	@RequestParam("updateNo") String updateNo) {
+	@RequestMapping("noticeDetailView")
+	public String noticeDetailView(Model model, @RequestParam("writeNo") String notice_idx,	@RequestParam("updateNo") String updateNo) {
 		model.addAttribute("noticedetail", boardSrv.noticedetailView(notice_idx));
 		if (updateNo.equals("update")) {
 			return "forward:/board_noticeupdateForm";
@@ -105,8 +105,8 @@ public class BoardController {
 	}
 	
 	// 공지 사항 게시판 글쓰기
-	@RequestMapping("noticewriteProc")
-	public String noticewriteProc(Model model, Board_Notice noticeBoard, @ModelAttribute("sessionMember") Map<String, Object> sessionNickname) {
+	@RequestMapping("noticeWriteProc")
+	public String noticeWriteProc(Model model, Board_Notice noticeBoard, @ModelAttribute("sessionMember") Map<String, Object> sessionNickname) {
 		if (noticeBoard.getNotice_title().length() == 0) {
 			model.addAttribute("msg", "제목을 입력하세요");
 			return "forward:/board_noticewriteForm";
@@ -117,8 +117,8 @@ public class BoardController {
 	}
 
 	// 공지 사항 게시판 글 수정
-	@RequestMapping("noticeupdateProc")
-	public String noticeupdateProc(Model model, Board_Notice noticeBoard,
+	@RequestMapping("noticeUpdateProc")
+	public String noticeUpdateProc(Model model, Board_Notice noticeBoard,
 			@ModelAttribute("sessionMember") Map<String, Object> sessionNickname) {
 
 		if (noticeBoard.getNotice_title().length() == 0) {
@@ -131,8 +131,8 @@ public class BoardController {
 	}
 	
 	// 공지 사항 게시판 글 삭제
-	@RequestMapping("noticedeleteProc")
-	public String noticedeleteProc(Model model, @RequestParam("deleteNo") int notice_idx) {
+	@RequestMapping("noticeDeleteProc")
+	public String noticeDeleteProc(Model model, @RequestParam("deleteNo") int notice_idx) {
 		boardSrv.noticedeleteProc(notice_idx);
 		return "redirect:/board/noticeBoard";
 	}
