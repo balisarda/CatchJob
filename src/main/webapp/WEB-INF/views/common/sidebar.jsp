@@ -3,8 +3,7 @@
 <c:url var="img" value="/resources/img/" />
 <c:url var="js" value="/resources/js/" />
 <c:url var="home" value="/" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script	src="${js }jquery-3.2.1.js"></script>
 <style>
 .sidr.on {
 	left: 0px;
@@ -65,7 +64,7 @@ ul{
 </div>
 <div id="side5" class="sidr off" style="transition: left 0.2s ease;">
 	<ul class="hide" style="display: block;">
-		<li><a href="${home }boardwriteForm">알바 등록</a></li>
+		<li><a href="${home }board_writeForm">알바 등록</a></li>
 		<li><a href="${home }addjob">일등록</a></li>
 	</ul>
 </div>

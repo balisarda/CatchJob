@@ -125,11 +125,6 @@ public class MemberController {
 	public String searchPostCode() {
 		return "/form/searchPostCode";
 	}
-	@RequestMapping("skip")
-	public String skip(SessionStatus session) {
-		session.setComplete();
-		return "/redirect:/";
-	}
 	@RequestMapping("/member/loadInfo")
 	@ResponseBody
 	public JSONObject loadInfo(@ModelAttribute("sessionMember") Map<String, Object> Login) {

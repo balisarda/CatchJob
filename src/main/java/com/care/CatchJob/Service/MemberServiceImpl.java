@@ -114,17 +114,35 @@ public class MemberServiceImpl implements MemberService{
 		List<HashMap<String, Object>> record = submemberDao.loadInfo_record(nickname);
 		List<HashMap<String, Object>> license = submemberDao.loadInfo_license(nickname);
 		List<HashMap<String, Object>> empinfo = submemberDao.loadInfo_empinfo(nickname);
-/*		
-		[{RECORD_COMMENT=최고, RECORD_EMP=매장관리, RECORD_DUTY=사장, RECORD_MONTH1=12, RECORD_YEAR2=1121, RECORD_YEAR1=1111, RECORD_MONTH2=12}]
-		[{LICENSE_NAME=운전면허, LICENSE_DATE=201707}, {LICENSE_NAME=보건증, LICENSE_DATE=200101}]
-		[{EMP_ZIPCODE=03129, EMP_NAME=KGITBANK, EMP_ADDR2=2층, EMP_ADDR1=서울 종로구 종로31가길 15 (연지동, 리도빌딩)}]
-		{RECORD_COMMENT=최고, RECORD_EMP=매장관리, RECORD_DUTY=사장, RECORD_MONTH1=12, RECORD_YEAR2=1121, RECORD_YEAR1=1111, RECORD_MONTH2=12}
-*/
-		a = record.get(0);
+		System.out.println(record);
+		System.out.println(record.size());
+		for(int i = 0; i<record.size()-1;i++) {
+			HashMap<Integer, Object> str = new HashMap<Integer, Object>();
+			str.put(i, record.get(i));//0=record.get(0)
+			a = (HashMap<String, Object>) str.get(i);
+
+			
+			//System.out.println(str.get(0));
+			//{RECORD_COMMENT=최고, RECORD_EMP=매장관리, RECORD_DUTY=사장, RECORD_MONTH1=12, RECORD_YEAR2=1121, RECORD_YEAR1=1111, RECORD_MONTH2=12}
+			//System.out.println(str);
+			//{0={RECORD_COMMENT=최고, RECORD_EMP=매장관리, RECORD_DUTY=사장, RECORD_MONTH1=12, RECORD_YEAR2=1121, RECORD_YEAR1=1111, RECORD_MONTH2=12}}
+			recordInfo.put("emp", a.get("RECORD_EMP"));
+			recordInfo.put("year1", a.get("RECORD_YEAR1"));
+			recordInfo.put("month1", a.get("RECORD_MONTH1"));
+			recordInfo.put("year2", a.get("RECORD_YEAR2"));
+			recordInfo.put("month2", a.get("RECORD_MONTH2"));
+			recordInfo.put("duty", a.get("RECORD_DUTY"));
+			recordInfo.put("comment", a.get("RECORD_COMMENT"));
+			
+			recordArray.add(recordInfo);
+			result.put("recordlist", recordArray);
+		}
+/*		a = record.get(0);*/
 		b = license.get(0);
 		c = empinfo.get(0);
-		
-		recordInfo.put("emp", a.get("RECORD_EMP"));
+/*						System.out.println(record);
+						System.out.println(a);*/
+/*		recordInfo.put("emp", a.get("RECORD_EMP"));
 		recordInfo.put("year1", a.get("RECORD_YEAR1"));
 		recordInfo.put("month1", a.get("RECORD_MONTH1"));
 		recordInfo.put("year2", a.get("RECORD_YEAR2"));
@@ -133,7 +151,7 @@ public class MemberServiceImpl implements MemberService{
 		recordInfo.put("comment", a.get("RECORD_COMMENT"));
 		
 		recordArray.add(recordInfo);
-		result.put("recordlist", recordArray);
+		result.put("recordlist", recordArray);*/
 
 		JSONArray licenseArray = new JSONArray();
 		JSONObject licenseInfo = new JSONObject();

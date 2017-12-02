@@ -1,19 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <c:url var="img" value="/resources/img/" />
 <c:url var="css" value="/resources/css/" />
-<html>
-
-
-
-
-<head>
 <link rel="stylesheet" href="${css }main.css" >
-
-</head>
-<body>
 		<div class="fade">
 			<div style="align:center; margin-left:300px; margin-right: 0px;">
 			<img alt="메인" src="${img }mainpage.png" width="90%" height="394px">
@@ -45,5 +35,3 @@
 				</ul>
 			</div>
 		</div>
-		</body>
-</html>

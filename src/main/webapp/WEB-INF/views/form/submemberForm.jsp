@@ -5,35 +5,50 @@
 	table { border-collapse:collapse; }  
 	table th { text-align: center; }
 	table th, table td { border:1px solid black; }
+	.record_table1 {
+		float: left; border: 1px solid black;
+	}
+	#record_table {
+		clear: both; border: 1px solid black;
+	}
+	#record_table1{
+		width: 100px;
+	}
+	#record_table2{
+		width: 250px;
+	}
+	#record_table3{
+		width: 100px;
+	}
+	#record_table4{
+		width: 100px;
+	}
 </style>
 <script>
 $(document).ready(function(){
-		$.ajax({
-			type:'post', url: "member/loadInfo", dataType: "json", cache: false, 
-			success: function(data){
-				var jsonStr = data;
-				$("#record_tbody").html("");
-				$.each(data.recordlist, function(index, recordlist){
-					var items = [];
-					console.log(recordlist);
-					console.log(recordlist.emp);
-										
-					items.push("<tr><td>"+recordlist.emp+"</td>");
-					items.push("<td>"+recordlist.year1+"년 "+recordlist.month1+"월 ~ "+recordlist.year2+"년 "+recordlist.month2+"월"+"</td>");
-					items.push("<td>"+recordlist.duty+"</td>");
-					items.push("<td>"+recordlist.comment+"</td>");
-					$("</tr>", {
-						html: items
-					}).appendTo("#record_tbody");
-				});
-			}
-		});
+	$.ajax({
+		type:'post', url: "member/loadInfo", dataType: "json", cache: false,
+		success: function(data){
+			var jsonStr = data;
+			$("#record_table").html("");
+			$.each(data.recordlist, function(index, recordlist){
+				console.log(data.recordlist.size());
+				for(var i = 0; i<=data.recordlist.size();i++){
+					
+				}
+				$("<div id='record_table1' class='record_table1'>"+recordlist.emp+"</div>").appendTo("#record_table");
+				$("<div id='record_table2' class='record_table1'>"+recordlist.year1+"년 "+recordlist.month1+"월 ~ "+recordlist.year2+"년 "+recordlist.month2+"월"+"</div>").appendTo("#record_table");
+				$("<div id='record_table3' class='record_table1'>"+recordlist.duty+"</div>").appendTo("#record_table");
+				$("<div id='record_table4' class='record_table1'>"+recordlist.comment+"</div>").appendTo("#record_table");
+				$("<div><button>삭제</button></div></div>").appendTo("#record_table");
+			});
+		}
 	});
+});
+
 </script>
-<div style="border: 2px solid black; width: 800px;" align="center"><!-- 큰 틀 -->
+<div style="border: 2px solid black; width: 800px; margin-left: 300px; align-content: center;" align="center" ><!-- 큰 틀 -->
 	<div><!-- 상세 정보 입력 -->
-		<div style="float: left;"><label>해당 정보는 필수입력 사항이 아닙니다.</label></div>
-		<div><input type="button" onclick="${home}member/skip" value="skip" width="50px;" height="50px;"></div>
 		<div style="margin: 5; margin-top: 20px;"><!-- 아르바이트 경험 -->
 			<div>
 				<h2><label style="margin-left: -500px;">아르바이트 경력</label></h2>
@@ -84,29 +99,18 @@ $(document).ready(function(){
 				<h2><label style="margin-left: -440px;">등록 아르바이트 목록</label></h2>
 			</div>
 			<div>
-				<table>
-					<thead style="vertical-align: middle;">
-						<tr>
-							<th>업종</th>
-							<th>기간</th>
-							<th>직책</th>
-							<th>세부내용</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody id="record_tbody">
-<!-- 						<tr>	
-							<td>서비스</td>
-							<td>5개월</td>
-							<td>사장</td>
-							<td>총괄</td>
-							<td>
-								<button id="checkJson">수정</button>
-								<button>삭제</button>
-							</td>
-						</tr> -->
-					</tbody>
-				</table>
+				<div><!-- start -->
+					<div><!-- 이름 -->
+						<div style="float: left; width: 100px;">업종</div>
+						<div style="float: left; width: 250px;">기간</div>
+						<div style="float: left; width: 100px;">직책</div>
+						<div style="float: left; width: 100px;">세부내용</div>
+						<div></div>
+					</div>
+					<div id="record_table">
+					
+					</div>
+				</div>
 			</div>
 		</div>
 		<hr style="margin-top: 20px;">
