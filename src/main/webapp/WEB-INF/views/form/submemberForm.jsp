@@ -5,24 +5,21 @@
 	table { border-collapse:collapse; }  
 	table th { text-align: center; }
 	table th, table td { border:1px solid black; }
-	.record_table1 {
-		float: left; border: 1px solid black;
-	}
-	#record_table {
-		clear: both; border: 1px solid black;
-	}
-	#record_table1{
-		width: 100px;
-	}
-	#record_table2{
-		width: 250px;
-	}
-	#record_table3{
-		width: 100px;
-	}
-	#record_table4{
-		width: 100px;
-	}
+	.record_table1 { float: left; border: 1px solid black; }
+	.license_table1 { float: left; border: 1px solid black; }
+	.empinfo_table1 { float: left; border: 1px solid black; }
+	#record_table { clear: both; border: 1px solid black; }
+	#license_table { clear: both; border: 1px solid black; }
+	#empinfo_table { clear: both; border: 1px solid black; }
+	#record_table1{	width: 100px;}
+	#record_table2{	width: 250px;}
+	#record_table3{	width: 100px;}
+	#record_table4{	width: 200px;}
+	#license_table1{ width: 200px;}
+	#license_table2{ width: 200px;}
+	#empinfo_table1{ width: 100px;}
+	#empinfo_table2{ width: 350px;}
+	#empinfo_table3{ width: 100px;}
 </style>
 <script>
 $(document).ready(function(){
@@ -30,22 +27,44 @@ $(document).ready(function(){
 		type:'post', url: "member/loadInfo", dataType: "json", cache: false,
 		success: function(data){
 			var jsonStr = data;
+			console.log(data);
 			$("#record_table").html("");
 			$.each(data.recordlist, function(index, recordlist){
-				console.log(data.recordlist.size());
-				for(var i = 0; i<=data.recordlist.size();i++){
-					
-				}
+				$("<input type='hidden' value='"+recordlist.num+"'/>").appendTo("#record_table");
 				$("<div id='record_table1' class='record_table1'>"+recordlist.emp+"</div>").appendTo("#record_table");
 				$("<div id='record_table2' class='record_table1'>"+recordlist.year1+"년 "+recordlist.month1+"월 ~ "+recordlist.year2+"년 "+recordlist.month2+"월"+"</div>").appendTo("#record_table");
 				$("<div id='record_table3' class='record_table1'>"+recordlist.duty+"</div>").appendTo("#record_table");
 				$("<div id='record_table4' class='record_table1'>"+recordlist.comment+"</div>").appendTo("#record_table");
-				$("<div><button>삭제</button></div></div>").appendTo("#record_table");
+				$("<div><button onclick="+"deleteinfo('"+index+"_record"+"');"+">삭제</button></div></div>").appendTo("#record_table");
+			});
+			$("#license_table").html("");
+			$.each(data.licenselist, function(index, licenselist){
+				$("<input type='hidden' value='"+licenselist.num+"'/>").appendTo("#license_table");
+				$("<div id='license_table1' class='license_table1'>"+licenselist.name+"</div>").appendTo("#license_table");
+				$("<div id='license_table2' class='license_table1'>"+licenselist.date+"</div>").appendTo("#license_table");
+				$("<div><button onclick="+"deleteinfo('"+index+"_license"+"');"+">삭제</button></div></div>").appendTo("#license_table");
+			});
+			$("#empinfo_table").html("");
+			$.each(data.empinfolist, function(index, empinfolist){
+				$("<input type='hidden' value='"+empinfolist.num+"'/>").appendTo("#empinfo_table");
+				$("<div id='empinfo_table1' class='empinfo_table1'>"+empinfolist.emp_name+"</div>").appendTo("#empinfo_table");
+				$("<div id='empinfo_table2' class='empinfo_table1'>"+empinfolist.addr1+"</div>").appendTo("#empinfo_table");
+				$("<div id='empinfo_table3' class='empinfo_table1'>"+empinfolist.addr2+"</div>").appendTo("#empinfo_table");
+				$("<div><button onclick="+"deleteinfo('"+index+"_empinfo"+"');"+">삭제</button></div></div>").appendTo("#empinfo_table");
 			});
 		}
 	});
 });
-
+function deleteinfo(str){
+	var a = str.split("_");
+	var cmd = {"num": a[0], "chk": a[1]};
+	$.ajax({
+		type:'post', url: "deleteInfo", dataType: "text", data: cmd, cache: false,
+		success: function(data){
+			alert(data);
+		}
+	});
+}
 </script>
 <div style="border: 2px solid black; width: 800px; margin-left: 300px; align-content: center;" align="center" ><!-- 큰 틀 -->
 	<div><!-- 상세 정보 입력 -->
@@ -99,12 +118,12 @@ $(document).ready(function(){
 				<h2><label style="margin-left: -440px;">등록 아르바이트 목록</label></h2>
 			</div>
 			<div>
-				<div><!-- start -->
-					<div><!-- 이름 -->
+				<div>
+					<div>
 						<div style="float: left; width: 100px;">업종</div>
 						<div style="float: left; width: 250px;">기간</div>
 						<div style="float: left; width: 100px;">직책</div>
-						<div style="float: left; width: 100px;">세부내용</div>
+						<div style="float: left; width: 200px;">세부내용</div>
 						<div></div>
 					</div>
 					<div id="record_table">
@@ -144,25 +163,16 @@ $(document).ready(function(){
 				<h2><label style="margin-left: -440px;">자격증·교육 이수 목록</label></h2>
 			</div>
 			<div>
-				<table>
-					<thead style="vertical-align: middle;">
-						<tr>
-							<th>자격증·교육명</th>
-							<th>취득일</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody id="license_tbody">
-						<tr>
-							<td>보건증</td>
-							<td>2017.11</td>
-							<td>
-								<button>수정</button>
-								<button>삭제</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				<div>
+					<div>
+						<div style="float: left; width: 200px;">자격증·교육명</div>
+						<div style="float: left; width: 200px;">취득일</div>
+						<div></div>
+					</div>
+					<div id="license_table">
+					
+					</div>
+				</div>
 			</div>
 		</div>
 		<hr style="margin-top: 20px;">
@@ -200,29 +210,17 @@ $(document).ready(function(){
 					<h2><label style="margin-left: -440px;">등록 업체 목록</label></h2>
 				</div>
 				<div>
-					<table>
-						<thead style="vertical-align: middle;">
-							<tr>
-								<th>업체·상호명</th>
-								<th>우편번호</th>
-								<th>주소</th>
-								<th>상세주소</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody id="empinfo_tbody">
-							<tr>
-								<td>GS25</td>
-								<td>11111</td>
-								<td>주소</td>
-								<td>상세주소</td>
-								<td>
-									<button>수정</button>
-									<button>삭제</button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+					<div>
+						<div>
+							<div style="float: left; width: 100px;">업체·상호명</div>
+							<div style="float: left; width: 350px;">주소</div>
+							<div style="float: left; width: 100px;">상세주소</div>
+							<div></div>
+						</div>
+						<div id="empinfo_table">
+						
+						</div>
+					</div>
 				</div>
 		</div>
 	</div>

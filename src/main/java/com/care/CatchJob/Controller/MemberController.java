@@ -121,10 +121,6 @@ public class MemberController {
 		memberSrv.empinfo(empinfo);
 		return "forward:/submemberForm";
 	}
-	@RequestMapping("searchPostCode")
-	public String searchPostCode() {
-		return "/form/searchPostCode";
-	}
 	@RequestMapping("/member/loadInfo")
 	@ResponseBody
 	public JSONObject loadInfo(@ModelAttribute("sessionMember") Map<String, Object> Login) {
@@ -135,24 +131,10 @@ public class MemberController {
 	public String memberInfo(Model model, @ModelAttribute("sessionMember") Map<String, Object> Login) {
 		return "forward:/submemberForm";
 	}
+	@RequestMapping("deleteInfo")
+	public String deleteInfo(@ModelAttribute("sessionMember") Map<String, Object> Login, @RequestParam(value="num") int num, @RequestParam(value="chk") String chk) {
+		String nickname = (String)Login.get("nickname");
+
+		return memberSrv.deleteInfo(nickname, num, chk);
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

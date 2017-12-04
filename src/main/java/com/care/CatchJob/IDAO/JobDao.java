@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.care.CatchJob.DTO.Job;
 
-
 public interface JobDao {
 	public void AddJob(Job job);
 	public List<Job> FindJob();

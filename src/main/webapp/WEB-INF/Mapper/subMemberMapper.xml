@@ -2,24 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.care.CatchJob.IDAO.subMemberDao">
 	<insert id="record" parameterType="com.care.CatchJob.DTO.Record">
-		INSERT INTO record(member_idx, record_emp, record_year1, record_month1, record_year2, record_month2, record_duty, record_comment)
-		VALUES((SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname}), #{emp}, #{year1}, #{month1}, #{year2}, #{month2}, #{duty}, #{comment})
+		INSERT INTO record(record_num, member_idx, record_emp, record_year1, record_month1, record_year2, record_month2, record_duty, record_comment)
+		VALUES((SELECT NVL(MAX(record_num), 0)+1 FROM record), (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname}), #{emp}, #{year1}, #{month1}, #{year2}, #{month2}, #{duty}, #{comment})
 	</insert>
 	<insert id="license" parameterType="com.care.CatchJob.DTO.License">
-		INSERT INTO license(member_idx, license_name, license_date) 
-		VALUES((SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname}), #{name}, #{date})
+		INSERT INTO license(license_num, member_idx, license_name, license_date) 
+		VALUES((SELECT NVL(MAX(license_num), 0)+1 FROM license), (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname}), #{name}, #{date})
 	</insert>
 	<insert id="empinfo" parameterType="com.care.CatchJob.DTO.Empinfo">
-		INSERT INTO empinfo(member_idx, emp_name, emp_zipcode, emp_addr1, emp_addr2)
-		VALUES((SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname}), #{emp_name}, #{postcode}, #{addr1}, #{addr2})
+		INSERT INTO empinfo(emp_num, member_idx, emp_name, emp_zipcode, emp_addr1, emp_addr2)
+		VALUES((SELECT NVL(MAX(emp_num), 0)+1 FROM empinfo), (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname}), #{emp_name}, #{postcode}, #{addr1}, #{addr2})
 	</insert>
 	<select id="loadInfo_record" resultType="java.util.HashMap" parameterType="String">
-		SELECT record_emp, record_year1, record_month1, record_year2, record_month2, record_duty, record_comment FROM RECORD WHERE member_idx = (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname})
+		SELECT record_num, record_emp, record_year1, record_month1, record_year2, record_month2, record_duty, record_comment FROM RECORD WHERE member_idx = (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname})
 	</select>
 	<select id="loadInfo_license" resultType="java.util.HashMap" parameterType="String">
-		SELECT license_name, license_date FROM license WHERE member_idx = (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname})
+		SELECT license_num, license_name, license_date FROM license WHERE member_idx = (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname})
 	</select>
 	<select id="loadInfo_empinfo" resultType="java.util.HashMap" parameterType="String">
-		SELECT emp_name, emp_zipcode, emp_addr1, emp_addr2 FROM empinfo WHERE member_idx = (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname})
+		SELECT emp_num, emp_name, emp_zipcode, emp_addr1, emp_addr2 FROM empinfo WHERE member_idx = (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname})
 	</select>
+	<delete id="deleteRecord" parameterType="java.util.HashMap">
+		DELETE FROM RECORD WHERE member_idx = (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname}) AND record_num = #{num}
+	</delete>
+	<delete id="deleteLicense" parameterType="java.util.HashMap">
+		DELETE FROM LICENSE WHERE member_idx = (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname}) AND license_num = #{num}
+	</delete>
+	<delete id="deleteEmpinfo" parameterType="java.util.HashMap">
+		DELETE FROM EMPINFO WHERE member_idx = (SELECT MEMBER_IDX FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname}) AND emp_num = #{num}
+	</delete>
 </mapper>

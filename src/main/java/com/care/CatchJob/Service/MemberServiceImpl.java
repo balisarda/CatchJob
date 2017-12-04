@@ -106,26 +106,23 @@ public class MemberServiceImpl implements MemberService{
 	public JSONObject loadInfo(String nickname) {
 		JSONObject result = new JSONObject();
 		JSONArray recordArray = new JSONArray();
-		JSONObject recordInfo = new JSONObject();
-		HashMap<String, Object> a = new HashMap<String, Object>();
-		HashMap<String, Object> b = new HashMap<String, Object>();
-		HashMap<String, Object> c = new HashMap<String, Object>();
+		JSONArray licenseArray = new JSONArray();
+		JSONArray empinfoArray = new JSONArray();
 		
 		List<HashMap<String, Object>> record = submemberDao.loadInfo_record(nickname);
 		List<HashMap<String, Object>> license = submemberDao.loadInfo_license(nickname);
 		List<HashMap<String, Object>> empinfo = submemberDao.loadInfo_empinfo(nickname);
-//		System.out.println(record);
-	//	System.out.println(record.size());
-		for(int i = 0; i<record.size()-1;i++) {
+
+		for(int i = 0; i<record.size();i++) {
 			HashMap<Integer, Object> str = new HashMap<Integer, Object>();
-			str.put(i, record.get(i));//0=record.get(0)
+			HashMap<String, Object> a = new HashMap<String, Object>();
+
+			JSONObject recordInfo = new JSONObject();
+			str.put(i, record.get(i));
+
 			a = (HashMap<String, Object>) str.get(i);
 
-			
-			//System.out.println(str.get(0));
-			//{RECORD_COMMENT=최고, RECORD_EMP=매장관리, RECORD_DUTY=사장, RECORD_MONTH1=12, RECORD_YEAR2=1121, RECORD_YEAR1=1111, RECORD_MONTH2=12}
-			//System.out.println(str);
-			//{0={RECORD_COMMENT=최고, RECORD_EMP=매장관리, RECORD_DUTY=사장, RECORD_MONTH1=12, RECORD_YEAR2=1121, RECORD_YEAR1=1111, RECORD_MONTH2=12}}
+			recordInfo.put("num", a.get("RECORD_NUM"));
 			recordInfo.put("emp", a.get("RECORD_EMP"));
 			recordInfo.put("year1", a.get("RECORD_YEAR1"));
 			recordInfo.put("month1", a.get("RECORD_MONTH1"));
@@ -135,50 +132,60 @@ public class MemberServiceImpl implements MemberService{
 			recordInfo.put("comment", a.get("RECORD_COMMENT"));
 			
 			recordArray.add(recordInfo);
-			result.put("recordlist", recordArray);
+			
 		}
-/*		a = record.get(0);*/
-		b = license.get(0);
-		c = empinfo.get(0);
-/*						System.out.println(record);
-						System.out.println(a);*/
-/*		recordInfo.put("emp", a.get("RECORD_EMP"));
-		recordInfo.put("year1", a.get("RECORD_YEAR1"));
-		recordInfo.put("month1", a.get("RECORD_MONTH1"));
-		recordInfo.put("year2", a.get("RECORD_YEAR2"));
-		recordInfo.put("month2", a.get("RECORD_MONTH2"));
-		recordInfo.put("duty", a.get("RECORD_DUTY"));
-		recordInfo.put("comment", a.get("RECORD_COMMENT"));
-		
-		recordArray.add(recordInfo);
-		result.put("recordlist", recordArray);*/
+		result.put("recordlist", recordArray);
 
-		JSONArray licenseArray = new JSONArray();
-		JSONObject licenseInfo = new JSONObject();
+		for(int i = 0; i<license.size();i++) {
+			HashMap<Integer, Object> str = new HashMap<Integer, Object>();
+			HashMap<String, Object> b = new HashMap<String, Object>();
 
-		licenseInfo.put("name", b.get("LICENSE_NAME"));
-		licenseInfo.put("date", b.get("LICENSE_DATE"));
-		licenseArray.add(licenseInfo);
+			JSONObject licenseInfo = new JSONObject();
+			str.put(i, license.get(i));
+
+			b = (HashMap<String, Object>) str.get(i);
+
+			licenseInfo.put("num", b.get("LICENSE_NUM"));
+			licenseInfo.put("name", b.get("LICENSE_NAME"));
+			licenseInfo.put("date", b.get("LICENSE_DATE"));
+			
+			licenseArray.add(licenseInfo);
+			
+		}
 		result.put("licenselist", licenseArray);
 		
-		JSONArray empinfoArray = new JSONArray();
-		JSONObject empinfoInfo = new JSONObject();
-		
-		empinfoInfo.put("emp_name", c.get("EMP_NAME"));
-		empinfoInfo.put("postcode", c.get("EMP_ZIPCODE"));
-		empinfoInfo.put("addr1", c.get("EMP_ADDR1"));
-		empinfoInfo.put("addr2", c.get("EMP_ADDR2"));
-		empinfoArray.add(empinfoInfo);
+		for(int i = 0; i<empinfo.size();i++) {
+			HashMap<Integer, Object> str = new HashMap<Integer, Object>();
+			HashMap<String, Object> c = new HashMap<String, Object>();
+
+			JSONObject empinfoInfo = new JSONObject();
+			str.put(i, empinfo.get(i));
+			c = (HashMap<String, Object>) str.get(i);
+			empinfoInfo.put("num", c.get("EMP_NUM"));
+			empinfoInfo.put("emp_name", c.get("EMP_NAME"));
+			empinfoInfo.put("postcode", c.get("EMP_ZIPCODE"));
+			empinfoInfo.put("addr1", c.get("EMP_ADDR1"));
+			empinfoInfo.put("addr2", c.get("EMP_ADDR2"));
+			
+			empinfoArray.add(empinfoInfo);
+		}
 		result.put("empinfolist", empinfoArray);
 
 		return result;
 	}
+	@Override
+	public String deleteInfo(String nickname, int num, String chk) {
+		int a = num+1;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("nickname", nickname);
+		map.put("num", a);
+		if(chk.equals("record")) {
+			submemberDao.deleteRecord(map);
+		}else if(chk.equals("license")) {
+			submemberDao.deleteLicense(map);
+		}else if(chk.equals("empinfo"))
+			submemberDao.deleteEmpinfo(map);
+
+		return null;
+	}
 }
-
-
-
-
-
-
-
-

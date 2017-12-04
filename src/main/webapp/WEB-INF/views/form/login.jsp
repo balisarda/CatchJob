@@ -2,6 +2,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <c:url var="img" value="/resources/img/" />
 <c:url var="css" value="/resources/css/" />
+<c:url var="js" value="/resources/js/" />
 <c:url var="home" value="/"/>
 <div align="center">
 	<section class="container">
