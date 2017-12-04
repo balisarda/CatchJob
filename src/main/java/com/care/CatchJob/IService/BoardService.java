@@ -2,6 +2,8 @@ package com.care.CatchJob.IService;
 
 import java.util.List;
 
+import org.json.simple.JSONObject;
+
 import com.care.CatchJob.DTO.Board;
 import com.care.CatchJob.DTO.Board_Notice;
 import com.care.CatchJob.DTO.Job;
@@ -22,6 +24,8 @@ public interface BoardService {
 	public void noticedeleteProc(int notice_idx);
 	// 일등록 게시판 서비스
 	public List<Job> selectjobBoard();
+	
+	public JSONObject loadBoard();
 }
 
 

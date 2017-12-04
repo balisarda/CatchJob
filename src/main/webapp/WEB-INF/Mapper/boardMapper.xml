@@ -67,4 +67,18 @@
 	<select id="selectjobBoard" parameterType="com.care.CatchJob.DTO.Job">
 		SELECT no FROM job ORDER BY no DESC
 	</select>
+ 	<select id="loadBoard" resultType="java.util.HashMap">
+		SELECT board_idx, member_nickname, board_title FROM (SELECT * FROM board ORDER BY board_idx DESC) WHERE rownum
+		<![CDATA[
+			<=
+		]]>
+		3
+	</select>
+	<select id="loadNotice" resultType="java.util.HashMap">
+		SELECT notice_idx, member_nickname, notice_title FROM (SELECT * FROM table_noticeboard ORDER BY notice_idx DESC) WHERE rownum
+		<![CDATA[
+			<=
+		]]>
+		3
+	</select>
 </mapper>

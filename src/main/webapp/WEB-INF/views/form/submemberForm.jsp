@@ -101,10 +101,10 @@ function deleteinfo(str){
 								</select>
 							</td>
 							<td>
-								<input type="text" placeholder="년" id="" name="year1">
-								<input type="text" placeholder="" name="month1">~
-								<input type="text" id="" name="year2">
-								<input type="text" placeholder="" name="month2">
+								<input type="text" placeholder="시작년 (2017)" id="" name="year1">
+								<input type="text" placeholder="시작월 (01)" name="month1">~
+								<input type="text" placeholder="종료년 (2017)" id="" name="year2">
+								<input type="text" placeholder="시작월 (12)" name="month2">
 							</td>
 							<td><input type="text" placeholder="예 ) 아르바이트, 점장 등" id="" name="duty"></td>
 							<td><input type="text" placeholder="아르바이트에 대한 설명 작성" id="" name="comment"></td>

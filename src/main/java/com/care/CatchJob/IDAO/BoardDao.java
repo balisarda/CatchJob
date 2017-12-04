@@ -1,5 +1,6 @@
 package com.care.CatchJob.IDAO;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,9 @@ public interface BoardDao {
 	public void noticedeleteProc(int notice_idx);
 	// 일등록 게시판 서비스
 	public List<Job> selectjobBoard(Map<String, Object> map);
+	
+	public List<HashMap<String, Object>> loadBoard();
+	public List<HashMap<String, Object>> loadNotice();
 }
 
 

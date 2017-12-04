@@ -3,12 +3,14 @@ package com.care.CatchJob.Controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.care.CatchJob.DTO.Board;
@@ -137,5 +139,9 @@ public class BoardController {
 		return "redirect:/board/noticeBoard";
 	}
 	
-	
+	@RequestMapping("mainBoard")
+	@ResponseBody
+	public JSONObject mainBoard() {
+		return boardSrv.loadBoard();
+	}
 }

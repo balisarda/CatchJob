@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,4 +79,71 @@ public class BoardServiceImpl implements BoardService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		return boardDao.selectjobBoard(map);
 	}
+
+	@Override
+	public JSONObject loadBoard() {
+		JSONObject result = new JSONObject();
+		JSONArray noticeArray = new JSONArray();
+		JSONArray boardArray = new JSONArray();
+
+		List<HashMap<String, Object>> notice = boardDao.loadNotice();
+		List<HashMap<String, Object>> board = boardDao.loadBoard();
+					
+		for(int i = 0; i<notice.size();i++) {
+			HashMap<Integer, Object> str = new HashMap<Integer, Object>();
+			HashMap<String, Object> a = new HashMap<String, Object>();
+
+			JSONObject noticeObj = new JSONObject();
+			str.put(i, notice.get(i));
+
+			a = (HashMap<String, Object>) str.get(i);
+
+			noticeObj.put("num", a.get("NOTICE_IDX"));
+			noticeObj.put("title", a.get("NOTICE_TITLE"));
+			noticeObj.put("nickname", a.get("MEMBER_NICKNAME"));
+			
+			noticeArray.add(noticeObj);
+			
+		}
+		result.put("noticelist", noticeArray);
+
+		for(int i = 0; i<board.size();i++) {
+			HashMap<Integer, Object> str = new HashMap<Integer, Object>();
+			HashMap<String, Object> b = new HashMap<String, Object>();
+
+			JSONObject boardObj = new JSONObject();
+			str.put(i, board.get(i));
+
+			b = (HashMap<String, Object>) str.get(i);
+
+			boardObj.put("num", b.get("BOARD_IDX"));
+			boardObj.put("title", b.get("BOARD_TITLE"));
+			boardObj.put("nickname", b.get("MEMBER_NICKNAME"));
+			
+			boardArray.add(boardObj);
+			
+		}
+		result.put("boardlist", boardArray);
+		
+		return result;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
