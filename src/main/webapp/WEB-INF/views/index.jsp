@@ -31,9 +31,6 @@
 				<c:import url="/form/${formPath }" />
 			</div>
 		</div>
-		<div>
-			<c:import url="/bottom" />
-		</div>
 	</div>
 </body>
 </html>

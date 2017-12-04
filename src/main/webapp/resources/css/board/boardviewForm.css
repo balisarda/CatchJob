@@ -1,0 +1,187 @@
+/* 테이블 설정 */
+.table {
+	border-top: 3px solid #005aab;
+	border-bottom: 1px solid #dddddd;
+	margin-bottom: 0;
+}
+
+.table th {
+	background: #f0f5f9;
+	text-align: center;
+	vertical-align: middle !important;
+}
+
+.table td {
+	color: #727272;
+}
+
+.table th, .table td {
+	border-right: 1px solid #dddddd;
+	font-size: 14px;
+	font-weight: 400;
+}
+
+.table th:last-child, .table td:last-child {
+	border-right: none;
+}
+
+.table-t1 th {
+	font-size: 17px;
+}
+
+.table-t1 th, .table-t1 td {
+	padding: 25px 40px !important;
+}
+
+.table-t2 th, .table-t2 td {
+	font-size: 13px;
+}
+
+.table-t3 th {
+	font-weight: 500;
+	color: #4c4c4c;
+}
+
+.table-t3 td:first-child {
+	font-weight: 500;
+	color: #4c4c4c;
+	background: #fafafa;
+}
+
+.table-t3 td {
+	color: #4c4c4c;
+}
+
+.table-t3 td li {
+	font-size: 14px !important;
+}
+
+.table-vert td {
+	vertical-align: middle !important;
+}
+
+.table td.bg-grey {
+	background: #f7f7f7;
+}
+
+.table-board thead th {
+	border-bottom: none !important;
+	border-right: none;
+}
+
+.table-board tbody td {
+	font-weight: 400;
+	font-size: 13px;
+	border-right: none;
+}
+
+tr.noticell td {
+	background: #ffffff;
+}
+
+td.subject a {
+	color: #111111;
+	font-size: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block;
+	white-space: nowrap;
+	max-width: 890px;
+}
+
+tr.noticell td.subject a {
+	color: #005aab;
+	font-weight: 500;
+}
+
+td.subject a:hover {
+	text-decoration: underline;
+	color: #005aab;
+}
+
+.table-board td>mark {
+	display: inline-block;
+	padding: 0 10px;
+	line-height: 22px;
+	background: #3ebabb;
+	color: #ffffff;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	font-style: normal;
+	font-weight: 300;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover,
+	.pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
+	{
+	background-color: #005aab;
+	border-color: #005aab;
+}
+
+.table td.pull_input input, .table td.textarea textarea {
+	width: 100%;
+	font-size: 14px;
+	resize: none;
+	border: 1px solid #dddddd;
+	padding: 10px;
+}
+
+.table-write td {
+	border: none;
+	padding: 15px;
+}
+
+.table-view th.subject {
+	text-align: left;
+	font-size: 19px;
+	padding: 20px 30px;
+	border-bottom: none !important;
+}
+
+.table-view td {
+	padding: 15px 30px !important;
+}
+
+.table-view td.infocell b {
+	color: #111111;
+	font-weight: 400;
+	padding-right: 10px;
+}
+
+.table-view td.infocell b+b {
+	padding-left: 20px;
+}
+
+.table-view td.contents {
+	padding: 20px 30px !important;
+	color: #111111;
+}
+
+.table-view span.next {
+	background: url(../images/board_ico_next.png) no-repeat center right;
+	padding-right: 15px;
+	margin-right: 20px;
+}
+
+.table-view span.prev {
+	background: url(../images/board_ico_prev.png) no-repeat center right;
+	padding-right: 15px;
+	margin-right: 20px;
+}
+
+.table-view a {
+	color: #111111;
+}
+
+.table-view a:hover {
+	text-decoration: underline;
+}
+
+.table-view td.contents a {
+	color: #005aab;
+}
+
+.table-view td.contents img {
+	max-width: 1140px;
+}

@@ -29,11 +29,6 @@ public class HomeController {
 	public String sidebar() {
 		return "common/sidebar";
 	}
-
-	@RequestMapping(value = "/bottom")
-	public String bottom() {
-		return "common/bottom";
-	}
 	@RequestMapping(value = "/top")
 	public String top() {
 		return "common/top";
