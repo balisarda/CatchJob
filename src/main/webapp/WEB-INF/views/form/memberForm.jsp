@@ -164,7 +164,7 @@ function isValidPasswd(str){
 </script>
 <div style="width: 700px; height: 700px; margin-left: 300px;"><!-- 큰 틀 -->
 	<div>
-		${msg } // ${sessionMember }
+		${msg }
 	</div>
 	<form id='frm' action="${home }member/memberProc" method="post">
 	<div><!-- 필수입력정보 틀 -->
