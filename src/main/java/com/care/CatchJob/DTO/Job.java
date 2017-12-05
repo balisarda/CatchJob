@@ -124,5 +124,6 @@ public class Job {
 		public void setNo(int no) {
 			this.no = no;
 		}
+
 		
 }

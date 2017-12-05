@@ -67,6 +67,9 @@
 	<select id="selectjobBoard" resultType="com.care.CatchJob.DTO.Job">
 		SELECT no, member_nickname, board_date, job_name FROM job ORDER BY no DESC
 	</select>
+	<select id="jobdetailView" resultType="com.care.CatchJob.DTO.Job">
+		SELECT * FROM job WHERE no=#{no}
+	</select>
 	
 <!-- 메인 화면 공지, 구인, 구직 미리보기 -->
  	<select id="loadBoard" resultType="java.util.HashMap">

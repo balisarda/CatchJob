@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.care.CatchJob.DTO.Board;
 import com.care.CatchJob.DTO.Board_Notice;
+import com.care.CatchJob.IDAO.JobDao;
 import com.care.CatchJob.IService.BoardService;
+import com.care.CatchJob.IService.JobService;
 
 @Controller
 @RequestMapping("board")
@@ -146,10 +148,19 @@ public class BoardController {
 		return "redirect:/board/noticeBoard";
 	}
 
+	// 메인 공지,구인,구직 미리보기
 	@RequestMapping("mainBoard")
 	@ResponseBody
 	public JSONObject mainBoard() {
 		return boardSrv.loadBoard();
+	}
+	
+	// 구인 게시판에서 글 상세보기
+	@RequestMapping("jobdetailView")
+	public String jobdetailView(Model model,
+			@RequestParam("jobNo") String job_No) {
+		model.addAttribute("job_list", boardSrv.jobdetailView(job_No));
+		return "forward:/job_findViewForm";
 	}
 
 }

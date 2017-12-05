@@ -75,11 +75,16 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.noticedeleteProc(notice_idx);
 	}
 		
-	//////// 일 등록 게시판 서비스
+	//////// 구인 게시판
 	@Override
 	public List<Job> selectjobBoard() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		return boardDao.selectjobBoard(map);
+	}
+	// 구인 게시판 상세보기
+	@Override
+	public Job jobdetailView(String Job_no) {
+		return boardDao.jobdetailView(Integer.parseInt(Job_no));
 	}
 	
 //////// 메인화면 구인,구직,공지 미리보기
@@ -150,6 +155,7 @@ public class BoardServiceImpl implements BoardService {
 		
 		return result;
 	}
+
 }
 
 

@@ -33,7 +33,6 @@ import com.care.CatchJob.IService.JobService;
 		public String jobFindForm(Model model) {
 			model.addAttribute("List", jobdao.FindJob());
 			model.addAttribute("Listsize", jobdao.FindJob().size());
-			
 			return "forward:/job_findForm";
 		}
 		//일등록 확인

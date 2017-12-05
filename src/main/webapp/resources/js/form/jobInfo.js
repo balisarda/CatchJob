@@ -67,7 +67,7 @@ $( function() {
 	  		    if($(this).val()==job_option_array[data.item.value]){
 	  		    }
 	  		  }); 
-	  		$('#job_option').val(job_option_array[data.item.value]),	  		
+	  		$('#job_option').val(job_option_array[data.item.value]),	  	
 	  		$('#job_num').val(job_num_array[data.item.value]),
 	  		$('#job_date').val(job_date_array[data.item.value]),
 	  		$('#job_time_start').val(job_time_start_array[data.item.value]),

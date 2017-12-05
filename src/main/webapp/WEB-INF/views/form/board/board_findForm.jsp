@@ -25,11 +25,17 @@ function detailView(board_idx){
 	document.getElementById('boardNo').value=board_idx;
 	document.getElementById('frm').submit();
 }
+function jobdetailView(job_idx){
+	document.getElementById('jobNo').value=job_idx;
+	document.getElementById('jobfrm').submit();
+}
 </script>
-
 <form id='frm' action="${home }board/detailView">
 	<input type="hidden" name="boardNo" id="boardNo">
 	<input type="hidden" name="updateNo" id="updateNo">
+</form>
+<form id='jobfrm' action="${home }board/jobdetailView">
+	<input type="hidden" name=jobNo id="jobNo">
 </form>
 	<ul class="demo">
 		<li><a>구인 게시판</a>
@@ -51,7 +57,7 @@ function detailView(board_idx){
 									<tr>
 										<td style="width: 30px; height: 40px;" align="center">${jobLst.no}</td>
 										<td style="width: 330px; height: 40px;" align="center">
-											<div class="title">${jobLst.job_name }</div>
+											<div class="title" onclick="jobdetailView('${jobLst.no}')">${jobLst.job_name }</div>
 										</td>
 										<td style="width: 80px; height: 40px;" align="center">${jobLst.member_nickname }</td>
 										<td style="width: 120px; height: 40px;" align="center">${jobLst.board_date }</td>

@@ -24,6 +24,7 @@ public interface BoardService {
 	public void noticedeleteProc(int notice_idx);
 	// 일등록 게시판 서비스
 	public List<Job> selectjobBoard();
+	public Job jobdetailView(String Job_no);
 	
 	public JSONObject loadBoard();
 }
