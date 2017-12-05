@@ -23,6 +23,7 @@ import com.care.CatchJob.IService.JobService;
 @RequestMapping("board")
 @SessionAttributes("sessionMember")
 public class BoardController {
+	
 	@Autowired
 	private BoardService boardSrv;
 
@@ -154,6 +155,7 @@ public class BoardController {
 	public JSONObject mainBoard() {
 		return boardSrv.loadBoard();
 	}
+	
 	
 	// 구인 게시판에서 글 상세보기
 	@RequestMapping("jobdetailView")
