@@ -12,7 +12,7 @@ $(document).ready(function(){
 			console.log(data);
 			$("#notice_table").html("");
 			$.each(data.noticelist, function(index, noticelist){
-				$("<li><a>"+noticelist.nickname+" "+noticelist.title+"</a></li>").appendTo("#notice_table");
+				$("<li><a href=''>"+noticelist.nickname+" "+noticelist.title+"</a></li>").appendTo("#notice_table");
 			});
 			$("#board_table").html("");
 			$.each(data.boardlist, function(index, boardlist){
@@ -27,7 +27,7 @@ $(document).ready(function(){
 			<div style="align:center; margin-left:300px; margin-right: 0px;">
 			<img alt="메인" src="${img }mainpage.png" width="90%" height="394px">
 			</div>
-		</div>
+		</div>x
 		<div style="height: 500px; padding: 5px, 17px, 13px, 0px; margin-top: 100px; margin-left: 300px;">
 			<div style="background-color: #e71d36; color: #FFFFFF; width: 350px; float: left; margin-top: 2px; margin-right: 15px; margin-bottom: 2px; margin-left: 0px;" >
 				<ul class="list" id="notice_table">
