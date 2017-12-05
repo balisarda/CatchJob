@@ -17,9 +17,11 @@ import com.care.CatchJob.IService.BoardService;
 
 @Service
 public class BoardServiceImpl implements BoardService {
+	
 	@Autowired
 	private BoardDao boardDao;
-	// 알바등록 게시판
+	
+	///////////// 알바등록 게시판
 	@Override	// 게시판 불러오기
 	public List<Board> selectBoard() {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -46,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.boarddeleteProc(board_idx);
 	}
 	
-	// 공지 사항 게시판/////////////////////
+	////////// 공지 사항 게시판
 	@Override
 	public List<Board_Notice> noticeselectBoard() {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -73,21 +75,24 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.noticedeleteProc(notice_idx);
 	}
 		
-	// 일 등록 게시판 서비스
+	//////// 일 등록 게시판 서비스
 	@Override
 	public List<Job> selectjobBoard() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		return boardDao.selectjobBoard(map);
 	}
-
+	
+//////// 메인화면 구인,구직,공지 미리보기
 	@Override
 	public JSONObject loadBoard() {
 		JSONObject result = new JSONObject();
 		JSONArray noticeArray = new JSONArray();
 		JSONArray boardArray = new JSONArray();
+		JSONArray jobArray = new JSONArray();
 
 		List<HashMap<String, Object>> notice = boardDao.loadNotice();
 		List<HashMap<String, Object>> board = boardDao.loadBoard();
+		List<HashMap<String, Object>> job = boardDao.loadJob();
 					
 		for(int i = 0; i<notice.size();i++) {
 			HashMap<Integer, Object> str = new HashMap<Integer, Object>();
@@ -124,6 +129,24 @@ public class BoardServiceImpl implements BoardService {
 			
 		}
 		result.put("boardlist", boardArray);
+		
+		for(int i = 0; i<job.size();i++) {
+			HashMap<Integer, Object> str = new HashMap<Integer, Object>();
+			HashMap<String, Object> b = new HashMap<String, Object>();
+
+			JSONObject jobObj = new JSONObject();
+			str.put(i, job.get(i));
+
+			b = (HashMap<String, Object>) str.get(i);
+
+			jobObj.put("num", b.get("NO"));
+			jobObj.put("title", b.get("JOB_NAME"));
+			jobObj.put("nickname", b.get("MEMBER_NICKNAME"));
+			
+			jobArray.add(jobObj);
+			
+		}
+		result.put("joblist", jobArray);
 		
 		return result;
 	}

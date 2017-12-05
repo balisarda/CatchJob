@@ -2,34 +2,9 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <c:url var="css" value="/resources/css/" />
 <c:url var="js" value="/resources/js/" />
-<c:url var="img" value="/resources/img/" />
 <c:url var="home" value="/" />
 <link rel="stylesheet" href="${css }buttonst.css" type="text/css">
-<script type="text/javascript">
-function chkBox_jop(){
-	var chkBoxjop = document.getElementsByName("board_type");
-	var ok="";
-	for(var i=0;i<chkBoxjop.length;i++){
-		if(chkBoxjop[i].checked == true){
-			ok += chkBoxjop[i].value+" ";
-		}
-	}
-}
-function chkBox_time(){
-	var chkBoxtime = document.getElementsByName("board_time");
-	for(var i=0;i<chkBoxtime.length;i++){
-		if(chkBoxtime[i].checked)
-			chkBoxtime[i].value+" ";
-}
-function selectBox_pay(){
-	var Urgency = document.getElementsById("board_pay");
-	var val1 = board_pay.options[board_pay.selectedIndex].value;
-	
-	var Salary = document.getElementsById("board_pay");
-	var val2 = board_pay.options[board_pay.selectedIndex].value;
-	}
-}
-</script>
+
 <form action="${home }board/writeProc" method="post">
 	<!-- 히든으로 닉네임 세션으로 받아서 폼안에서 값 보내기 -->
 	<input type="hidden" name="member_nickname" value="${sessionMember.nickname}">
@@ -126,3 +101,4 @@ function selectBox_pay(){
 <script>
 function SearchAddr(map){var newwin = window.open(map, "blank", "width=530, height=680, scrollbars=yes");}
 </script>
+<script src="${js }board/boardChkSelect.js"></script>

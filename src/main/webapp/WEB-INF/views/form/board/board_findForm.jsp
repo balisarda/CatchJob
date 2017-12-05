@@ -4,20 +4,15 @@
 <%@ page session="false"%>
 <c:url var="css" value="/resources/css/" />
 <c:url var="js" value="/resources/js/" />
-<c:url var="img" value="/resources/img/" />
 <c:url var="home" value="/" />
-<!-- 구인게시판 / 구직게시판
-	- 구인게시판에 필요한 테이블 정보 불러오기
-	- 불러온 테이블 정보를 페이징으로 나누어서 보기 
-	- 제목을 누르면 게시판의 상세한 정보 보기 
-	- 검색을 통해 제목, 내용, 작성자에 대한 검색을 하면 검색결과에 따른 결과물 나오게하기 -->
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-<link href="${css }jquery.atAccordionOrTabs.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="${css }select.css" type="text/css">
+<link rel="stylesheet" href="${css }board/boardTabs.css" type="text/css">
+<link rel="stylesheet" href="${css }board/boardselectForm.css" type="text/css">
 <link rel="stylesheet" href="${css }buttonst.css" type="text/css">
-<link rel="stylesheet" href="${css }boardstyle.css" type="text/css">
+<link rel="stylesheet" href="${css }board/boardstyle.css" type="text/css">
 <style>
 <!--
 .title {
@@ -26,12 +21,10 @@
 -->
 </style>
 <script>
-<!--
-function detailView(no){
-	document.getElementById('writeNo').value=no;
+function detailView(board_idx){
+	document.getElementById('boardNo').value=board_idx;
 	document.getElementById('frm').submit();
 }
-//-->
 </script>
 
 <form id='frm' action="${home }board/detailView">
@@ -53,16 +46,16 @@ function detailView(no){
 							</tr>
 						</thead>
 						<c:choose>
-							<c:when test="${fn:length(boardjobLst) > 0}">
-								<c:forEach var="boardjobLst" items="${boardjobLst }">
+							<c:when test="${fn:length(jobLst) > 0}">
+								<c:forEach var="jobLst" items="${jobLst }">
 									<tr>
-										<td style="width: 30px; height: 40px;" align="center">${boardjobLst.no}</td>
+										<td style="width: 30px; height: 40px;" align="center">${jobLst.no}</td>
 										<td style="width: 330px; height: 40px;" align="center">
-											<div class="title" onclick="detailView('${boardjobLst.no}')">${boardjobLst.job_date }</div>
+											<div class="title">${jobLst.job_name }</div>
 										</td>
-										<td style="width: 80px; height: 40px;" align="center">${boardjobLst.member_nickname }</td>
-										<td style="width: 120px; height: 40px;" align="center">${boardjobLst.board_date }</td>
-										<td style="width: 80px; height: 40px;" align="center">${boardjobLst.job_pay }</td>
+										<td style="width: 80px; height: 40px;" align="center">${jobLst.member_nickname }</td>
+										<td style="width: 120px; height: 40px;" align="center">${jobLst.board_date }</td>
+										<td style="width: 80px; height: 40px;" align="center"></td>
 									</tr>
 								</c:forEach>
 							</c:when>
@@ -145,8 +138,8 @@ function detailView(no){
 		</li>
 	</ul>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-<script src="${js }jquery.bbq.js"></script>
-<script src="${js }jquery.atAccordionOrTabs.js"></script>
+<script src="${js }board/jquery.boardTabs_second.js"></script>
+<script src="${js }board/jquery.boardTabs.js"></script>
 <script type="text/javascript">
 	$('.demo').accordionortabs();
 </script>

@@ -4,9 +4,9 @@
 <c:url var="css" value="/resources/css/" />
 <c:url var="home" value="/" />
 
-<link rel="stylesheet" href="${css }select.css" type="text/css">
+<link rel="stylesheet" href="${css }board/boardselectForm.css" type="text/css">
 <link rel="stylesheet" href="${css }buttonst.css" type="text/css">
-<link rel="stylesheet" href="${css }boardstyle.css" type="text/css">
+<link rel="stylesheet" href="${css }board/boardstyle.css" type="text/css">
 <style>
 <!--
 .title {
@@ -17,7 +17,7 @@
 <script>
 <!--
 function noticeDetailView(notice_title){
-	document.getElementById('writeNo').value=notice_title;
+	document.getElementById('noticeNo').value=notice_title;
 	document.getElementById('updateNo').value="notice";
 	document.getElementById('frm').submit();
 }
@@ -30,11 +30,11 @@ function writeFrm(home){
 
 <!-- 게시글 세부사항 보기 -->
 <form id='frm' action="${home }board/noticeDetailView">
-	<input type="hidden" name="writeNo" id="writeNo"> 
+	<input type="hidden" name="noticeNo" id="noticeNo"> 
 	<input type="hidden" name="updateNo" id="updateNo">
 </form>
-<div>
-	<b>공지사항 게시판</b>
+<div align="center">
+	<h2 >공지사항</h2><br><br>
 </div>
 <table>
 	<thead>
@@ -58,7 +58,7 @@ function writeFrm(home){
 						</td>
 						<td style="width: 80px; height: 40px;" align="center">${notice.member_nickname }</td>
 						<td style="width: 120px; height: 40px;" align="center">${notice.notice_date }</td>
-						<td style="width: 80px; height: 40px;" align="center">${notice.notice_contents }</td>
+						<td style="width: 80px; height: 40px;" align="center"></td>
 					</tr>
 				</c:forEach>
 			</c:when>
@@ -69,18 +69,17 @@ function writeFrm(home){
 			</c:otherwise>
 		</c:choose>
 		<!-- 글쓰기는 관리자인지 세션값으로 확인 -->
-			<c:set var="nickname" value="${sessionMember.nickname }" />
-			<c:choose>
-				<c:when test="${nickname eq 'CatchJob'}">
-					<tr>
-						<td align="right">
-						<input style="" type="button" onclick="writeFrm('${home }')"
-							value='글쓰기' /></td>
-					</tr>
-				</c:when>
-				<c:otherwise>
+		<c:set var="nickname" value="${sessionMember.nickname }" />
+		<c:choose>
+			<c:when test="${nickname eq 'CatchJob'}">
+				<tr>
+					<td align="right"><input style="" type="button"
+						onclick="writeFrm('${home }')" value='글쓰기' /></td>
+				</tr>
+			</c:when>
+			<c:otherwise>
 
-				</c:otherwise>
+			</c:otherwise>
 		</c:choose>
 	</tbody>
 </table>
@@ -93,9 +92,9 @@ function writeFrm(home){
 					<option value="all">전체</option>
 					<option value="title">제목</option>
 					<option value="nicname">작성자</option>
-				</select>
-				<input type=text name='searchWord' />
-				<input class="btn-gradient purple small" type="submit" name='searchBtn' value='검색' style="width: 80px;" />
+				</select> <input type=text name='searchWord' /> <input
+					class="btn-gradient purple small" type="submit" name='searchBtn'
+					value='검색' style="width: 80px;" />
 			</form>
 		</td>
 	</tr>

@@ -23,9 +23,10 @@ public interface BoardDao {
 	public void noticedeleteProc(int notice_idx);
 	// 일등록 게시판 서비스
 	public List<Job> selectjobBoard(Map<String, Object> map);
-	
+	// 메인 공지, 구인, 구직 미리보기
 	public List<HashMap<String, Object>> loadBoard();
 	public List<HashMap<String, Object>> loadNotice();
+	public List<HashMap<String, Object>> loadJob();
 }
 
 

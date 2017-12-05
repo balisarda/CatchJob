@@ -6,15 +6,15 @@
 <c:url var="home" value="/" />
 <c:url var="css" value="/resources/css/" />
 
-<link rel="stylesheet" href="${css }viewboard.css" />
+<link rel="stylesheet" href="${css }board/boardviewForm.css" />
 <script>
 <!--
-	function noticedetailView(notice_idx) {
+	function noticeDetailView(notice_idx) {
 		document.getElementById('writeNo').value = notice_idx;
 		document.getElementById('updateNo').value = "update";
 		document.getElementById('frm').submit();
 	}
-	function noticeDelete(deleteNo) {
+	function noticeDeleteProc(deleteNo) {
 		document.getElementById('deleteNo').value = deleteNo;
 		document.getElementById('delete').submit();
 	}
@@ -26,8 +26,8 @@
 	<input type="hidden" name="deleteNo" id="deleteNo">
 </form>
 <form id='frm' action="${home }board/noticeDetailView">
-	<input type="hidden" name="writeNo" id="writeNo"> <input
-		type="hidden" name="updateNo" id="updateNo">
+	<input type="hidden" name="writeNo" id="writeNo"> 
+	<input type="hidden" name="updateNo" id="updateNo">
 </form>
 <body>
 	<div id="sub_wrap">

@@ -3,13 +3,13 @@
 <c:url var="home" value="/" />
 
 <center>
-	<form action="${home }board/noticewriteProc" method="post">
+	<form action="${home }board/noticeWriteProc" method="post">
 	<!-- 닉네임 세션 값 받아서 히든으로 숨겨서 넘겨줌 -->
 	<input type="hidden" name="member_nickname" value="${sessionMember.nickname}">
 		<table style="width: 650px;">
 			<tr>
 				<td style="width: 80px; height: 40px;" align="right">제 목</td>
-				<td style="width: 570px; height: 40px;">
+				<td>
 					<input type=text name='notice_title' /> <a style="color: red;">${msg }</a>
 				</td>
 			</tr>
