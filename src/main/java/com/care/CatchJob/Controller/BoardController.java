@@ -28,7 +28,7 @@ public class BoardController {
 	@ModelAttribute("sessionMember")
 	public Map<String, Object> getSessionInfo() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("authNumOk", false);
+		map.put("authNumOkdddd", false);
 		return map;
 	}
 

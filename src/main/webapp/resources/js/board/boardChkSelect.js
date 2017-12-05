@@ -20,3 +20,4 @@
 			var Salary = document.getElementsById("board_pay");
 			var val2 = board_pay.options[board_pay.selectedIndex].value;
 	}
+	}	
