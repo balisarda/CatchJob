@@ -41,6 +41,7 @@ ul{
 	<ul class="hide" style="display: block;">
 		<li><a href="${home }member/logOut">로그아웃</a></li>
 		<li><a href="${home }member/memberInfo">개인정보 수정</a></li>
+		<li><a href="${home }member/subInfo">추가정보 수정</a></li>
 		<li><a href="${home }job/confirm_add">일 등록 정보 보기</a></li>
 	</ul>
 </div>

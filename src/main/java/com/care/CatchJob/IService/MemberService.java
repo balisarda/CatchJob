@@ -21,4 +21,6 @@ public interface MemberService {
 	public void delete_record(String nickname, int num);
 	public void delete_license(String nickname, int num);
 	public void delete_empinfo(String nickname, int num);
+	public JSONObject memeberInfo(String nickname);
+	public int memberInfo_modi(Member member, Map<String, Object> sMember, String oldemail, String oldphone);
 }

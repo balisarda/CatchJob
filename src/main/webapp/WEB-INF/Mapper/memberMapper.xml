@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.care.CatchJob.IDAO.MemberDao">
+<sql id="SELECT_COUNT">
+	SELECT COUNT(*) FROM MEMBER
+</sql>
 	<select id="loginProc" resultType="int" parameterType="com.care.CatchJob.DTO.Member">
-		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname} AND MEMBER_PW=#{pw}
+		<include refid="SELECT_COUNT"/>
+		WHERE MEMBER_NICKNAME=#{nickname} AND MEMBER_PW=#{pw}
 	</select>
 	<select id="chkNickname" resultType="int">
-		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname}
+		<include refid="SELECT_COUNT"/>
+		WHERE MEMBER_NICKNAME=#{nickname}
 	</select>
 	<insert id="memberProc" parameterType="com.care.CatchJob.DTO.Member">
 		INSERT INTO MEMBER(MEMBER_IDX, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_PW, MEMBER_AGE, MEMBER_GENDER, MEMBER_EMAIL, MEMBER_PHONE) 
@@ -15,9 +20,25 @@
 		SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_NAME=#{name} AND MEMBER_EMAIL=#{email}
 	</select>
 	<select id="findPw" parameterType="com.care.CatchJob.DTO.Member" resultType="int">
-		SELECT COUNT(*) FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname} AND MEMBER_EMAIL=#{email}
+		<include refid="SELECT_COUNT"/>
+		WHERE MEMBER_NICKNAME=#{nickname} AND MEMBER_EMAIL=#{email}
 	</select>
 	<update id="findPwInfo" parameterType="map">
 		UPDATE MEMBER SET MEMBER_PW=#{pw} WHERE MEMBER_NICKNAME=#{nickname} AND MEMBER_EMAIL=#{email}
+	</update>
+	<select id="memberInfo" parameterType="String" resultType="java.util.HashMap">
+		SELECT * FROM MEMBER WHERE MEMBER_NICKNAME=#{nickname}
+	</select>
+	<update id="memberInfo_modi" parameterType="com.care.CatchJob.DTO.Member">
+		UPDATE member SET 
+		<if test='email eq null and phone eq null'>
+			member_pw = #{pw} WHERE member_nickname = #{nickname}
+		</if>
+		<if test='email==null'>
+			member_pw = #{pw}, member_phone = #{phone} WHERE member_nickname = #{nickname}
+		</if>
+		<if test='phone==null'>
+			member_pw = #{pw}, member_email = #{email} WHERE member_nickname = #{nickname}	
+		</if>
 	</update>
 </mapper>

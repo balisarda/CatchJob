@@ -1,5 +1,6 @@
 package com.care.CatchJob.IDAO;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.care.CatchJob.DTO.Member;
@@ -12,5 +13,6 @@ public interface MemberDao {
 	public int findPw(Member member);
 	public String findIdInfo(Member member);
 	public void findPwInfo(Map<String, String> map);
-	
+	public HashMap<String, Object> memberInfo(String nickname);
+	public void memberInfo_modi(Member member);
 }

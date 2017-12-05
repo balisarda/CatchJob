@@ -40,6 +40,7 @@ public class MemberServiceImpl implements MemberService{
 			if(email.equals(member.getEmail())) {
 				if(authNumchk) {
 					memberDao.memberProc(member);
+					session.setComplete();
 					return 1;
 				}return 2;
 			}return 3;
@@ -81,10 +82,10 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public String findId(Member member) {
-		if(memberDao.findIdInfo(member)==null) {
+		String result = memberDao.findIdInfo(member);
+		if(result==null) {
 			return null;
 		}
-		String result = memberDao.findIdInfo(member);
 		return result;
 	}
 	@Override
@@ -194,4 +195,36 @@ public class MemberServiceImpl implements MemberService{
 		map.put("num", num);
 		submemberDao.deleteEmpinfo(map);
 	}
+	@Override
+	public JSONObject memeberInfo(String nickname) {
+		JSONObject result = new JSONObject();
+		HashMap<String, Object> info = memberDao.memberInfo(nickname);
+
+		result.put("name", info.get("MEMBER_NAME"));
+		result.put("pw", info.get("MEMBER_PW"));
+		result.put("nickname", info.get("MEMBER_NICKNAME"));
+		result.put("email", info.get("MEMBER_EMAIL"));
+		result.put("phone", info.get("MEMBER_PHONE"));
+
+		return result;
+	}
+	@Override
+	public int memberInfo_modi(Member member, Map<String, Object> sMember, String oldemail, String oldphone) {
+		String email = (String)sMember.get("checkedEmail");
+		boolean authNumchk = (Boolean)sMember.get("authNumOk");
+		member.setPw(encryptSHA512(member));
+		if(email.equals(oldemail)) {
+			member.setEmail(null);
+		}
+		if(member.getPhone().equals(oldphone)) {
+			member.setPhone(null);
+		}
+		if(authNumchk) {
+			memberDao.memberInfo_modi(member);
+			return 1;
+		}
+		return 2;
+		
+	}
+	
 }

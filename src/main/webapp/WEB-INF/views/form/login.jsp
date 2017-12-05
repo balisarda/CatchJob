@@ -19,6 +19,7 @@
 				<div style="float: center; margin-left: 10px; width: 90%; padding-top: 0px; z-index:1;"><!-- 카카오 로그인 버튼 -->
 					<a id="custom-login-btn" href="javascript:loginWithKakao()">
 					<img src="${img }kakao_account_login_btn_large_wide.png" width="270px; "/></a>
+					<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 					<script type='text/javascript'>
 						//<![CDATA[
 						// 사용할 앱의 JavaScript 키를 설정해 주세요.
@@ -30,11 +31,11 @@
 									Kakao.API.request({
 										url: '/v1/user/me',
 										success: function(res){
-											document.getElementById("sns_nickname").value = res.properties.nickname;
-											document.getElementById("sns_email").value = res.properties.kaccount_email;
-											document.getElementById("sns_profile").value = res.properties.profile;
+											//document.getElementById("sns_nickname").value = res.properties.nickname;
+											//document.getElementById("sns_email").value = res.properties.kaccount_email;
+											//document.getElementById("sns_profile").value = res.properties.profile;
 											//document.getElementById("sns_token").value = res.properties.access_token;
-											document.getElementById("kakaoLogin").submit();
+											//document.getElementById("kakaoLogin").submit();
 											alert(res.properties.nickname+'님 환영합니다.');
 											alert(JSON.stringify(res));
 											location.href="./main?name="+res.properties.nickname;
