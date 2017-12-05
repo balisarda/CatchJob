@@ -1,20 +1,14 @@
 #bottom{margin-top:5px; width:100%; height:50px; text-align:center; padding:12px; 
 	background:aqua; position:static;top:155px; clear:both; 
 	}
-	div{
-		max-width: 100%;
-    	height: auto;
-    	
-    }
-	body {
-		margin: 0;
-		position: relative;
-		max-width: 100%;
-		min-height: 100%; 
-		top: 0px;
-		height: auto;
-		
-	}
+	#content {
+	margin-left: 220px;
+	padding-top: 15px;
+	text-align: center;
+	height: 1050px;
+	position: relative;
+	font-style: normal;
+}	
 	
 
 	

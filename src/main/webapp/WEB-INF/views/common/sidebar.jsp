@@ -41,7 +41,8 @@ ul{
 	<ul class="hide" style="display: block;">
 		<li><a href="${home }member/logOut">로그아웃</a></li>
 		<li><a href="${home }member/memberInfo">개인정보 수정</a></li>
-		<li><a href="${home }job/confirm_add">일 등록 정보 보기</a></li>
+		<li><a href="${home }job/jobInfoForm">일 등록 정보 보기</a></li>
+		<li><a href="${home }job/jobapplyForm">일 지원 정보 보기</a></li>
 	</ul>
 </div>
 <div id="side2" class="sidr off" style="transition: left 0.2s ease;">
@@ -59,20 +60,20 @@ ul{
 </div>
 <div id="side4" class="sidr off" style="transition: left 0.2s ease;">
 	<ul class="hide" style="display: block;">
-		<li><a href="${home }job/find">일자리 찾기</a></li>
+		<li><a href="${home }job/jobfindForm">일자리 찾기</a></li>
 	</ul>
 </div>
 <div id="side5" class="sidr off" style="transition: left 0.2s ease;">
 	<ul class="hide" style="display: block;">
 		<li><a href="${home }board_writeForm">알바 등록</a></li>
-		<li><a href="${home }addjob">일등록</a></li>
+		<li><a href="${home }job_addForm">일등록</a></li>
 	</ul>
 </div>
 <div class="sidebar" id=navibar style="position: fixed;">
 	<ul class="main_menu">
 		<li class="menu"><c:choose>
 				<c:when test="${sessionMember.nickname ne null }">
-					<a style="cursor: pointer;"> <img id="nav_mypage" alt="MyPage" src="${img }logo.png" /></a>
+					<a style="cursor: pointer;"> <img id="nav_mypage" alt="MyPage" src="${img }sidebar/01.png" /></a>
 				</c:when>
 				<c:when test="${sessionMember.nickname eq null }">
 					<a style="cursor: pointer;"> <img id="nav_login" alt="로그인" src="${img }sidebar/01.png" /></a>
@@ -86,7 +87,7 @@ ul{
 		</li>
 		<c:if test="${sessionMember.nickname ne null}">
 		<li class="menu">
-			<a style="cursor: pointer;"><img id="nav_addjob" alt="일 등록" src="${img }sidebar/addjob.JPG" /></a>
+			<a style="cursor: pointer;"><img id="nav_addjob" alt="일 등록" src="${img }sidebar/addjob.png" /></a>
 		</li>
 		</c:if>
 	</ul>

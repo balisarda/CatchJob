@@ -1,7 +1,8 @@
 package com.care.CatchJob.DTO;
 
-public class Job {
 
+
+public class Job {	
 		private int no;
 		private String member_nickname;
 		private String job_comment;
@@ -20,13 +21,7 @@ public class Job {
 		private String job_time_end;
 		private String board_date;
 		
-		
-		public int getNo() {
-			return no;
-		}
-		public void setNo(int no) {
-			this.no = no;
-		}
+	
 		public String getMember_nickname() {
 			return member_nickname;
 		}
@@ -108,6 +103,12 @@ public class Job {
 		public String getJob_time_start() {
 			return job_time_start;
 		}
+		public String getBoard_date() {
+			return board_date;
+		}
+		public void setBoard_date(String board_date) {
+			this.board_date = board_date;
+		}
 		public void setJob_time_start(String job_time_start) {
 			this.job_time_start = job_time_start;
 		}
@@ -117,12 +118,11 @@ public class Job {
 		public void setJob_time_end(String job_time_end) {
 			this.job_time_end = job_time_end;
 		}
-		public String getBoard_date() {
-			return board_date;
+		public int getNo() {
+			return no;
 		}
-		public void setBoard_date(String board_date) {
-			this.board_date = board_date;
+		public void setNo(int no) {
+			this.no = no;
 		}
-		
 		
 }

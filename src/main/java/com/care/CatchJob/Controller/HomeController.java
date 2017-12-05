@@ -22,6 +22,8 @@ public class HomeController {
 
 		if(array[0].equals("board")) {
 			return "/form/board/"+formPath;
+		}else if(array[0].equals("job")) {
+			return "/form/jobFrm/"+formPath;
 		}
 		return "/form/"+formPath;
 	}

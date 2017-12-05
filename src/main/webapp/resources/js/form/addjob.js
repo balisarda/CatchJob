@@ -71,7 +71,10 @@
 	    // 좌표로 법정동 상세 주소 정보를 요청합니다
 	    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 	}
-			
+	
+	// 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+	
+		
 	function searchAddr(){	
 		var Addr=document.getElementById('road_address').value;
 		var geocoder = new daum.maps.services.Geocoder();		
@@ -119,7 +122,12 @@ $( function() {
 		        $( "#age" ).tooltip();
 		    });	
 		    
-		    $( "#pay" ).tooltip();   			    
+		    $( "#pay" ).tooltip();
+		    $('#timepicker1,#timepicker2').timepicker({
+				'step': 60, 
+				'disableTextInput': true,
+				lang:{am: '오전', pm: '오후'},
+			});
 });	
 	function div_OnOff(v,id){	 
 				if(v == "1"){
@@ -138,6 +146,7 @@ $( function() {
 			if(name[i].value==''){
 				alert(errmsg);
 				name[i].focus();
+			
 				return false;
 			}
 		}
