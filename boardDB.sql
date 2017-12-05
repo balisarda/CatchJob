@@ -138,21 +138,23 @@ SELECT no, job_date,  member_nickname, board_date, job_pay
 FROM job
 ORDER BY no DESC;
 
-
+CREATE TABLE board_hits
+(
+    board_idx       INT    NOT NULL, 
+    board_readno    INT    NULL, 
+    CONSTRAINT BOARD_HITS_PK PRIMARY KEY (board_idx)
+)
 
 SELECT *
 		FROM(
 			SELECT LEVEL, board_idx, member_nickname, LPAD(' ', 4*(LEVEL-1))||board_type as board_type, board_time,
-			board_date, readNo, pno, depth, ROWNUM AS RNUM
+			board_date, readNo, ROWNUM AS RNUM
 			FROM(
-				SELECT b.board_idx, member_nickname, board_type, board_time, to_char(board_date,'yyyy/mm/dd hh24:mi:ss')
-				board_date, h.readNo, nvl(rpl.pno, 0) as pno, nvl(rpl.depth, 0) as
-				depth
+				SELECT b.board_idx, member_nickname, board_type, board_time,
+				board_date, h.readNo,
 				FROM board b
-				LEFT JOIN Hits h
-				ON b.no = h.no
-				LEFT JOIN reply rpl
-				ON b.no = rpl.no
+				LEFT JOIN hits h
+				ON b.board_idx = h.no
 			)
 		<where>
 			<choose>

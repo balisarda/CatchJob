@@ -11,11 +11,21 @@ public class Board {
 	private String board_pay;
 	private String board_addr;
 	private String board_contents;
+	
+	private int board_hits;
+	
 	// 회원정보 가져오기 위한 필드
 	private String member_name;
 	private String member_age;
 	private String member_gender;
 	private String member_phone;
+	
+	public int getBoard_hits() {
+		return board_hits;
+	}
+	public void setBoard_hits(int board_hits) {
+		this.board_hits = board_hits;
+	}
 	public String getMember_name() {
 		return member_name;
 	}
