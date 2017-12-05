@@ -5,8 +5,6 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
-
-
 <style>
 	dl{ 
 	width: 400px;
@@ -164,8 +162,6 @@ function isValidPasswd(str){
 	var gender = $('input:radio[name=gender]:checked').val();
 	'${member.gender}'= gender;
 </script>
-
-
 <div style="width: 700px; height: 700px; margin-left: 300px;"><!-- 큰 틀 -->
 	<div>
 		${msg } // ${sessionMember }

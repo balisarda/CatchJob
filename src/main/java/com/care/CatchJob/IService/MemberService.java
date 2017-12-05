@@ -18,5 +18,7 @@ public interface MemberService {
 	public String license(License license);
 	public String empinfo(Empinfo empinfo);
 	public JSONObject loadInfo(String nickname);
-	public String deleteInfo(String nickname, int num, String chk);
+	public void delete_record(String nickname, int num);
+	public void delete_license(String nickname, int num);
+	public void delete_empinfo(String nickname, int num);
 }

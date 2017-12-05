@@ -30,41 +30,31 @@ $(document).ready(function(){
 			console.log(data);
 			$("#record_table").html("");
 			$.each(data.recordlist, function(index, recordlist){
-				$("<input type='hidden' value='"+recordlist.num+"'/>").appendTo("#record_table");
+				$("<input type='hidden' name='recordnum' value='"+recordlist.num+"'/>").appendTo("#record_table");
 				$("<div id='record_table1' class='record_table1'>"+recordlist.emp+"</div>").appendTo("#record_table");
 				$("<div id='record_table2' class='record_table1'>"+recordlist.year1+"년 "+recordlist.month1+"월 ~ "+recordlist.year2+"년 "+recordlist.month2+"월"+"</div>").appendTo("#record_table");
 				$("<div id='record_table3' class='record_table1'>"+recordlist.duty+"</div>").appendTo("#record_table");
 				$("<div id='record_table4' class='record_table1'>"+recordlist.comment+"</div>").appendTo("#record_table");
-				$("<div><button onclick="+"deleteinfo('"+index+"_record"+"');"+">삭제</button></div></div>").appendTo("#record_table");
+				$("<div><input type='submit' value='삭제' /></div>").appendTo("#record_table");
 			});
 			$("#license_table").html("");
 			$.each(data.licenselist, function(index, licenselist){
-				$("<input type='hidden' value='"+licenselist.num+"'/>").appendTo("#license_table");
+				$("<input type='hidden' name='licensenum' value='"+licenselist.num+"'/>").appendTo("#license_table");
 				$("<div id='license_table1' class='license_table1'>"+licenselist.name+"</div>").appendTo("#license_table");
 				$("<div id='license_table2' class='license_table1'>"+licenselist.date+"</div>").appendTo("#license_table");
-				$("<div><button onclick="+"deleteinfo('"+index+"_license"+"');"+">삭제</button></div></div>").appendTo("#license_table");
+				$("<div><input type='submit' value='삭제' /></div>").appendTo("#license_table");
 			});
 			$("#empinfo_table").html("");
 			$.each(data.empinfolist, function(index, empinfolist){
-				$("<input type='hidden' value='"+empinfolist.num+"'/>").appendTo("#empinfo_table");
+				$("<input type='hidden' name='empinfonum' value='"+empinfolist.num+"'/>").appendTo("#empinfo_table");
 				$("<div id='empinfo_table1' class='empinfo_table1'>"+empinfolist.emp_name+"</div>").appendTo("#empinfo_table");
 				$("<div id='empinfo_table2' class='empinfo_table1'>"+empinfolist.addr1+"</div>").appendTo("#empinfo_table");
 				$("<div id='empinfo_table3' class='empinfo_table1'>"+empinfolist.addr2+"</div>").appendTo("#empinfo_table");
-				$("<div><button onclick="+"deleteinfo('"+index+"_empinfo"+"');"+">삭제</button></div></div>").appendTo("#empinfo_table");
+				$("<div><input type='submit' value='삭제' /></div>").appendTo("#empinfo_table");
 			});
 		}
 	});
 });
-function deleteinfo(str){
-	var a = str.split("_");
-	var cmd = {"num": a[0], "chk": a[1]};
-	$.ajax({
-		type:'post', url: "deleteInfo", dataType: "text", data: cmd, cache: false,
-		success: function(data){
-			alert(data);
-		}
-	});
-}
 </script>
 <div style="border: 2px solid black; width: 800px; margin-left: 300px; align-content: center;" align="center" ><!-- 큰 틀 -->
 	<div><!-- 상세 정보 입력 -->
@@ -72,7 +62,7 @@ function deleteinfo(str){
 			<div>
 				<h2><label style="margin-left: -500px;">아르바이트 경력</label></h2>
 			</div>
-			<form action="${home }member/subMemberProc1" method="post">
+			<form action="${home }member/insert_record" method="post">
 			<input type="hidden" name="nickname" value="${sessionMember.nickname }">
 			<div>
 				<table>
@@ -126,9 +116,11 @@ function deleteinfo(str){
 						<div style="float: left; width: 200px;">세부내용</div>
 						<div></div>
 					</div>
+					<form action="${home }/member/delete_record" method="post">
 					<div id="record_table">
 					
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -139,7 +131,7 @@ function deleteinfo(str){
 				<h2><label style="margin-left: -440px;">자격증 및 교육 이수</label></h2>
 			</div>
 			<div>
-			<form action="${home }member/subMemberProc2" method="post">
+			<form action="${home }member/insert_license" method="post">
 				<input type="hidden" name="nickname" value="${sessionMember.nickname }">
 				<table>
 					<thead>
@@ -169,9 +161,11 @@ function deleteinfo(str){
 						<div style="float: left; width: 200px;">취득일</div>
 						<div></div>
 					</div>
+					<form action="${home }member/delete_license" method="post">
 					<div id="license_table">
 					
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -182,7 +176,7 @@ function deleteinfo(str){
 					<h2><label style="margin-left: -440px;">업체 정보 등록</label></h2>
 				</div>
 				<div>
-				<form action="${home }member/subMemberProc3" method="post">
+				<form action="${home }member/insert_empinfo" method="post">
 					<input type="hidden" name="nickname" value="${sessionMember.nickname }">
 					<table>
 						<thead>
@@ -217,9 +211,11 @@ function deleteinfo(str){
 							<div style="float: left; width: 100px;">상세주소</div>
 							<div></div>
 						</div>
+						<form action="${home }member/delete_empinfo" method="post">
 						<div id="empinfo_table">
 						
 						</div>
+						</form>
 					</div>
 				</div>
 		</div>

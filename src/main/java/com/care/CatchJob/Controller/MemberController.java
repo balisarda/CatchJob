@@ -3,6 +3,7 @@ package com.care.CatchJob.Controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -106,18 +107,18 @@ public class MemberController {
 		model.addAttribute("msg", "요청하신 정보가 일치하지 않습니다.");
 		return "redirect:/loginForm";
 	}
-	@RequestMapping("subMemberProc1")
-	public String subMemberProc1(Record record) {
+	@RequestMapping("insert_record")
+	public String insert_record(Record record) {
 		memberSrv.record(record);
 		return "forward:/submemberForm";
 	}
-	@RequestMapping("subMemberProc2")
-	public String subMemberProc4(License license) {
+	@RequestMapping("insert_license")
+	public String insert_license(License license) {
 		memberSrv.license(license);
 		return "forward:/submemberForm";
 	}
-	@RequestMapping("subMemberProc3")
-	public String subMemberProc3(Empinfo empinfo) {
+	@RequestMapping("insert_empinfo")
+	public String insert_empinfo(Empinfo empinfo) {
 		memberSrv.empinfo(empinfo);
 		return "forward:/submemberForm";
 	}
@@ -131,10 +132,22 @@ public class MemberController {
 	public String memberInfo(Model model, @ModelAttribute("sessionMember") Map<String, Object> Login) {
 		return "forward:/submemberForm";
 	}
-	@RequestMapping("deleteInfo")
-	public String deleteInfo(@ModelAttribute("sessionMember") Map<String, Object> Login, @RequestParam(value="num") int num, @RequestParam(value="chk") String chk) {
+	@RequestMapping("delete_record")
+	public String delete_record(@ModelAttribute("sessionMember") Map<String, Object> Login, @RequestParam("recordnum") int num) {
 		String nickname = (String)Login.get("nickname");
-
-		return memberSrv.deleteInfo(nickname, num, chk);
+		memberSrv.delete_record(nickname, num);
+		return "forward:/submemberForm";
+	}
+	@RequestMapping("delete_license")
+	public String delete_license(@ModelAttribute("sessionMember") Map<String, Object> Login, @RequestParam("licensenum") int num) {		
+		String nickname = (String)Login.get("nickname");
+		memberSrv.delete_license(nickname, num);
+		return "forward:/submemberForm";
+	}
+	@RequestMapping("delete_empinfo")
+	public String delete_empinfo(@ModelAttribute("sessionMember") Map<String, Object> Login, @RequestParam("empinfonum") int num) {		
+		String nickname = (String)Login.get("nickname");
+		memberSrv.delete_empinfo(nickname, num);
+		return "forward:/submemberForm";
 	}
 }

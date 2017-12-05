@@ -174,18 +174,24 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 	@Override
-	public String deleteInfo(String nickname, int num, String chk) {
-		int a = num+1;
+	public void delete_record(String nickname, int num) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("nickname", nickname);
-		map.put("num", a);
-		if(chk.equals("record")) {
-			submemberDao.deleteRecord(map);
-		}else if(chk.equals("license")) {
-			submemberDao.deleteLicense(map);
-		}else if(chk.equals("empinfo"))
-			submemberDao.deleteEmpinfo(map);
-
-		return null;
+		map.put("num", num);
+		submemberDao.deleteRecord(map);
+	}
+	@Override
+	public void delete_license(String nickname, int num) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("nickname", nickname);
+		map.put("num", num);
+		submemberDao.deleteLicense(map);
+	}
+	@Override
+	public void delete_empinfo(String nickname, int num) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("nickname", nickname);
+		map.put("num", num);
+		submemberDao.deleteEmpinfo(map);
 	}
 }
