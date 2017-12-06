@@ -61,7 +61,7 @@ $( function() {
 	  	  //select가 변경 되었을 때 함수
 	  	  change: function(event,data){
 	  		$("#update_btn,#delete_btn").attr("disabled", false);
-	  		$("#create-user").css("display","");
+	  		$("#getApplyer").css("display","");
 	  		//id 값에 각각 ([선택된 번호]=status.idex)의 값을 전달해줌
 	  		$("job_option option").each(function(){
 	  		    if($(this).val()==job_option_array[data.item.value]){
@@ -93,6 +93,12 @@ $( function() {
 	  	        	$("#apply_num").text(data+"명 지원 중");   
 	  	        }
 	  	    })
+	  	    getApplyer=$("#getApplyer");
+	  		apply_num=$("#apply_num").text();
+	  		if(apply_num=="0명 지원 중"){
+	  			getAppler.attr("disabled",true);
+	  		}
+	  	    
 	  	    $.ajax({
 	  	        url:'getapplyInfoProc',
 	  	        datatype:'text',
@@ -246,12 +252,8 @@ $( function() {
 			      addUser();
 			    });
 			 
-			    $( "#create-user" ).button().on( "click", function() {
-			    	apply_num=$("#apply_num").text();
-			    	if(apply_num=="0명 지원 중"){
-			    		alert("현재 지원자가 없습니다.");
-			    		return false;
-			    	}
+			    $( "#getApplyer" ).button().on( "click", function() {
+			    	
 			      dialog.dialog( "open" );
 			    });
  });

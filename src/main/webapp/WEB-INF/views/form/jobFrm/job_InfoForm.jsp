@@ -40,7 +40,7 @@
 			<div id="map" style="margin:10px auto;width:90%;height:280px;"></div>
 			<div>	
 			<h3><span id=apply_num></span>
-			<button id="create-user" style="display:none;">지원자 보기</button>
+			<button id="getApplyer" style="display:none;">지원자 보기</button>
 			</h3>
 			</div>
 			<div id="dialog-form" >
