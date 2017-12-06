@@ -134,5 +134,5 @@
 		<link rel="stylesheet" href="${css }jquery.timepicker.css">	
 		<script src="${js }jquery-3.2.1.js"></script>
 		<script src="${js }jquery.timepicker.js"></script>
-		<script src="${js }form/job_addFrom.js"></script>
+		<script src="${js }form/job_addForm.js"></script>
 		<script src="${js }jquery-ui.js"></script>
