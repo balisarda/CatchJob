@@ -76,10 +76,10 @@ ul{
 	<ul class="main_menu">
 		<li class="menu"><c:choose>
 				<c:when test="${sessionMember.nickname ne null }">
-					<a style="cursor: pointer;"> <img id="nav_mypage" alt="MyPage" src="${img }sidebar/01.png" /></a>
+					<a style="cursor: pointer;"> <img id="nav_mypage" alt="MyPage" src="${img }sidebar/01-1.png" /></a>
 				</c:when>
 				<c:when test="${sessionMember.nickname eq null }">
-					<a style="cursor: pointer;"> <img id="nav_login" alt="로그인" src="${img }sidebar/01.png" /></a>
+					<a style="cursor: pointer;"> <img id="nav_login" alt="로그인" src="${img }sidebar/01-2.png" /></a>
 				</c:when>
 			</c:choose></li>
 		<li class="menu">
