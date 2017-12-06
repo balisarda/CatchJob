@@ -43,6 +43,9 @@ ul{
 		<li><a href="${home }member/memberInfo">개인정보 수정</a></li>
 		<li><a href="${home }job/jobInfoForm">일 등록 정보 보기</a></li>
 		<li><a href="${home }job/jobapplyForm">일 지원 정보 보기</a></li>
+		<li><a href="${home }member/subInfo">추가정보 수정</a></li>
+
+
 	</ul>
 </div>
 <div id="side2" class="sidr off" style="transition: left 0.2s ease;">
