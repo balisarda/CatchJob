@@ -60,6 +60,7 @@ $( function() {
 				width: 300, 	
 	  	  //select가 변경 되었을 때 함수
 	  	  change: function(event,data){
+	  		  
 	  		$("#update_btn,#delete_btn").attr("disabled", false);
 	  		$("#getApplyer").css("display","");
 	  		//id 값에 각각 ([선택된 번호]=status.idex)의 값을 전달해줌
@@ -80,10 +81,9 @@ $( function() {
 	  		$('#address').val(address_array[data.item.value]),
 	  		$('#member_phone').val(member_phone_array[data.item.value]),
 	  		$('#no').val(no_array[data.item.value]);
-
 	  		$("#jobinfo-contain").css("display","");
 	        $("#users-contain").css("display","none");
-	        	        	      
+	        $("#getApplyer").attr("disabled",false);		        	      
 	  		$.ajax({
 	  	        url:'getapplyNumProc',
 	  	        datatype:'text',
@@ -92,13 +92,7 @@ $( function() {
 	  	        success:function(data){
 	  	        	$("#apply_num").text(data+"명 지원 중");   
 	  	        }
-	  	    })
-	  	    getApplyer=$("#getApplyer");
-	  		apply_num=$("#apply_num").text();
-	  		if(apply_num=="0명 지원 중"){
-	  			getAppler.attr("disabled",true);
-	  		}
-	  	    
+	  	    })	  	   
 	  	    $.ajax({
 	  	        url:'getapplyInfoProc',
 	  	        datatype:'text',
@@ -253,7 +247,11 @@ $( function() {
 			    });
 			 
 			    $( "#getApplyer" ).button().on( "click", function() {
-			    	
+			    	apply_num=$("#apply_num").text();				
+					if(apply_num=="0명 지원 중"){
+					$("#getApplyer").attr("disabled",true);
+					return false;
+					};				
 			      dialog.dialog( "open" );
 			    });
  });
