@@ -4,8 +4,10 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <c:url var="home" value="/"/>
 <c:url var="css" value="/resources/css/" />
+<c:url var="js" value="/resources/js/" />
 <%
 	request.setCharacterEncoding("UTF-8");
+	session.setAttribute("memberInfo", "memberinfo");
 %>
 <style>
 	dl{ 
@@ -35,6 +37,7 @@
 <link rel="stylesheet" href="${css }buttonst.css">
 <link rel="stylesheet" href="${css }sidebarcss.css">
 <link rel="stylesheet" href="${css }main.css">
+<script type="text/javascript" src="${js }member.js"></script>
 <%!
 	private String encryptSHA512(String pw){
 		try{
@@ -52,95 +55,6 @@
 	}
 %>
 <script type="text/javascript" charset="UTF-8">
-function formProc(cmd){
-	var frm = document.getElementById('frm');
-	frm.action=cmd;
-	frm.submit();
-}
-function goBack() {
-    window.history.go(-1);
-}
-function checkEmail(){
-	var nickname = document.getElementById("nickname").value;
-	var email = document.getElementById("email").value;
-	var oMsg = document.getElementById("emailMsg");
-	
-	if(email == ""){
-		oMsg.style.display = "none";
-		return true;
-	}
-    var isEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    var isHan = /[ㄱ-ㅎ가-힣]/g;
-    if(!isEmail.test(email) || isHan.test(email)){
-    	oMsg.style.display = "block";
-    	oMsg.innerHTML = "이메일 주소를 다시 확인해주세요.";
-    	return false;
-    }
-    if(true){
-    	oMsg.style.display = "none";
-    	return true;
-    }
-    return true;
-}
-function checkPw1(){
-	var pw = document.getElementById("pw").value;
-	var oMsg = document.getElementById("pswd1Msg");
-	
-	if(pw == ""){
-		oMsg.style.display = "block";
-		oMsg.className = "error";
-		oMsg.innerHTML = "필수 정보입니다.";
-		return false;
-	}
-	if(isValidPasswd(pw)!=true){
-		oMsg.style.display = "block";
-		oMsg.className = "error";
-		oMsg.innerHTML = "6~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.";
-		return false;
-	}
-	if(encryptSHA512(pw)==data.pw){
-		oMsg.style.display = "block";
-		oMsg.className = "error";
-		oMsg.innerHTML = "동일한 패스워드는 사용할 수 없습니다.";
-		return false;
-	}
-	pwFlag = true;
-	oMsg.style.display = "none";
-	return true;
-}
-function checkPw2(){
-	var pswd1 = document.getElementById("pw").value;
-	var pswd2 = document.getElementById("pw2").value;
-	var oMsg = document.getElementById("pswd2Msg");
-
-	if(pswd2==""){
-		oMsg.style.display = "block";
-		oMsg.innerHTML = "필수 정보입니다.";
-		return false;
-	}
-	if(pswd1 !=pswd2){
-		oMsg.style.display = "block";
-		oMsg.innerHTML = "비밀번호가 일치하지 않습니다.";
-		return false;
-	}else {
-		oMsg.style.display = "none";
-		return true;
-	}
-	return true;
-}
-function isValidPasswd(str){
-	if(str==""){
-		return false;
-	}
-	if(str.length<6){
-		return false;
-	}
-	var isPW = /^[A-Za-z0-9`\-=\\\[\];',\./~!@#\$%\^&\*\(\)_\+|\{\}:"<>\?]{6,16}$/;
-	if(!isPW.test(str)){
-		return false;
-	}
-	return true;
-}
 $(document).ready(function(){
 	$.ajax({
 		type:'post', url: "memberInfo_JSON", dataType: "json", cache: false,
@@ -189,7 +103,7 @@ $(document).ready(function(){
 			</dt>
 			<dd>
 				<div>
-					<input type="password" id="pw" placeholder="비밀번호" onblur="checkPw1();" name='pw' id="pw">
+					<input type="password" id="pw" placeholder="비밀번호" onblur="checkPW1();" name='pw' id="pw">
 				</div>
 				<div id="pswd1Msg" class="error" style="display: none; float: left; width: 200px;">필수 정보입니다.</div>
 			</dd>
@@ -211,6 +125,7 @@ $(document).ready(function(){
 				<div style="float: left;">
 					<input type="text" placeholder="이메일" onblur="checkEmail();" name='email' id="email"/>
 					<input type="button" class="btn-gradient green mini" onclick="formProc('${home}member/reqAuthNum');" value="인증번호 전송" />
+					<div id="emailMsg" class="error" style="display: none; float: left; width: 200px;">필수 정보입니다.</div>
 				</div>
 			</dd>
 		</dl>
@@ -220,8 +135,8 @@ $(document).ready(function(){
 			</dt>
 			<dd>
 				<div style="float: left;">
-					<input type="text" placeholder="인증번호" name='authNum' value="${inputAuthNum }"/>
-					<input type="button" class="btn-gradient green mini" onclick="formProc('${home}member/chkAuthNum')" value="인증번호 확인" />
+					<input type="text" placeholder="인증번호" name='authNum' id="inputAuthNum" value="${inputAuthNum }"/>
+					<input type="button" class="btn-gradient green mini" onclick="formProc('${home}member/chkAuthNum');" value="인증번호 확인" />
 				</div>
 			</dd>
 		</dl>

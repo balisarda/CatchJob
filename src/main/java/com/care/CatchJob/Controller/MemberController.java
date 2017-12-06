@@ -3,7 +3,6 @@ package com.care.CatchJob.Controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,6 +59,7 @@ public class MemberController {
 		switch (result) {
 		case 1:
 			sMember.put("nickname", member.getNickname());
+			sMember.remove("memberInfo");
 			return "redirect:/login";
 		case 2:
 			model.addAttribute("msg", "이메일에 대한 인증이 필요합니다.");
@@ -76,6 +76,10 @@ public class MemberController {
 	@RequestMapping("reqAuthNum") // 이메일 인증번호 요청
 	public String reqAuthNum(Member member, Model model, @ModelAttribute("sessionMember") Map<String, Object> sMember) {
 		model.addAttribute("msg", mailSrv.reqAuthNum(member, sMember));
+		Object a = "memberinfo";
+		if(sMember.get("memberInfo") == a) {
+			return "forward:/memberInfo";
+		}
 		return "forward:/memberForm";
 	}
 	@RequestMapping("chkNickname") // 아이디 중복 확인
@@ -90,6 +94,10 @@ public class MemberController {
 		model.addAttribute("member", member);
 		model.addAttribute("inputAuthNum", inputAuthNum);
 		model.addAttribute("msg", memberSrv.chkAuthNum(sMember, inputAuthNum));
+		Object a = "memberinfo";
+		if(sMember.get("memberInfo") == a) {
+			return "forward:/memberInfo";
+		}
 		return "forward:/memberForm";
 	}
 	@RequestMapping("findId") // 이름과 이메일이 일치할 경우 아이디 팝업
@@ -157,6 +165,7 @@ public class MemberController {
 	}
 	@RequestMapping("memberInfo")
 	public String memberInfo(@ModelAttribute("sessionMember") Map<String, Object> Login) {
+		Login.put("memberInfo", "memberinfo");
 		return "forward:/memberInfo";
 	}
 	@RequestMapping("memberInfo_modi")
@@ -170,6 +179,7 @@ public class MemberController {
 
 		if (result==1) {
 			model.addAttribute("msg", "회원정보가 정상적으로 변경되었습니다.");
+			sMember.remove("memberInfo");
 			return "redirect:/login";
 		}else if(result==2)
 			model.addAttribute("msg", "인증받은 이메일 주소를 사용해야합니다.");
