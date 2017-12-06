@@ -145,16 +145,18 @@ CREATE TABLE board_hits
     CONSTRAINT BOARD_HITS_PK PRIMARY KEY (board_idx)
 )
 
+insert into board_hits(board_idx,board_readno) values('17','4')
+
 SELECT *
 		FROM(
 			SELECT LEVEL, board_idx, member_nickname, LPAD(' ', 4*(LEVEL-1))||board_type as board_type, board_time,
-			board_date, readNo, ROWNUM AS RNUM
+			board_date, h.board_readno, ROWNUM AS RNUM
 			FROM(
-				SELECT b.board_idx, member_nickname, board_type, board_time,
-				board_date, h.readNo,
+				SELECT b.board_idx, b.member_nickname, b.board_type, b.board_time,
+				b.board_date, h.board_readno,
 				FROM board b
-				LEFT JOIN hits h
-				ON b.board_idx = h.no
+				LEFT JOIN board_hits h
+				ON b.board_idx = h.board_idx
 			)
 		<where>
 			<choose>
@@ -176,4 +178,34 @@ SELECT *
 		)
 WHERE RNUM <![CDATA[ > ]]> #{start} 
 AND RNUM <![CDATA[ <= ]]> #{end}
+
+
+-- 페이징 연습 공지사항
+
+CREATE TABLE notice_hits
+(
+    notice_idx       INT    NOT NULL, 
+    notice_readno    INT    NULL, 
+    CONSTRAINT NOTICE_HITS_PK PRIMARY KEY (notice_idx)
+)
+
+insert into notice_hits(notice_idx,notice_readno) values('18','2')
+
+SELECT t.notice_idx, t.member_nickname, t.notice_title, t.notice_date,
+    n.notice_idx, n.notice_readno
+FROM table_noticeboard t 
+    INNER JOIN notice_hits n ON t.notice_idx = n.notice_idx
+WHERE t.notice_idx = 1 AND ROWNUM <= 100
+
+SELECT notice_idx, member_nickname, notice_title, notice_date 
+FROM table_noticeboard 
+where member_nickname like '%'||a||'%'
+
+
+
+
+
+
+
+
 

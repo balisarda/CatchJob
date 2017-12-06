@@ -18,6 +18,8 @@ import com.care.CatchJob.IService.BoardService;
 @Service
 public class BoardServiceImpl implements BoardService {
 	
+	private final int BLOCKSIZE = 3;
+	
 	@Autowired
 	private BoardDao boardDao;
 	
@@ -50,8 +52,18 @@ public class BoardServiceImpl implements BoardService {
 	
 	////////// 공지 사항 게시판
 	@Override
-	public List<Board_Notice> noticeselectBoard() {
+	public List<Board_Notice> noticeselectBoard(
+			String curPage, String searchOpt, String searchWord) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int pageNum=0;
+		if(curPage!=null)
+			pageNum = Integer.parseInt(curPage)-1;
+		map.put("start", pageNum * BLOCKSIZE);
+		map.put("end", (pageNum+1) * BLOCKSIZE);
+		map.put("searchOpt", searchOpt);
+		map.put("searchWord", searchWord);
+		
 		return boardDao.noticeselectBoard(map);
 	}
 

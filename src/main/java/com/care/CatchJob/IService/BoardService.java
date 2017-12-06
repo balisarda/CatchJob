@@ -17,7 +17,8 @@ public interface BoardService {
 	public void boarddeleteProc(int board_idx);
 	
 	// 공지사항 게시판에 관한 서비스	
-	public List<Board_Notice> noticeselectBoard();
+	public List<Board_Notice> noticeselectBoard(
+			String curPage, String searchOpt, String searchWord);
 	public Board_Notice noticedetailView(String notice_idx);
 	public void noticewriteProc(Board_Notice board_notice);
 	public void noticeupdateProc(Board_Notice board_notice);

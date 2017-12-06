@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.care.CatchJob.IDAO.BoardDao">
-<sql id="conditional">
-<where><!-- 나중에 -->
+<sql id="boardSearch">
+<where>
 	<choose>
-		<when test='searchOpt eq "id"'>
-		id like '%'||#{searchWord}||'%'
+		<when test='searchOpt eq "board_idx"'>
+		board_idx like '%'||#{searchWord}||'%'
 		</when>
-		<when test='searchOpt eq "title"'>
-		title like '%'||#{searchWord}||'%'
+		<when test='searchOpt eq "board_title"'>
+		board_title like '%'||#{searchWord}||'%'
 		</when>
 		<when test='searchOpt eq "all"'>
-		title like '%'||#{searchWord}||'%' 
-		OR id like '%'||#{searchWord}||'%'
+		board_title like '%'||#{searchWord}||'%' 
+		OR board_idx like '%'||#{searchWord}||'%'
 		</when>
 	</choose>
 </where>
@@ -21,10 +21,12 @@
 	<select id="selectBoard" resultType="com.care.CatchJob.DTO.Board">
 		SELECT board_idx, board_title, member_nickname, board_date, board_contents FROM board ORDER BY board_idx DESC
 	</select>
-	<select id="selectBoardCnt" parameterType="Map" resultType="int"><!-- 나중에 -->
+	
+	<select id="selectBoardCnt" parameterType="Map" resultType="int">
 		SELECT COUNT(*) FROM board
-		<include refid="conditional"></include>
+		<include refid="boardSearch"></include>
 	</select>
+	
 	<select id="detailView" parameterType="int" resultType="com.care.CatchJob.DTO.Board">
 		SELECT * FROM (SELECT board.*, member.member_name, member.member_age, member.member_gender, member.member_phone
 		FROM board, member WHERE board.member_nickname = member.member_nickname) where board_idx=#{board_idx}
@@ -42,13 +44,32 @@
 		DELETE FROM board WHERE board_idx=#{board_idx}
 	</delete>
 <!-- 공지 사항 게시판 -->
+<sql id="noticeSearch">
+<where>
+	<choose>
+		<when test='searchOpt eq "member_nickname"'>
+		member_nickname like '%'||#{searchWord}||'%'
+		</when>
+		<when test='searchOpt eq "notice_title"'>
+		notice_title like '%'||#{searchWord}||'%'
+		</when>
+		<when test='searchOpt eq "all"'>
+		notice_title like '%'||#{searchWord}||'%' 
+		OR member_nickname like '%'||#{searchWord}||'%'
+		</when>
+	</choose>
+</where>
+</sql>
 	<select id="noticeselectBoard" resultType="com.care.CatchJob.DTO.Board_Notice">
-		SELECT notice_idx, member_nickname, notice_title, notice_date, notice_contents FROM table_noticeboard ORDER BY notice_idx DESC
+		SELECT notice_idx, member_nickname, notice_title, notice_date FROM table_noticeboard
+		ORDER BY notice_idx DESC
 	</select>
-	<select id="noticeselectBoardCnt" parameterType="Map" resultType="int"><!-- 나중에 -->
+	
+	<select id="noticeselectBoardCnt" parameterType="Map" resultType="int">
 		SELECT COUNT(*) FROM table_noticeboard
-		<include refid="conditional"></include>
+		<include refid="noticeSearch"></include>
 	</select>
+	
 	<select id="noticedetailView" parameterType="int" resultType="com.care.CatchJob.DTO.Board_Notice">
 		SELECT * FROM table_noticeboard WHERE notice_idx=#{notice_idx}
 	</select>

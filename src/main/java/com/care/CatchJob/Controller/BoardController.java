@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.care.CatchJob.DTO.Board;
 import com.care.CatchJob.DTO.Board_Notice;
-import com.care.CatchJob.IDAO.JobDao;
 import com.care.CatchJob.IService.BoardService;
-import com.care.CatchJob.IService.JobService;
 
 @Controller
 @RequestMapping("board")
@@ -98,8 +96,13 @@ public class BoardController {
 
 	// 공지 사항 게시판
 	@RequestMapping("noticeBoard")
-	public String noticeBoard(Model model) {
-		model.addAttribute("noticeLst", boardSrv.noticeselectBoard());
+	public String noticeBoard(Model model,
+			@RequestParam(value="curPage", defaultValue="1") String curPage,
+			@RequestParam(value="selectOpt", defaultValue="all") String selectOpt,
+			@RequestParam(value="searchWord", defaultValue="") String searchWord) throws Exception {
+		
+		model.addAttribute("noticeLst", 
+				boardSrv.noticeselectBoard(curPage, selectOpt, searchWord));
 		return "forward:/board_noticeForm";
 	}
 
