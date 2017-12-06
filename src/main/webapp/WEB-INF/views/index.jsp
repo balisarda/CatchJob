@@ -7,6 +7,9 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
+<script type="text/javascript">
+
+</script>
 <html>
 <head>
 	<meta http-equiv="Context-Type" content="text/html; charset=UTF-8">

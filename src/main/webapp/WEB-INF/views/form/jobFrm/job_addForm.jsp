@@ -129,10 +129,10 @@
 		</form>								
 	</div>		
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8c341eec7decf92e7921dd2100c58e83&libraries=services"></script>	
-		<link rel="stylesheet" href="${css}form/addjob.css">
+		<link rel="stylesheet" href="${css}form/job_addForm.css">
 		<link rel="stylesheet" href="${css }jquery-ui.css">
 		<link rel="stylesheet" href="${css }jquery.timepicker.css">	
 		<script src="${js }jquery-3.2.1.js"></script>
 		<script src="${js }jquery.timepicker.js"></script>
-		<script src="${js }form/addjob.js"></script>
+		<script src="${js }form/job_addFrom.js"></script>
 		<script src="${js }jquery-ui.js"></script>

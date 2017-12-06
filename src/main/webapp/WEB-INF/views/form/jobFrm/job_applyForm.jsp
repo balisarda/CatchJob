@@ -121,8 +121,8 @@
 		</div>								
 	</div> 			
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8c341eec7decf92e7921dd2100c58e83"></script>	
-		<link rel="stylesheet" href="${css }form/applyInfo.css">
+		<link rel="stylesheet" href="${css }form/job_applyForm.css">
 		<link rel="stylesheet" href="${css }jquery-ui.css">	
 		<script src="${js }jquery-3.2.1.js"></script>
-		<script src="${js }form/applyInfo.js"></script>
+		<script src="${js }form/job_applyForm.js"></script>
 		<script src="${js }jquery-ui.js"></script>

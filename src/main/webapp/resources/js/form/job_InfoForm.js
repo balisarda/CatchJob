@@ -247,6 +247,11 @@ $( function() {
 			    });
 			 
 			    $( "#create-user" ).button().on( "click", function() {
+			    	job_num=$("#job_num").text();
+			    	if(job_num=="0명 지원 중"){
+			    		alert("현재 지원자가 없습니다.");
+			    		return false;
+			    	}
 			      dialog.dialog( "open" );
 			    });
  });

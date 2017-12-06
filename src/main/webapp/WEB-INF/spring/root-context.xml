@@ -9,7 +9,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean class="org.apache.commons.dbcp.BasicDataSource" id="datasource"
 	p:driverClassName="oracle.jdbc.OracleDriver" p:url="jdbc:oracle:thin:@localhost:1521:xe"
-	p:username="faith" p:password="890808" />
+	p:username="doobar2" p:password="en7779" />
 
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean" 
 	p:dataSource-ref="datasource" p:mapperLocations="WEB-INF/Mapper/*.xml" />

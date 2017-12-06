@@ -180,10 +180,10 @@
 		  </div>			  
 		</div>
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8c341eec7decf92e7921dd2100c58e83&libraries=services,clusterer"></script>
-		<link rel="stylesheet" href="${css }form/findjob.css">
+		<link rel="stylesheet" href="${css }form/job_findForm.css">
 		<link rel="stylesheet" href="${css }jquery-ui.css">
 		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 		<script src="${js }jquery-3.2.1.js"></script>
-		<script src="${js }form/findjob.js"></script>
+		<script src="${js }form/job_findForm.js"></script>
 		<script src="${js }jquery-ui.js"></script>
 	
