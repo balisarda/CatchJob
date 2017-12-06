@@ -29,7 +29,7 @@ public class MailServiceImpl implements MailService {
 	@Autowired
 	private MemberDao memberDao;
 	String id = "balisarda88";
-	String pw = "vhshvhsh1";
+	String pw = "!dbsqudakt1";
 	public String sndUsrName = "administrator";
 	public String sndUsrEmail = "balisarda88@gmail.com";
 	public String authNum = String.format("%04d", (int)(Math.random()*10000));

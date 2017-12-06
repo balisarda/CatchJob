@@ -28,6 +28,10 @@ public class MemberController {
 	@Autowired
 	private MailService mailSrv;
 	
+	public String nickname(@ModelAttribute("sessionMember") Map<String, Object> Login) {
+		String nickname = (String)Login.get("nickname");
+		return nickname;
+	}
 	@ModelAttribute("sessionMember")
 	public Map<String, Object> getSessionInfo(){
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -61,7 +65,7 @@ public class MemberController {
 			model.addAttribute("msg", "이메일에 대한 인증이 필요합니다.");
 			return "forward:/memberForm";
 		case 3:
-			model.addAttribute("msg", "인증받은 이메일 주소를 사용해야합니다..");
+			model.addAttribute("msg", "인증받은 이메일 주소를 사용해야합니다.");
 			return "forward:/memberForm";
 		case 4:
 			model.addAttribute("msg", "아이디 중복 확인이 필요합니다.");
@@ -102,10 +106,10 @@ public class MemberController {
 	public String findPw(Member member, Model model) {
 		if(mailSrv.findPw(member)) {
 			model.addAttribute("msg", "입력하신 이메일로 초기화된 패스워드를 발송하였습니다.");
-			return "forward:/findInfoForm";
+			return "redirect:/login";
 		}
 		model.addAttribute("msg", "요청하신 정보가 일치하지 않습니다.");
-		return "redirect:/loginForm";
+		return "forward:/findInfoForm";
 	}
 	@RequestMapping("insert_record")
 	public String insert_record(Record record) {
@@ -125,29 +129,50 @@ public class MemberController {
 	@RequestMapping("/member/loadInfo")
 	@ResponseBody
 	public JSONObject loadInfo(@ModelAttribute("sessionMember") Map<String, Object> Login) {
-		String nickname = (String)Login.get("nickname");
-		return memberSrv.loadInfo(nickname);
+		return memberSrv.loadInfo(nickname(Login));
 	}
-	@RequestMapping("memberInfo")
-	public String memberInfo(Model model, @ModelAttribute("sessionMember") Map<String, Object> Login) {
+	@RequestMapping("subInfo")
+	public String subInfo(Model model, @ModelAttribute("sessionMember") Map<String, Object> Login) {
 		return "forward:/submemberForm";
 	}
 	@RequestMapping("delete_record")
 	public String delete_record(@ModelAttribute("sessionMember") Map<String, Object> Login, @RequestParam("recordnum") int num) {
-		String nickname = (String)Login.get("nickname");
-		memberSrv.delete_record(nickname, num);
+		memberSrv.delete_record(nickname(Login), num);
 		return "forward:/submemberForm";
 	}
 	@RequestMapping("delete_license")
 	public String delete_license(@ModelAttribute("sessionMember") Map<String, Object> Login, @RequestParam("licensenum") int num) {		
-		String nickname = (String)Login.get("nickname");
-		memberSrv.delete_license(nickname, num);
+		memberSrv.delete_license(nickname(Login), num);
 		return "forward:/submemberForm";
 	}
 	@RequestMapping("delete_empinfo")
 	public String delete_empinfo(@ModelAttribute("sessionMember") Map<String, Object> Login, @RequestParam("empinfonum") int num) {		
-		String nickname = (String)Login.get("nickname");
-		memberSrv.delete_empinfo(nickname, num);
+		memberSrv.delete_empinfo(nickname(Login), num);
 		return "forward:/submemberForm";
+	}
+	@RequestMapping("memberInfo_JSON")
+	@ResponseBody
+	public JSONObject memberInfo_JSON(@ModelAttribute("sessionMember") Map<String, Object> Login) {
+		return memberSrv.memeberInfo(nickname(Login));
+	}
+	@RequestMapping("memberInfo")
+	public String memberInfo(@ModelAttribute("sessionMember") Map<String, Object> Login) {
+		return "forward:/memberInfo";
+	}
+	@RequestMapping("memberInfo_modi")
+	public String memberInfo_modi(Member member, Model model, @ModelAttribute("sessionMember") Map<String, Object> sMember, 
+			@RequestParam("oldemail") String oldemail, @RequestParam("oldphone") String oldphone) {
+		if(member.getPw().equals(null)) {
+			model.addAttribute("msg", "패스워드를 입력하여 주십시오.");
+			return "forward:/memberInfo";
+		}
+		int result = memberSrv.memberInfo_modi(member, sMember, oldemail, oldphone);
+
+		if (result==1) {
+			model.addAttribute("msg", "회원정보가 정상적으로 변경되었습니다.");
+			return "redirect:/login";
+		}else if(result==2)
+			model.addAttribute("msg", "인증받은 이메일 주소를 사용해야합니다.");
+			return "forward:/memberInfo";
 	}
 }
