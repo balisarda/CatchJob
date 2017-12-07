@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.care.CatchJob.IDAO.BoardDao">
+<!-- 알바 등록 게시판 -->
 <sql id="boardSearch">
 <where>
 	<choose>
-		<when test='searchOpt eq "board_idx"'>
-		board_idx like '%'||#{searchWord}||'%'
+		<when test='searchOpt eq "member_nickname"'>
+		member_nickname like '%'||#{boardsearchWord}||'%'
 		</when>
 		<when test='searchOpt eq "board_title"'>
-		board_title like '%'||#{searchWord}||'%'
+		board_title like '%'||#{boardsearchWord}||'%'
 		</when>
 		<when test='searchOpt eq "all"'>
-		board_title like '%'||#{searchWord}||'%' 
-		OR board_idx like '%'||#{searchWord}||'%'
+		board_title like '%'||#{boardsearchWord}||'%' 
+		OR member_nickname like '%'||#{boardsearchWord}||'%'
 		</when>
 	</choose>
 </where>
 </sql>
-<!-- 알바 등록 게시판 -->
 	<select id="selectBoard" resultType="com.care.CatchJob.DTO.Board">
-		SELECT board_idx, board_title, member_nickname, board_date, board_contents FROM board ORDER BY board_idx DESC
+		SELECT board_idx, board_title, member_nickname, board_date, board_hits
+		FROM board 
+		<include refid="boardSearch"></include>
+		ORDER BY board_idx DESC
 	</select>
 	
 	<select id="selectBoardCnt" parameterType="Map" resultType="int">
@@ -48,24 +51,26 @@
 <where>
 	<choose>
 		<when test='searchOpt eq "member_nickname"'>
-		member_nickname like '%'||#{searchWord}||'%'
+		member_nickname like '%'||#{noticesearchWord}||'%'
 		</when>
 		<when test='searchOpt eq "notice_title"'>
-		notice_title like '%'||#{searchWord}||'%'
+		notice_title like '%'||#{noticesearchWord}||'%'
 		</when>
 		<when test='searchOpt eq "all"'>
-		notice_title like '%'||#{searchWord}||'%' 
-		OR member_nickname like '%'||#{searchWord}||'%'
+		notice_title like '%'||#{noticesearchWord}||'%' 
+		OR member_nickname like '%'||#{noticesearchWord}||'%'
 		</when>
 	</choose>
 </where>
 </sql>
 	<select id="noticeselectBoard" resultType="com.care.CatchJob.DTO.Board_Notice">
-		SELECT notice_idx, member_nickname, notice_title, notice_date FROM table_noticeboard
+		SELECT notice_idx, member_nickname, notice_title, notice_date
+		FROM table_noticeboard
+		<include refid="noticeSearch"></include>
 		ORDER BY notice_idx DESC
 	</select>
 	
-	<select id="noticeselectBoardCnt" parameterType="Map" resultType="int">
+	<select id="noticeselectCnt" parameterType="Map" resultType="int">
 		SELECT COUNT(*) FROM table_noticeboard
 		<include refid="noticeSearch"></include>
 	</select>
@@ -85,8 +90,30 @@
 		DELETE FROM table_noticeboard WHERE notice_idx = #{notice_idx}
 	</delete>
 <!-- 일 등록 게시판 가져오기 -->
+<sql id="jobSearch">
+<where>
+	<choose>
+		<when test='searchOpt eq "member_nickname"'>
+		member_nickname like '%'||#{jobsearchWord}||'%'
+		</when>
+		<when test='searchOpt eq "job_name"'>
+		job_name like '%'||#{jobsearchWord}||'%'
+		</when>
+		<when test='searchOpt eq "all"'>
+		job_name like '%'||#{jobsearchWord}||'%' 
+		OR member_nickname like '%'||#{jobsearchWord}||'%'
+		</when>
+	</choose>
+</where>
+</sql>
 	<select id="selectjobBoard" resultType="com.care.CatchJob.DTO.Job">
-		SELECT no, member_nickname, board_date, job_name FROM job ORDER BY no DESC
+		SELECT no, member_nickname, board_date, job_name FROM job
+		<include refid="jobSearch"></include>
+		ORDER BY no DESC
+	</select>
+	<select id="jobselectCnt" parameterType="Map" resultType="int">
+		SELECT COUNT(*) FROM job
+		<include refid="jobSearch"></include>
 	</select>
 	<select id="jobdetailView" resultType="com.care.CatchJob.DTO.Job">
 		SELECT * FROM job WHERE no=#{no}

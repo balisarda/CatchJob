@@ -8,7 +8,14 @@ public class Board_Notice {
 	private String notice_date;
 	private String notice_contents;
 	
+	private int notice_hits;
 	
+	public int getNotice_hits() {
+		return notice_hits;
+	}
+	public void setNotice_hits(int notice_hits) {
+		this.notice_hits = notice_hits;
+	}
 	public int getNotice_idx() {
 		return notice_idx;
 	}

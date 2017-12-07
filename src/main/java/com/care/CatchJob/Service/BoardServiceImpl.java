@@ -1,5 +1,6 @@
 package com.care.CatchJob.Service;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,14 +20,24 @@ import com.care.CatchJob.IService.BoardService;
 public class BoardServiceImpl implements BoardService {
 	
 	private final int BLOCKSIZE = 3;
-	
+			
 	@Autowired
 	private BoardDao boardDao;
 	
 	///////////// 알바등록 게시판
 	@Override	// 게시판 불러오기
-	public List<Board> selectBoard() {
+	public List<Board> selectBoard(
+			String curPage, String searchOpt, String boardsearchWord) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int pageNum=0;
+		if(curPage!=null)
+			pageNum = Integer.parseInt(curPage)-1;
+		map.put("start", pageNum * BLOCKSIZE);
+		map.put("end", (pageNum+1) * BLOCKSIZE);
+		map.put("searchOpt", searchOpt);
+		map.put("boardsearchWord", boardsearchWord);
+		
 		return boardDao.selectBoard(map);
 	}
 
@@ -53,7 +64,7 @@ public class BoardServiceImpl implements BoardService {
 	////////// 공지 사항 게시판
 	@Override
 	public List<Board_Notice> noticeselectBoard(
-			String curPage, String searchOpt, String searchWord) {
+			String curPage, String searchOpt, String noticesearchWord) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		int pageNum=0;
@@ -62,7 +73,7 @@ public class BoardServiceImpl implements BoardService {
 		map.put("start", pageNum * BLOCKSIZE);
 		map.put("end", (pageNum+1) * BLOCKSIZE);
 		map.put("searchOpt", searchOpt);
-		map.put("searchWord", searchWord);
+		map.put("noticesearchWord", noticesearchWord);
 		
 		return boardDao.noticeselectBoard(map);
 	}
@@ -89,8 +100,18 @@ public class BoardServiceImpl implements BoardService {
 		
 	//////// 구인 게시판
 	@Override
-	public List<Job> selectjobBoard() {
+	public List<Job> selectjobBoard(
+			String curPage, String searchOpt, String jobsearchWord) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		
+		int pageNum=0;
+		if(curPage!=null)
+			pageNum = Integer.parseInt(curPage)-1;
+		map.put("start", pageNum * BLOCKSIZE);
+		map.put("end", (pageNum+1) * BLOCKSIZE);
+		map.put("searchOpt", searchOpt);
+		map.put("jobsearchWord", jobsearchWord);
+		
 		return boardDao.selectjobBoard(map);
 	}
 	// 구인 게시판 상세보기
@@ -167,6 +188,8 @@ public class BoardServiceImpl implements BoardService {
 		
 		return result;
 	}
+
+
 
 }
 

@@ -61,7 +61,7 @@ function jobdetailView(job_idx){
 										</td>
 										<td style="width: 80px; height: 40px;" align="center">${jobLst.member_nickname }</td>
 										<td style="width: 120px; height: 40px;" align="center">${jobLst.board_date }</td>
-										<td style="width: 80px; height: 40px;" align="center"></td>
+										<td style="width: 80px; height: 40px;" align="center">${jobLst.job_hits }</td>
 									</tr>
 								</c:forEach>
 							</c:when>
@@ -78,11 +78,12 @@ function jobdetailView(job_idx){
 								<form id="selectFrm" action="${home }board/selectBoard">
 									<select name="selectOpt">
 										<option value="all">전체</option>
-										<option value="title">제목</option>
-										<option value="nicname">작성자</option>
+										<option value="job_name">제목</option>
+										<option value="member_nickname">작성자</option>
 									</select> 
-									<input type=text name='searchWord' /> 
-									<input class="btn-gradient purple small" type="submit" name='searchBtn' value='검색' style="width: 80px;" />
+									<input type=text name='jobsearchWord' /> 
+									<input class="btn-gradient purple small" type="submit" 
+									name='searchBtn' value='검색' style="width: 80px;" />
 								</form>
 							</td>
 						</tr>
@@ -114,7 +115,7 @@ function jobdetailView(job_idx){
 										</td>
 										<td style="width: 80px; height: 40px;" align="center">${boardLst.member_nickname }</td>
 										<td style="width: 120px; height: 40px;" align="center">${boardLst.board_date }</td>
-										<td style="width: 80px; height: 40px;" align="center">${boardLst.board_time }</td>
+										<td style="width: 80px; height: 40px;" align="center">${boardLst.board_hits }</td>
 									</tr>
 								</c:forEach>
 							</c:when>
@@ -131,10 +132,11 @@ function jobdetailView(job_idx){
 								<form id="selectFrm" action="${home }board/selectBoard">
 									<select name="selectOpt">
 										<option value="all">전체</option>
-										<option value="title">제목</option>
-										<option value="nicname">작성자</option>
-									</select> <input type=text name='searchWord' />
-									<button class="btn-gradient purple small">검색</button>
+										<option value="board_title">제목</option>
+										<option value="member_nickname">작성자</option>
+									</select> <input type=text name='boardsearchWord' />
+									<input class="btn-gradient purple small" type="submit" 
+									name='searchBtn' value='검색' style="width: 80px;" />
 								</form>
 							</td>
 						</tr>

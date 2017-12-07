@@ -35,11 +35,15 @@ public class BoardController {
 
 	//////////// 구인 구직 게시판
 	@RequestMapping("selectBoard")
-	public String selectBoard(Model model) {
+	public String selectBoard(Model model,
+			@RequestParam(value="curPage", defaultValue="1") String curPage,
+			@RequestParam(value="selectOpt", defaultValue="all") String selectOpt,
+			@RequestParam(value="boardsearchWord", defaultValue="") String boardsearchWord,
+			@RequestParam(value="jobsearchWord", defaultValue="") String jobsearchWord) throws Exception {
 		// 구직 게시판
-		model.addAttribute("boardLst", boardSrv.selectBoard());
+		model.addAttribute("boardLst", boardSrv.selectBoard(curPage, selectOpt, boardsearchWord));
 		// 구인 게시판
-		model.addAttribute("jobLst", boardSrv.selectjobBoard());
+		model.addAttribute("jobLst", boardSrv.selectjobBoard(curPage, selectOpt, jobsearchWord));
 		
 		return "forward:/board_findForm";
 	}
@@ -99,10 +103,10 @@ public class BoardController {
 	public String noticeBoard(Model model,
 			@RequestParam(value="curPage", defaultValue="1") String curPage,
 			@RequestParam(value="selectOpt", defaultValue="all") String selectOpt,
-			@RequestParam(value="searchWord", defaultValue="") String searchWord) throws Exception {
+			@RequestParam(value="noticesearchWord", defaultValue="") String noticesearchWord) throws Exception {
 		
 		model.addAttribute("noticeLst", 
-				boardSrv.noticeselectBoard(curPage, selectOpt, searchWord));
+				boardSrv.noticeselectBoard(curPage, selectOpt, noticesearchWord));
 		return "forward:/board_noticeForm";
 	}
 

@@ -27,7 +27,8 @@ where board_idx=24
 
 ALTER TABLE board DROP COLUMN member_phone		-- 컬럼 삭제
 
-alter table board add(board_title VARCHAR2(50)); 	-- 컬럼 추가
+alter table table_noticeboard add(notice_hits int default 0)	-- 컬럼 추가
+
 
 ALTER TABLE board MODIFY(member_nickname VARCHAR2(30)); 	-- 컬럼 수정
 
@@ -46,7 +47,8 @@ CREATE TABLE board
     board_time         VARCHAR2(100)     NULL, 
     board_pay          VARCHAR2(50)      NULL, 
     board_addr         VARCHAR2(100)     NULL, 
-    board_contents     VARCHAR2(2000)    NULL, 
+    board_contents     VARCHAR2(2000)    NULL,
+    board_hits 			int 			default 0
     CONSTRAINT BOARD_PK PRIMARY KEY (board_idx)
 )
 
@@ -71,18 +73,12 @@ INSERT INTO board
 		#{board_addr},
 		#{board_contents})
 		
+UPDATE tbl_board SET viewcnt = viewcnt + 1 
+WHERE bno = #{bno}
 
 UPDATE board
 SET
-    board_idx = ,
-    member_nickname = 'faith9181',
-    board_title = 'board_title 1',
-    board_date = sysdate, 
-    board_type = 'board_type 1', 
-    board_time = 'board_time 1', 
-    board_pay = 'board_pay 1', 
-    board_addr = 'board_addr 1', 
-    board_contents = 'board_contents 1'
+    board_hits = + 1
 WHERE board_idx = 
 		
 		

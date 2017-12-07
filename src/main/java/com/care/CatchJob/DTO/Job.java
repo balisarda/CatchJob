@@ -20,8 +20,15 @@ public class Job {
 		private String job_time_start;
 		private String job_time_end;
 		private String board_date;
-		
+		private int job_hits;
 	
+		
+		public int getJob_hits() {
+			return job_hits;
+		}
+		public void setJob_hits(int job_hits) {
+			this.job_hits = job_hits;
+		}
 		public String getMember_nickname() {
 			return member_nickname;
 		}

@@ -58,7 +58,7 @@ function writeFrm(home){
 						</td>
 						<td style="width: 80px; height: 40px;" align="center">${notice.member_nickname }</td>
 						<td style="width: 120px; height: 40px;" align="center">${notice.notice_date }</td>
-						<td style="width: 80px; height: 40px;" align="center"></td>
+						<td style="width: 80px; height: 40px;" align="center">${notice.notice_hits }</td>
 					</tr>
 				</c:forEach>
 			</c:when>
@@ -90,10 +90,10 @@ function writeFrm(home){
 			<form id="selectFrm" action="${home }board/noticeBoard">
 				<select name="selectOpt">
 					<option value="all">전체</option>
-					<option value="title">제목</option>
-					<option value="nicname">작성자</option>
-				</select> <input type=text name='searchWord' /> <input
-					class="btn-gradient purple small" type="submit" name='searchBtn'
+					<option value="notice_title">제목</option>
+					<option value="member_nickname">작성자</option>
+				</select> <input type=text name='noticesearchWord' /> 
+				<input class="btn-gradient purple small" type="submit" name='searchBtn'
 					value='검색' style="width: 80px;" />
 			</form>
 		</td>
