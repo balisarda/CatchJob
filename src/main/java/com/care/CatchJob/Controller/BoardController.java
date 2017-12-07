@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.care.CatchJob.DTO.Board;
 import com.care.CatchJob.DTO.Board_Notice;
+import com.care.CatchJob.IDAO.BoardDao;
 import com.care.CatchJob.IService.BoardService;
 
 @Controller
@@ -24,6 +25,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardSrv;
+	
+	@Autowired
+	private BoardDao boardDao;
 
 	// 세션
 	@ModelAttribute("sessionMember")
@@ -93,7 +97,8 @@ public class BoardController {
 
 	// 구직 삭제
 	@RequestMapping("boardDeleteProc")
-	public String boardDeleteProc(Model model, @RequestParam("deleteNo") int board_idx) {
+	public String boardDeleteProc(Model model, 
+			@RequestParam("deleteNo") int board_idx) {
 		boardSrv.boarddeleteProc(board_idx);
 		return "redirect:/board/selectBoard";
 	}
@@ -104,18 +109,22 @@ public class BoardController {
 			@RequestParam(value="curPage", defaultValue="1") String curPage,
 			@RequestParam(value="selectOpt", defaultValue="all") String selectOpt,
 			@RequestParam(value="noticesearchWord", defaultValue="") String noticesearchWord) throws Exception {
-		
-		model.addAttribute("noticeLst", 
+
+		model.addAttribute("noticeLst",
 				boardSrv.noticeselectBoard(curPage, selectOpt, noticesearchWord));
 		return "forward:/board_noticeForm";
 	}
 
 	// 공지 사항 게시판 뷰 폼
 	@RequestMapping("noticeDetailView")
-	public String noticeDetailView(Model model, @RequestParam("noticeNo") String notice_idx,
-			@RequestParam("updateNo") String updateNo, @ModelAttribute("sessionMember") Map<String, Object> Nickname) {
+	public String noticeDetailView(Model model, 
+			@RequestParam("noticeNo") String notice_idx,
+			@RequestParam("updateNo") String updateNo, 
+			@ModelAttribute("sessionMember") Map<String, Object> Nickname) {
+		boardDao.noticehitsProc(Integer.parseInt(notice_idx));
 		model.addAttribute("Nickname", Nickname.get("Nickname"));
 		model.addAttribute("noticedetail", boardSrv.noticedetailView(notice_idx));
+		System.out.println(notice_idx);
 		if (updateNo.equals("update")) {
 			return "forward:/board_noticeupdateForm";
 		}

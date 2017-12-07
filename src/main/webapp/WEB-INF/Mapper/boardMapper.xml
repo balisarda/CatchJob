@@ -64,17 +64,15 @@
 </where>
 </sql>
 	<select id="noticeselectBoard" resultType="com.care.CatchJob.DTO.Board_Notice">
-		SELECT notice_idx, member_nickname, notice_title, notice_date
+		SELECT notice_idx, member_nickname, notice_title, notice_date, notice_hits
 		FROM table_noticeboard
 		<include refid="noticeSearch"></include>
 		ORDER BY notice_idx DESC
 	</select>
-	
 	<select id="noticeselectCnt" parameterType="Map" resultType="int">
 		SELECT COUNT(*) FROM table_noticeboard
 		<include refid="noticeSearch"></include>
 	</select>
-	
 	<select id="noticedetailView" parameterType="int" resultType="com.care.CatchJob.DTO.Board_Notice">
 		SELECT * FROM table_noticeboard WHERE notice_idx=#{notice_idx}
 	</select>
@@ -89,6 +87,11 @@
 	<delete id="noticedeleteProc" parameterType="com.care.CatchJob.DTO.Board_Notice">
 		DELETE FROM table_noticeboard WHERE notice_idx = #{notice_idx}
 	</delete>
+	<update id="noticehitsProc">
+		UPDATE table_noticeboard SET notice_hits=notice_hits+1
+		WHERE notice_idx=#{notice_idx}
+	</update>
+	
 <!-- 일 등록 게시판 가져오기 -->
 <sql id="jobSearch">
 <where>

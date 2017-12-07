@@ -20,11 +20,12 @@ public interface BoardDao {
 	
 	// 공지사항 게시판에 관한 서비스
 	public List<Board_Notice> noticeselectBoard(Map<String, Object> map);
-	public int noticeselectCnt(Map<String, String> map);
+	public int noticeselectCnt(int map);
 	public Board_Notice noticedetailView(int notice_idx);
 	public void noticewriteProc(Board_Notice board_notice);
 	public void noticeupdateProc(Board_Notice board_notice);
 	public void noticedeleteProc(int notice_idx);
+	public void noticehitsProc(int notice_idx);
 	
 	// 일등록 게시판 서비스
 	public List<Job> selectjobBoard(Map<String, Object> map);

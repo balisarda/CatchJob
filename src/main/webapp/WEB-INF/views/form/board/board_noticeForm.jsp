@@ -15,7 +15,6 @@
 -->
 </style>
 <script>
-<!--
 function noticeDetailView(notice_title){
 	document.getElementById('noticeNo').value=notice_title;
 	document.getElementById('updateNo').value="notice";
@@ -25,12 +24,11 @@ function writeFrm(home){
 	document.getElementById('frm').action=home+"board_noticewriteForm";
 	document.getElementById('frm').submit();
 }
-//-->
 </script>
 
 <!-- 게시글 세부사항 보기 -->
 <form id='frm' action="${home }board/noticeDetailView">
-	<input type="hidden" name="noticeNo" id="noticeNo"> 
+	<input type="hidden" name="noticeNo" id="noticeNo">
 	<input type="hidden" name="updateNo" id="updateNo">
 </form>
 <div align="center">

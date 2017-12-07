@@ -1,6 +1,6 @@
 package com.care.CatchJob.Service;
 
-
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,9 +20,10 @@ import com.care.CatchJob.IService.BoardService;
 public class BoardServiceImpl implements BoardService {
 	
 	private final int BLOCKSIZE = 3;
-			
+
 	@Autowired
 	private BoardDao boardDao;
+	
 	
 	///////////// 알바등록 게시판
 	@Override	// 게시판 불러오기
@@ -188,7 +189,6 @@ public class BoardServiceImpl implements BoardService {
 		
 		return result;
 	}
-
 
 
 }
