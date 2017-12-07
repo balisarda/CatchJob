@@ -12,9 +12,9 @@
 <link rel="stylesheet" href="${css }board/boardviewForm.css" />
 <script>
 <!--
-	function detailView(board_idx) {
+	function boardDetailProc(board_idx) {
 		document.getElementById('boardNo').value = board_idx;
-		document.getElementById('updateNo').value = "update";
+		document.getElementById('updateGo').value = "update";
 		document.getElementById('frm').submit();
 	}
 	function boardDeleteProc(deleteNo) {
@@ -27,9 +27,9 @@
 <form id='delete' action="${home }board/boardDeleteProc">
 	<input type="hidden" name="deleteNo" id="deleteNo">
 </form>
-<form id='frm' action="${home }board/detailView">
+<form id='frm' action="${home }board/boardDetailProc">
 	<input type="hidden" name="boardNo" id="boardNo"> 
-	<input type="hidden" name="updateNo" id="updateNo">
+	<input type="hidden" name="updateGo" id="updateGo">
 </form>
 <table class="table table-view" style="margin-left:300px;">
 	<colgroup>
@@ -46,15 +46,15 @@
 	</colgroup>
 	<thead>
 		<tr>
-			<th class="subject">${detailView.board_title }</th>
+			<th class="subject">${boardLst.board_title }</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
 			<td class="infocell"
-				style="border: 1px solid #444444; padding: 10px;"><b>등록일</b>${detailView.board_date }<br>
-				<b>작성자</b>${detailView.member_nickname }<br> <b>나이</b>${detailView.member_age }<br>
-				<b>성별</b> <c:set var="age" value="${detailView.member_gender }" />
+				style="border: 1px solid #444444; padding: 10px;"><b>등록일</b>${boardLst.board_date }<br>
+				<b>작성자</b>${boardLst.member_nickname }<br> <b>나이</b>${boardLst.member_age }<br>
+				<b>성별</b> <c:set var="age" value="${boardLst.member_gender }" />
 				<c:choose>
 					<c:when test="${age eq 'm'}">
 						<b>남자</b>
@@ -66,54 +66,54 @@
 		</tr>
 		<tr>
 			<td><b>전화번호</b></td>
-			<td class="contents" align="center">${detailView.member_phone }</td>
+			<td class="contents" align="center">${boardLst.member_phone }</td>
 		</tr>
 		<tr>
 			<td><b>원하는 알바유형</b></td>
-			<td class="contents" align="center">${detailView.board_type }</td>
+			<td class="contents" align="center">${boardLst.board_type }</td>
 		</tr>
 		<tr>
 			<td><b>원하는 알바 시간대</b></td>
-			<td class="contents" align="center">${detailView.board_time }</td>
+			<td class="contents" align="center">${boardLst.board_time }</td>
 		</tr>
 		<tr>
 			<td><b>원하는 알바급여</b></td>
-			<td class="contents" align="center">${detailView.board_pay }</td>
+			<td class="contents" align="center">${boardLst.board_pay }</td>
 		</tr>
 		<tr>
 			<td><b>장소</b></td>
-			<td class="contents" align="center">${detailView.board_addr }</td>
+			<td class="contents" align="center">${boardLst.board_addr }</td>
 		</tr>
 		<tr>
 			<td><b>기타 사항</b></td>
 			<td class="contents" align="center"><textarea rows="15"
-					cols="25">${detailView.board_contents }</textarea></td>
+					cols="25">${boardLst.board_contents }</textarea></td>
 		</tr>
 	</tbody>
 	<c:set var="nickname" value="${sessionMember.nickname }" />
-	<c:set var="nick" value="${detailView.member_nickname }" />
+	<c:set var="nick" value="${boardLst.member_nickname }" />
 	<tr>
 		<c:choose>
 			<c:when test="${nickname eq nick}">
 				<td colspan=2 align="center" class="contents"><input
 					type="button" value='수정'
-					onclick="detailView('${detailView.board_idx}')" /> <input
+					onclick="boardDetailProc('${boardLst.board_idx}')" /> <input
 					type="button" value='삭제'
-					onclick="boardDeleteProc('${detailView.board_idx}')" /> <input
+					onclick="boardDeleteProc('${boardLst.board_idx}')" /> <input
 					type="button" value='목록'
-					onclick="location.href='${home }board/selectBoard'" /></td>
+					onclick="location.href='${home }board/boardSelectProc'" /></td>
 			</c:when>
 			<c:when test="${nickname eq 'CatchJob'}">
 				<td colspan=2 align="center" class="contents"> <input
 					type="button" value='삭제'
-					onclick="boardDeleteProc('${detailView.board_idx}')" /> <input
+					onclick="boardDeleteProc('${boardLst.board_idx}')" /> <input
 					type="button" value='목록'
-					onclick="location.href='${home }board/selectBoard'" /></td>
+					onclick="location.href='${home }board/boardSelectProc'" /></td>
 			</c:when>
 			<c:otherwise>
 				<td colspan=2 class="contents" align="center"><input
 					type="button" value='목록'
-					onclick="location.href='${home }board/selectBoard'" /></td>
+					onclick="location.href='${home }board/boardSelectProc'" /></td>
 			</c:otherwise>
 		</c:choose>
 	</tr>

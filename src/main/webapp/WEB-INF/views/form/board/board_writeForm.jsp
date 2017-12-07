@@ -5,7 +5,7 @@
 <c:url var="home" value="/" />
 <link rel="stylesheet" href="${css }buttonst.css" type="text/css">
 
-<form action="${home }board/writeProc" method="post">
+<form action="${home }board/boardInsertProc" method="post">
 	<!-- 히든으로 닉네임 세션으로 받아서 폼안에서 값 보내기 -->
 	<input type="hidden" name="member_nickname" value="${sessionMember.nickname}">
 	<div>

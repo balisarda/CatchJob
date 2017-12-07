@@ -38,35 +38,40 @@ public class BoardController {
 	}
 
 	//////////// 구인 구직 게시판
-	@RequestMapping("selectBoard")
-	public String selectBoard(Model model,
+	@RequestMapping("boardSelectProc")
+	public String boardSelectProc(Model model,
 			@RequestParam(value="curPage", defaultValue="1") String curPage,
 			@RequestParam(value="selectOpt", defaultValue="all") String selectOpt,
 			@RequestParam(value="boardsearchWord", defaultValue="") String boardsearchWord,
 			@RequestParam(value="jobsearchWord", defaultValue="") String jobsearchWord) throws Exception {
 		// 구직 게시판
-		model.addAttribute("boardLst", boardSrv.selectBoard(curPage, selectOpt, boardsearchWord));
+		model.addAttribute("boardLst", 
+				boardSrv.boardSelectProc(curPage, selectOpt, boardsearchWord));
 		// 구인 게시판
-		model.addAttribute("jobLst", boardSrv.selectjobBoard(curPage, selectOpt, jobsearchWord));
+		model.addAttribute("jobLst", 
+				boardSrv.jobSelectProc(curPage, selectOpt, jobsearchWord));
 		
 		return "forward:/board_findForm";
 	}
 
 	// 구직 게시판 상세정보 보기
-	@RequestMapping("detailView")
-	public String detailView(Model model, @RequestParam("boardNo") String board_idx,
-			@RequestParam("updateNo") String updateNo, @ModelAttribute("sessionMember") Map<String, Object> Nickname) {
+	@RequestMapping("boardDetailProc")
+	public String boardDetailProc(Model model, 
+			@RequestParam("boardNo") String board_idx,
+			@RequestParam("updateGo") String updateGo,
+			@ModelAttribute("sessionMember") Map<String, Object> Nickname) {
+		boardDao.boardHitsProc(Integer.parseInt(board_idx));
 		model.addAttribute("Nickname", Nickname.get("Nickname"));
-		model.addAttribute("detailView", boardSrv.detailView(board_idx));
-		if (updateNo.equals("update")) {
+		model.addAttribute("boardLst", boardSrv.boardDetailProc(board_idx));
+		if (updateGo.equals("update")) {
 			return "forward:/board_updateForm";
 		}
 		return "forward:/board_viewForm";
 	}
 
 	// 구직 게시판 글쓰기
-	@RequestMapping("writeProc")
-	public String writeProc(Model model, Board board,
+	@RequestMapping("boardInsertProc")
+	public String boardInsertProc(Model model, Board board,
 			@ModelAttribute("sessionMember") Map<String, Object> sessionNickname) {
 		// 세션 받아서 값 저장
 
@@ -77,8 +82,8 @@ public class BoardController {
 			model.addAttribute("msg", "제목을 입력하세요.");
 			return "forward:/board_writeForm";
 		} else {
-			boardSrv.insertProc(board);
-			return "redirect:/board/selectBoard";
+			boardSrv.boardInsertProc(board);
+			return "redirect:/board/boardSelectProc";
 		}
 	}
 
@@ -90,8 +95,8 @@ public class BoardController {
 			model.addAttribute("msg", "제목을 입력하세요");
 			return "forward:/board_updateForm";
 		} else {
-			boardSrv.boardupdateProc(board);
-			return "redirect:/board/selectBoard";
+			boardSrv.boardUpdateProc(board);
+			return "redirect:/board/boardSelectProc";
 		}
 	}
 
@@ -99,48 +104,48 @@ public class BoardController {
 	@RequestMapping("boardDeleteProc")
 	public String boardDeleteProc(Model model, 
 			@RequestParam("deleteNo") int board_idx) {
-		boardSrv.boarddeleteProc(board_idx);
-		return "redirect:/board/selectBoard";
+		boardSrv.boardDeleteProc(board_idx);
+		return "redirect:/board/boardSelectProc";
 	}
 
 	// 공지 사항 게시판
-	@RequestMapping("noticeBoard")
-	public String noticeBoard(Model model,
+	@RequestMapping("noticeSelectProc")
+	public String noticeSelectProc(Model model,
 			@RequestParam(value="curPage", defaultValue="1") String curPage,
 			@RequestParam(value="selectOpt", defaultValue="all") String selectOpt,
 			@RequestParam(value="noticesearchWord", defaultValue="") String noticesearchWord) throws Exception {
 
 		model.addAttribute("noticeLst",
-				boardSrv.noticeselectBoard(curPage, selectOpt, noticesearchWord));
+				boardSrv.noticeSelectProc(curPage, selectOpt, noticesearchWord));
 		return "forward:/board_noticeForm";
 	}
 
 	// 공지 사항 게시판 뷰 폼
-	@RequestMapping("noticeDetailView")
-	public String noticeDetailView(Model model, 
+	@RequestMapping("noticeDetailProc")
+	public String noticeDetailProc(Model model, 
 			@RequestParam("noticeNo") String notice_idx,
-			@RequestParam("updateNo") String updateNo, 
+			@RequestParam("updateGo") String updateGo,
 			@ModelAttribute("sessionMember") Map<String, Object> Nickname) {
-		boardDao.noticehitsProc(Integer.parseInt(notice_idx));
+		boardDao.noticeHitsProc(Integer.parseInt(notice_idx));
 		model.addAttribute("Nickname", Nickname.get("Nickname"));
-		model.addAttribute("noticedetail", boardSrv.noticedetailView(notice_idx));
+		model.addAttribute("noticeLst", boardSrv.noticeDetailProc(notice_idx));
 		System.out.println(notice_idx);
-		if (updateNo.equals("update")) {
+		if (updateGo.equals("noticeUp")) {
 			return "forward:/board_noticeupdateForm";
 		}
 		return "forward:/board_noticeviewForm";
 	}
 
 	// 공지 사항 게시판 글쓰기
-	@RequestMapping("noticeWriteProc")
-	public String noticeWriteProc(Model model, Board_Notice noticeBoard,
+	@RequestMapping("noticeInsertProc")
+	public String noticeInsertProc(Model model, Board_Notice noticeBoard,
 			@ModelAttribute("sessionMember") Map<String, Object> sessionNickname) {
 		if (noticeBoard.getNotice_title().length() == 0) {
 			model.addAttribute("msg", "제목을 입력하세요");
 			return "forward:/board_noticewriteForm";
 		} else {
-			boardSrv.noticewriteProc(noticeBoard);
-			return "redirect:/board/noticeBoard";
+			boardSrv.noticeInsertProc(noticeBoard);
+			return "redirect:/board/noticeSelectProc";
 		}
 	}
 
@@ -153,16 +158,16 @@ public class BoardController {
 			model.addAttribute("msg", "제목을 입력하세요");
 			return "forward:/board_noticeupdateForm";
 		} else {
-			boardSrv.noticeupdateProc(noticeBoard);
-			return "redirect:/board/noticeBoard";
+			boardSrv.noticeUpdateProc(noticeBoard);
+			return "redirect:/board/noticeSelectProc";
 		}
 	}
 
 	// 공지 사항 게시판 글 삭제
 	@RequestMapping("noticeDeleteProc")
 	public String noticeDeleteProc(Model model, @RequestParam("deleteNo") int notice_idx) {
-		boardSrv.noticedeleteProc(notice_idx);
-		return "redirect:/board/noticeBoard";
+		boardSrv.noticeDeleteProc(notice_idx);
+		return "redirect:/board/noticeSelectProc";
 	}
 
 	// 메인 공지,구인,구직 미리보기
@@ -174,10 +179,11 @@ public class BoardController {
 	
 	
 	// 구인 게시판에서 글 상세보기
-	@RequestMapping("jobdetailView")
-	public String jobdetailView(Model model,
-			@RequestParam("jobNo") String job_No) {
-		model.addAttribute("job_list", boardSrv.jobdetailView(job_No));
+	@RequestMapping("jobDetailProc")
+	public String jobDetailProc(Model model,
+			@RequestParam("jobNo") String no) {
+		boardDao.jobHitsProc(Integer.parseInt(no));
+		model.addAttribute("jobLst", boardSrv.jobDetailProc(no));
 		return "forward:/job_findViewForm";
 	}
 

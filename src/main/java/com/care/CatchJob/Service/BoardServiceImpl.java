@@ -1,6 +1,6 @@
 package com.care.CatchJob.Service;
 
-import java.net.URLEncoder;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,14 +20,13 @@ import com.care.CatchJob.IService.BoardService;
 public class BoardServiceImpl implements BoardService {
 	
 	private final int BLOCKSIZE = 3;
-
+			
 	@Autowired
 	private BoardDao boardDao;
 	
-	
 	///////////// 알바등록 게시판
 	@Override	// 게시판 불러오기
-	public List<Board> selectBoard(
+	public List<Board> boardSelectProc(
 			String curPage, String searchOpt, String boardsearchWord) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -39,32 +38,32 @@ public class BoardServiceImpl implements BoardService {
 		map.put("searchOpt", searchOpt);
 		map.put("boardsearchWord", boardsearchWord);
 		
-		return boardDao.selectBoard(map);
+		return boardDao.boardSelectProc(map);
 	}
 
 	@Override	// 상세정보 불러오기
-	public Board detailView(String board_idx) {
-		return boardDao.detailView(Integer.parseInt(board_idx));
+	public Board boardDetailProc(String board_idx) {
+		return boardDao.boardDetailProc(Integer.parseInt(board_idx));
 	}
 
 	@Override	// 정보 인서트
-	public void insertProc(Board board) {
-		boardDao.insertProc(board);
+	public void boardInsertProc(Board board) {
+		boardDao.boardInsertProc(board);
 	}
 
 	@Override	// 업데이트 확인
-	public void boardupdateProc(Board board) {	
-		boardDao.boardupdateProc(board);
+	public void boardUpdateProc(Board board) {	
+		boardDao.boardUpdateProc(board);
 	}
 	
 	@Override	// 삭제
-	public void boarddeleteProc(int board_idx) {
-		boardDao.boarddeleteProc(board_idx);
+	public void boardDeleteProc(int board_idx) {
+		boardDao.boardDeleteProc(board_idx);
 	}
 	
 	////////// 공지 사항 게시판
 	@Override
-	public List<Board_Notice> noticeselectBoard(
+	public List<Board_Notice> noticeSelectProc(
 			String curPage, String searchOpt, String noticesearchWord) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -76,32 +75,32 @@ public class BoardServiceImpl implements BoardService {
 		map.put("searchOpt", searchOpt);
 		map.put("noticesearchWord", noticesearchWord);
 		
-		return boardDao.noticeselectBoard(map);
+		return boardDao.noticeSelectProc(map);
 	}
 
 	@Override
-	public Board_Notice noticedetailView(String notice_idx) {
-		return boardDao.noticedetailView(Integer.parseInt(notice_idx));
+	public Board_Notice noticeDetailProc(String notice_idx) {
+		return boardDao.noticeDetailProc(Integer.parseInt(notice_idx));
 	}
 
 	@Override
-	public void noticewriteProc(Board_Notice board_notice) {
-		boardDao.noticewriteProc(board_notice);
+	public void noticeInsertProc(Board_Notice board_notice) {
+		boardDao.noticeInsertProc(board_notice);
 	}
 	
 	@Override
-	public void noticeupdateProc(Board_Notice board_notice){
-		boardDao.noticeupdateProc(board_notice);
+	public void noticeUpdateProc(Board_Notice board_notice){
+		boardDao.noticeUpdateProc(board_notice);
 	}
 	
 	@Override
-	public void noticedeleteProc(int notice_idx) {
-		boardDao.noticedeleteProc(notice_idx);
+	public void noticeDeleteProc(int notice_idx) {
+		boardDao.noticeDeleteProc(notice_idx);
 	}
 		
 	//////// 구인 게시판
 	@Override
-	public List<Job> selectjobBoard(
+	public List<Job> jobSelectProc(
 			String curPage, String searchOpt, String jobsearchWord) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -113,12 +112,12 @@ public class BoardServiceImpl implements BoardService {
 		map.put("searchOpt", searchOpt);
 		map.put("jobsearchWord", jobsearchWord);
 		
-		return boardDao.selectjobBoard(map);
+		return boardDao.jobSelectProc(map);
 	}
 	// 구인 게시판 상세보기
 	@Override
-	public Job jobdetailView(String Job_no) {
-		return boardDao.jobdetailView(Integer.parseInt(Job_no));
+	public Job jobDetailProc(String Job_no) {
+		return boardDao.jobDetailProc(Integer.parseInt(Job_no));
 	}
 	
 //////// 메인화면 구인,구직,공지 미리보기

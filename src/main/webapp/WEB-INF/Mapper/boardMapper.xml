@@ -18,34 +18,39 @@
 	</choose>
 </where>
 </sql>
-	<select id="selectBoard" resultType="com.care.CatchJob.DTO.Board">
+	<select id="boardSelectProc" resultType="com.care.CatchJob.DTO.Board">
 		SELECT board_idx, board_title, member_nickname, board_date, board_hits
 		FROM board 
 		<include refid="boardSearch"></include>
 		ORDER BY board_idx DESC
 	</select>
 	
-	<select id="selectBoardCnt" parameterType="Map" resultType="int">
+	<select id="boardSelectCnt" parameterType="Map" resultType="int">
 		SELECT COUNT(*) FROM board
 		<include refid="boardSearch"></include>
 	</select>
 	
-	<select id="detailView" parameterType="int" resultType="com.care.CatchJob.DTO.Board">
+	<select id="boardDetailProc" parameterType="int" resultType="com.care.CatchJob.DTO.Board">
 		SELECT * FROM (SELECT board.*, member.member_name, member.member_age, member.member_gender, member.member_phone
 		FROM board, member WHERE board.member_nickname = member.member_nickname) where board_idx=#{board_idx}
 	</select>
-	<insert id="insertProc" parameterType="com.care.CatchJob.DTO.Board">
+	<insert id="boardInsertProc" parameterType="com.care.CatchJob.DTO.Board">
 		INSERT INTO board (board_idx, member_nickname, board_title, board_date, board_type, board_time, board_pay, board_addr, board_contents)
 		VALUES ((SELECT NVL(MAX(board_idx), 0)+1 FROM board), #{member_nickname}, #{board_title}, sysdate, #{board_type, jdbcType=VARCHAR}, 		<!-- , jdbcType=VARCHAR 부적합한 열유형 오류 해결 -->
 		#{board_time, jdbcType=VARCHAR}, #{board_pay}, #{board_addr}, #{board_contents})
 	</insert>
-	<update id="boardupdateProc" parameterType="com.care.CatchJob.DTO.Board">
+	<update id="boardUpdateProc" parameterType="com.care.CatchJob.DTO.Board">
 		UPDATE board SET board_idx=#{board_idx}, member_nickname=#{member_nickname}, board_title=#{board_title}, board_date=sysdate, board_type=#{board_type, jdbcType=VARCHAR},
 		board_time=#{board_time, jdbcType=VARCHAR}, board_pay=#{board_pay}, board_addr=#{board_addr}, board_contents=#{board_contents} WHERE board_idx=#{board_idx}
 	</update>
-	<delete id="boarddeleteProc" parameterType="com.care.CatchJob.DTO.Board">
+	<delete id="boardDeleteProc" parameterType="com.care.CatchJob.DTO.Board">
 		DELETE FROM board WHERE board_idx=#{board_idx}
 	</delete>
+	<update id="boardHitsProc">
+		UPDATE board SET board_hits=board_hits+1
+		WHERE board_idx=#{board_idx}
+	</update>
+	
 <!-- 공지 사항 게시판 -->
 <sql id="noticeSearch">
 <where>
@@ -63,31 +68,31 @@
 	</choose>
 </where>
 </sql>
-	<select id="noticeselectBoard" resultType="com.care.CatchJob.DTO.Board_Notice">
+	<select id="noticeSelectProc" resultType="com.care.CatchJob.DTO.Board_Notice">
 		SELECT notice_idx, member_nickname, notice_title, notice_date, notice_hits
 		FROM table_noticeboard
 		<include refid="noticeSearch"></include>
 		ORDER BY notice_idx DESC
 	</select>
-	<select id="noticeselectCnt" parameterType="Map" resultType="int">
+	<select id="noticeSelectCnt" parameterType="Map" resultType="int">
 		SELECT COUNT(*) FROM table_noticeboard
 		<include refid="noticeSearch"></include>
 	</select>
-	<select id="noticedetailView" parameterType="int" resultType="com.care.CatchJob.DTO.Board_Notice">
+	<select id="noticeDetailProc" parameterType="int" resultType="com.care.CatchJob.DTO.Board_Notice">
 		SELECT * FROM table_noticeboard WHERE notice_idx=#{notice_idx}
 	</select>
-	<insert id="noticewriteProc" parameterType="com.care.CatchJob.DTO.Board_Notice">
+	<insert id="noticeInsertProc" parameterType="com.care.CatchJob.DTO.Board_Notice">
 		INSERT INTO table_noticeboard (notice_idx, member_nickname, notice_title, notice_date, notice_contents)
 		VALUES ((SELECT NVL(MAX(notice_idx), 0)+1 FROM table_noticeboard), #{member_nickname}, #{notice_title},	sysdate, #{notice_contents})
 	</insert>
-	<update id="noticeupdateProc" parameterType="com.care.CatchJob.DTO.Board_Notice">
+	<update id="noticeUpdateProc" parameterType="com.care.CatchJob.DTO.Board_Notice">
 		UPDATE table_noticeboard SET notice_idx=#{notice_idx}, member_nickname=#{member_nickname}, notice_title=#{notice_title}, notice_date=sysdate, 
  		notice_contents=#{notice_contents} WHERE notice_idx=#{notice_idx}
 	</update>
-	<delete id="noticedeleteProc" parameterType="com.care.CatchJob.DTO.Board_Notice">
+	<delete id="noticeDeleteProc" parameterType="com.care.CatchJob.DTO.Board_Notice">
 		DELETE FROM table_noticeboard WHERE notice_idx = #{notice_idx}
 	</delete>
-	<update id="noticehitsProc">
+	<update id="noticeHitsProc">
 		UPDATE table_noticeboard SET notice_hits=notice_hits+1
 		WHERE notice_idx=#{notice_idx}
 	</update>
@@ -109,18 +114,22 @@
 	</choose>
 </where>
 </sql>
-	<select id="selectjobBoard" resultType="com.care.CatchJob.DTO.Job">
-		SELECT no, member_nickname, board_date, job_name FROM job
+	<select id="jobSelectProc" resultType="com.care.CatchJob.DTO.Job">
+		SELECT no, member_nickname, board_date, job_name, job_hits FROM job
 		<include refid="jobSearch"></include>
 		ORDER BY no DESC
 	</select>
-	<select id="jobselectCnt" parameterType="Map" resultType="int">
+	<select id="jobSelectCnt" parameterType="Map" resultType="int">
 		SELECT COUNT(*) FROM job
 		<include refid="jobSearch"></include>
 	</select>
-	<select id="jobdetailView" resultType="com.care.CatchJob.DTO.Job">
+	<select id="jobDetailProc" resultType="com.care.CatchJob.DTO.Job">
 		SELECT * FROM job WHERE no=#{no}
 	</select>
+	<update id="jobHitsProc">
+		UPDATE job SET job_hits=job_hits+1
+		WHERE no=#{no}
+	</update>
 	
 <!-- 메인 화면 공지, 구인, 구직 미리보기 -->
  	<select id="loadBoard" resultType="java.util.HashMap">

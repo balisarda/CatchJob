@@ -8,26 +8,25 @@
 
 <link rel="stylesheet" href="${css }board/boardviewForm.css" />
 <script>
-<!--
-	function noticeDetailView(notice_idx) {
-		document.getElementById('writeNo').value = notice_idx;
-		document.getElementById('updateNo').value = "update";
-		document.getElementById('frm').submit();
+
+function noticeDetailProc(noticeNo) {
+	document.getElementById('noticeNo').value = noticeNo;
+	document.getElementById('updateGo').value = "noticeUp";
+	document.getElementById('frm').submit();	
 	}
-	function noticeDeleteProc(deleteNo) {
-		document.getElementById('deleteNo').value = deleteNo;
-		document.getElementById('delete').submit();
+function noticeDeleteProc(deleteNo) {
+	document.getElementById('deleteNo').value = deleteNo;
+	document.getElementById('delete').submit();
 	}
-//-->
 </script>
 
 </head>
 <form id='delete' action="${home }board/noticeDeleteProc">
 	<input type="hidden" name="deleteNo" id="deleteNo">
 </form>
-<form id='frm' action="${home }board/noticeDetailView">
-	<input type="hidden" name="writeNo" id="writeNo"> 
-	<input type="hidden" name="updateNo" id="updateNo">
+<form id='frm' action="${home }board/noticeDetailProc">
+	<input type="hidden" name="noticeNo" id="noticeNo"> 
+	<input type="hidden" name="updateGo" id="updateGo">
 </form>
 <body>
 	<div id="sub_wrap">
@@ -47,17 +46,17 @@
 				</colgroup>
 				<thead>
 					<tr>
-						<th class="subject">${noticedetail.notice_title }</th>
+						<th class="subject">${noticeLst.notice_title }</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td class="infocell"><b>등록일 </b>${noticedetail.notice_date }
-							<b>작성자 </b>${noticedetail.member_nickname }</td>
+							<b>작성자 </b>${noticeLst.member_nickname }</td>
 					</tr>
 					<tr>
 						<td class="contents" align="center">
-							${noticedetail.notice_contents }</td>
+							${noticeLst.notice_contents }</td>
 					</tr>
 				</tbody>
 
@@ -66,15 +65,15 @@
 					<c:choose>
 						<c:when test="${nickname eq 'CatchJob'}">
 							<td colspan=2 align="center"><input type="button" value='수정'
-								onclick="noticeDetailView('${noticedetail.notice_idx}')" /> <input
+								onclick="noticeDetailProc('${noticeLst.notice_idx}')" /> <input
 								type="button" value='삭제'
-								onclick="noticeDeleteProc('${noticedetail.notice_idx}')" /> <input
+								onclick="noticeDeleteProc('${noticeLst.notice_idx}')" /> <input
 								type="button" value='목록'
-								onclick="location.href='${home }board/noticeBoard'" /></td>
+								onclick="location.href='${home }board/noticeSelectProc'" /></td>
 						</c:when>
 						<c:otherwise>
 							<td colspan=2 align="center"><input type="button" value='목록'
-								onclick="location.href='${home }board/noticeBoard'" /></td>
+								onclick="location.href='${home }board/noticeSelectProc'" /></td>
 						</c:otherwise>
 					</c:choose>
 				</tr>

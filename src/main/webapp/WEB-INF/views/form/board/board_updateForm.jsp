@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="${css }buttonst.css" type="text/css">
 
 <form action="${home }board/boardUpdateProc" method="post">
-	<input type="hidden" name="member_nickname" value="${sessionMember.nickname}"> <input type="hidden" name="board_idx" value="${detailView.board_idx }">
+	<input type="hidden" name="member_nickname" value="${sessionMember.nickname}"> <input type="hidden" name="board_idx" value="${boardLst.board_idx }">
 	<div>
 		<h1 align="center">일 하고 싶어요</h1>
 		<hr>
@@ -14,7 +14,7 @@
 	<br>
 	<div>
 		<a onMouseover="this.style.color='red';">한 줄 소개 제목</a> 
-		<input type="text" name="board_title" maxlength="30" size="35" value="${detailView.board_title }" />
+		<input type="text" name="board_title" maxlength="30" size="35" value="${boardLst.board_title }" />
 		<a style="color: red;">${msg }</a>
 	</div>
 	<br>
@@ -81,7 +81,7 @@
 		<a onMouseover="this.style.color='blue';">알바를 하고 싶은 장소</a><br>
 		<div>
 			<input type="button" onclick="SearchAddr('${home}form/getmapForm')" value="주소검색" />
-			<input type="text" id="reciaddr" name="board_addr" value="${detailView.board_addr }" />
+			<input type="text" id="reciaddr" name="board_addr" value="${boardLst.board_addr }" />
 		</div>
 		<br>
 	</div>
@@ -90,7 +90,7 @@
 	<!-- 구직 내용 컨텐츠 -->
 	<a onMouseover="this.style.color='blue';">각오와 다짐</a> <br>
 	<div>
-		<textarea rows="5" cols="40" name="board_contents">${detailView.board_contents }</textarea>
+		<textarea rows="5" cols="40" name="board_contents">${boardLst.board_contents }</textarea>
 	</div>
 	<div align="center">
 		<input type="submit" class="btn-gradient orange large" value="수정">

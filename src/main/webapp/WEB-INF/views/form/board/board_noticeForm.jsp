@@ -15,21 +15,21 @@
 -->
 </style>
 <script>
-function noticeDetailView(notice_title){
+function noticeDetailProc(notice_title){
 	document.getElementById('noticeNo').value=notice_title;
-	document.getElementById('updateNo').value="notice";
+	document.getElementById('updateGo').value="no";
 	document.getElementById('frm').submit();
 }
-function writeFrm(home){
+function noticewriteFrm(home){
 	document.getElementById('frm').action=home+"board_noticewriteForm";
 	document.getElementById('frm').submit();
 }
 </script>
 
 <!-- 게시글 세부사항 보기 -->
-<form id='frm' action="${home }board/noticeDetailView">
+<form id='frm' action="${home }board/noticeDetailProc">
 	<input type="hidden" name="noticeNo" id="noticeNo">
-	<input type="hidden" name="updateNo" id="updateNo">
+	<input type="hidden" name="updateGo" id="updateGo">
 </form>
 <div align="center">
 	<h2 >공지사항</h2><br><br>
@@ -47,16 +47,16 @@ function writeFrm(home){
 	<tbody>
 		<c:choose>
 			<c:when test="${fn:length(noticeLst) > 0}">
-				<c:forEach var="notice" items="${noticeLst }">
+				<c:forEach var="noticeLst" items="${noticeLst }">
 					<tr>
-						<td style="width: 40px; height: 40px;" align="center">${notice.notice_idx}</td>
+						<td style="width: 40px; height: 40px;" align="center">${noticeLst.notice_idx}</td>
 						<td style="width: 330px; height: 40px;" align="center">
 							<div class="title"
-								onclick="noticeDetailView('${notice.notice_idx}')">${notice.notice_title }</div>
+								onclick="noticeDetailProc('${noticeLst.notice_idx}')">${noticeLst.notice_title }</div>
 						</td>
-						<td style="width: 80px; height: 40px;" align="center">${notice.member_nickname }</td>
-						<td style="width: 120px; height: 40px;" align="center">${notice.notice_date }</td>
-						<td style="width: 80px; height: 40px;" align="center">${notice.notice_hits }</td>
+						<td style="width: 80px; height: 40px;" align="center">${noticeLst.member_nickname }</td>
+						<td style="width: 120px; height: 40px;" align="center">${noticeLst.notice_date }</td>
+						<td style="width: 80px; height: 40px;" align="center">${noticeLst.notice_hits }</td>
 					</tr>
 				</c:forEach>
 			</c:when>
@@ -72,7 +72,7 @@ function writeFrm(home){
 			<c:when test="${nickname eq 'CatchJob'}">
 				<tr>
 					<td align="right"><input style="" type="button"
-						onclick="writeFrm('${home }')" value='글쓰기' /></td>
+						onclick="noticewriteFrm('${home }')" value='글쓰기' /></td>
 				</tr>
 			</c:when>
 			<c:otherwise>
@@ -85,7 +85,7 @@ function writeFrm(home){
 <table>
 	<tr>
 		<td class="selectBtn">
-			<form id="selectFrm" action="${home }board/noticeBoard">
+			<form id="selectFrm" action="${home }board/noticeSelectProc">
 				<select name="selectOpt">
 					<option value="all">전체</option>
 					<option value="notice_title">제목</option>

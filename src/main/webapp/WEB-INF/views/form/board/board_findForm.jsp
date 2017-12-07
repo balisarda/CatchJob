@@ -21,21 +21,22 @@
 -->
 </style>
 <script>
-function detailView(board_idx){
+function boardDetailProc(board_idx){
 	document.getElementById('boardNo').value=board_idx;
+	document.getElementById('updateGo').value="no";
 	document.getElementById('frm').submit();
 }
-function jobdetailView(job_idx){
-	document.getElementById('jobNo').value=job_idx;
+function jobDetailProc(no){
+	document.getElementById('jobNo').value=no;
 	document.getElementById('jobfrm').submit();
 }
 </script>
-<form id='frm' action="${home }board/detailView">
+<form id='frm' action="${home }board/boardDetailProc">
 	<input type="hidden" name="boardNo" id="boardNo">
-	<input type="hidden" name="updateNo" id="updateNo">
+	<input type="hidden" name="updateGo" id="updateGo">
 </form>
-<form id='jobfrm' action="${home }board/jobdetailView">
-	<input type="hidden" name=jobNo id="jobNo">
+<form id='jobfrm' action="${home }board/jobDetailProc">
+	<input type="hidden" name="jobNo" id="jobNo">
 </form>
 	<ul class="demo">
 		<li><a>구인 게시판</a>
@@ -57,7 +58,7 @@ function jobdetailView(job_idx){
 									<tr>
 										<td style="width: 30px; height: 40px;" align="center">${jobLst.no}</td>
 										<td style="width: 330px; height: 40px;" align="center">
-											<div class="title" onclick="jobdetailView('${jobLst.no}')">${jobLst.job_name }</div>
+											<div class="title" onclick="jobDetailProc('${jobLst.no}')">${jobLst.job_name }</div>
 										</td>
 										<td style="width: 80px; height: 40px;" align="center">${jobLst.member_nickname }</td>
 										<td style="width: 120px; height: 40px;" align="center">${jobLst.board_date }</td>
@@ -75,7 +76,7 @@ function jobdetailView(job_idx){
 					<table>
 						<tr>
 							<td class="selectBtn">
-								<form id="selectFrm" action="${home }board/selectBoard">
+								<form id="selectFrm" action="${home }board/boardSelectProc">
 									<select name="selectOpt">
 										<option value="all">전체</option>
 										<option value="job_name">제목</option>
@@ -111,7 +112,7 @@ function jobdetailView(job_idx){
 									<tr>
 										<td style="width: 30px; height: 40px;" align="center">${boardLst.board_idx}</td>
 										<td style="width: 330px; height: 40px;" align="center">
-											<div class="title" onclick="detailView('${boardLst.board_idx}')">${boardLst.board_title }</div>
+											<div class="title" onclick="boardDetailProc('${boardLst.board_idx}')">${boardLst.board_title }</div>
 										</td>
 										<td style="width: 80px; height: 40px;" align="center">${boardLst.member_nickname }</td>
 										<td style="width: 120px; height: 40px;" align="center">${boardLst.board_date }</td>
@@ -129,7 +130,7 @@ function jobdetailView(job_idx){
 					<table>
 						<tr>
 							<td class="selectBtn">
-								<form id="selectFrm" action="${home }board/selectBoard">
+								<form id="selectFrm" action="${home }board/boardSelectProc">
 									<select name="selectOpt">
 										<option value="all">전체</option>
 										<option value="board_title">제목</option>

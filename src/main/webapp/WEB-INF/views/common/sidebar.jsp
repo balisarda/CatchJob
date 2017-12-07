@@ -57,8 +57,8 @@ ul{
 </div>
 <div id="side3" class="sidr off" style="transition: left 0.2s ease;">
 	<ul class="hide" style="display: block;">
-		<li><a href="${home }board/selectBoard">구인/구직 게시판</a></li>
-		<li><a href="${home }board/noticeBoard">공지사항</a></li>
+		<li><a href="${home }board/boardSelectProc">구인/구직 게시판</a></li>
+		<li><a href="${home }board/noticeSelectProc">공지사항</a></li>
 	</ul>
 </div>
 <div id="side4" class="sidr off" style="transition: left 0.2s ease;">
