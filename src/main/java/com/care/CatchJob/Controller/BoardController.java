@@ -128,7 +128,6 @@ public class BoardController {
 		boardDao.noticeHitsProc(Integer.parseInt(notice_idx));
 		model.addAttribute("Nickname", Nickname.get("Nickname"));
 		model.addAttribute("noticeLst", boardSrv.noticeDetailProc(notice_idx));
-		System.out.println(notice_idx);
 		if (updateGo.equals("noticeUp")) {
 			return "forward:/board_noticeupdateForm";
 		}

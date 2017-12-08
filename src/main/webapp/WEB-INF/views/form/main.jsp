@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <c:url var="img" value="/resources/img/" />
 <c:url var="css" value="/resources/css/" />
+<c:url var="home" value="/" />
 <script>
 $(document).ready(function(){
 	$.ajax({
@@ -12,39 +13,38 @@ $(document).ready(function(){
 			console.log(data);
 			$("#notice_table").html("");
 			$.each(data.noticelist, function(index, noticelist){
-				$("<li><a href='javascript:noticeDetailProc("+noticelist.num+");' onclick='noticeDetailView(noticelist.num);'>"+noticelist.nickname+" "+noticelist.title+"</a></li>").appendTo("#notice_table");
+				$("<li><a href='javascript:noticeDetailProc("+noticelist.num+");' onclick='noticeDetailProc("+noticelist.num+");'>"+noticelist.nickname+" "+noticelist.title+"</a></li>").appendTo("#notice_table");
 			});
 			$("#board_table").html("");
 			$.each(data.boardlist, function(index, boardlist){
-				$("<li><a href='javascript:boardDetailProc("+boardlist.num+");' onclick='detailView(boardlist.num);'>"+boardlist.nickname+" "+boardlist.title+"</a></li>").appendTo("#board_table");
+				$("<li><a href='javascript:boardDetailProc("+boardlist.num+");' onclick='boardDetailProc("+boardlist.num+");'>"+boardlist.nickname+" "+boardlist.title+"</a></li>").appendTo("#board_table");
 			});
 			$("#job_table").html("");
 			$.each(data.joblist, function(index, joblist){
-				$("<li><a>"+joblist.nickname+" "+joblist.title+"</a></li>").appendTo("#job_table");
+				$("<li><a href=''>"+joblist.nickname+" "+joblist.title+"</a></li>").appendTo("#job_table");
 			});
 		}
 	});
 });
-function boardDetailProc(board_idx) {
-	document.getElementById('boardNo').value = board_idx;
-	document.getElementById('updateNo').value = "noup";
-	document.getElementById('boardfrm').submit();
-}
 function noticeDetailProc(notice_idx) {
 	document.getElementById('noticeNo').value = notice_idx;
-	document.getElementById('updateNo').value = "noup";
+	document.getElementById('updateGo').value = "noup";
 	document.getElementById('noticefrm').submit();
 }
+function boardDetailProc(board_idx) {
+	document.getElementById('boardNo').value = board_idx;
+	document.getElementById('updateGo').value = "noup";
+	document.getElementById('boardfrm').submit();
+}
 </script>
-<form id='boardfrm' action="${home }board/boardDetailProc">
-	<input type="hidden" name="boardNo" id="boardNo"> 
-	<input type="hidden" name="updateGo" id="updateGo">
-</form>
 <form id='noticefrm' action="${home }board/noticeDetailProc">
-	<input type="hidden" name="noticeNo" id="noticeNo"> 
+	<input type="hidden" name="noticeNo" id="noticeNo">
 	<input type="hidden" name="updateGo" id="updateGo">
 </form>
-
+<form id='boardfrm' action="${home }board/boardDetailProc">
+	<input type="hidden" name="boardNo" id="boardNo">
+	<input type="hidden" name="updateGo" id="updateGo">
+</form>
 <link rel="stylesheet" href="${css }main.css" >
 <!-- 페이드인 효과 포함한 메인이미지 -->
 		<div class="fade">
