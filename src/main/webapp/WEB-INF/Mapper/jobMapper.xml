@@ -5,7 +5,7 @@
 	<insert id="AddJob" parameterType="com.care.CatchJob.DTO.Job">
 		INSERT INTO job
 		(no,member_nickname,job_comment,job_pay,latitude,longitude,road_address,address,detail_address,job_name,member_phone,job_num,job_option,job_date,job_time_start,job_time_end, board_date)
-		VALUES (job_SEQ.NEXTVAL, #{member_nickname}, #{job_comment}, #{job_pay},#{latitude}, #{longitude}, #{road_address}, #{address}, #{detail_address}, #{job_name}, #{member_phone}, #{job_num}, #{job_option}, #{job_date}, #{job_time_start}, #{job_time_end}, sysdate)
+		VALUES ((SELECT NVL(MAX(no), 0)+1 FROM job), #{member_nickname}, #{job_comment}, #{job_pay},#{latitude}, #{longitude}, #{road_address}, #{address}, #{detail_address}, #{job_name}, #{member_phone}, #{job_num}, #{job_option}, #{job_date}, #{job_time_start}, #{job_time_end}, sysdate)
 	</insert>
 	<insert id="applyInfo" parameterType="com.care.CatchJob.DTO.Apply">
 		INSERT INTO applyInfo

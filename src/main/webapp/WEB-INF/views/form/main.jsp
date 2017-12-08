@@ -12,11 +12,11 @@ $(document).ready(function(){
 			console.log(data);
 			$("#notice_table").html("");
 			$.each(data.noticelist, function(index, noticelist){
-				$("<li><a href='javascript:noticeDetailView("+noticelist.num+");' onclick='noticeDetailView(noticelist.num);'>"+noticelist.nickname+" "+noticelist.title+"</a></li>").appendTo("#notice_table");
+				$("<li><a href='javascript:noticeDetailProc("+noticelist.num+");' onclick='noticeDetailView(noticelist.num);'>"+noticelist.nickname+" "+noticelist.title+"</a></li>").appendTo("#notice_table");
 			});
 			$("#board_table").html("");
 			$.each(data.boardlist, function(index, boardlist){
-				$("<li><a href='javascript:detailView("+boardlist.num+");' onclick='detailView(boardlist.num);'>"+boardlist.nickname+" "+boardlist.title+"</a></li>").appendTo("#board_table");
+				$("<li><a href='javascript:boardDetailProc("+boardlist.num+");' onclick='detailView(boardlist.num);'>"+boardlist.nickname+" "+boardlist.title+"</a></li>").appendTo("#board_table");
 			});
 			$("#job_table").html("");
 			$.each(data.joblist, function(index, joblist){
@@ -25,24 +25,24 @@ $(document).ready(function(){
 		}
 	});
 });
-function detailView(board_idx) {
+function boardDetailProc(board_idx) {
 	document.getElementById('boardNo').value = board_idx;
 	document.getElementById('updateNo').value = "noup";
 	document.getElementById('boardfrm').submit();
 }
-function noticeDetailView(notice_idx) {
+function noticeDetailProc(notice_idx) {
 	document.getElementById('noticeNo').value = notice_idx;
 	document.getElementById('updateNo').value = "noup";
 	document.getElementById('noticefrm').submit();
 }
 </script>
-<form id='boardfrm' action="${home }board/detailView">
+<form id='boardfrm' action="${home }board/boardDetailProc">
 	<input type="hidden" name="boardNo" id="boardNo"> 
-	<input type="hidden" name="updateNo" id="updateNo">
+	<input type="hidden" name="updateGo" id="updateGo">
 </form>
-<form id='noticefrm' action="${home }board/noticeDetailView">
+<form id='noticefrm' action="${home }board/noticeDetailProc">
 	<input type="hidden" name="noticeNo" id="noticeNo"> 
-	<input type="hidden" name="updateNo" id="updateNo">
+	<input type="hidden" name="updateGo" id="updateGo">
 </form>
 
 <link rel="stylesheet" href="${css }main.css" >

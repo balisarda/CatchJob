@@ -1,4 +1,3 @@
-
 CREATE TABLE job
 (   
 	no               INT               not null,
@@ -18,8 +17,11 @@ CREATE TABLE job
     job_time_start     VARCHAR2(20)    NOT NULL, 
     job_time_end       VARCHAR2(20)    NOT NULL,
     board_date         DATE         not null,
+    job_hits			INT				NULL,
     CONSTRAINT JOB_PK PRIMARY KEY(no)
 )
+
+drop SEQUENCE job_SEQ
 
 CREATE SEQUENCE job_SEQ
 START WITH 1

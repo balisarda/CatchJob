@@ -24,8 +24,7 @@ import com.care.CatchJob.IService.BoardService;
 public class BoardController {
 	
 	@Autowired
-	private BoardService boardSrv;
-	
+	private BoardService boardSrv;	
 	@Autowired
 	private BoardDao boardDao;
 

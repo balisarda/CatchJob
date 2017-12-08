@@ -80,8 +80,9 @@
 		<!-- 알바를 하고 싶은 장소 -->
 		<a onMouseover="this.style.color='blue';">알바를 하고 싶은 장소</a><br>
 		<div>
-			<input type="button" onclick="SearchAddr('${home}form/getmapForm')" value="주소검색" />
+			<input type="button" class="btn-gradient red mini" onclick="SearchAddr('${home}form/getmapForm')" value="주소검색" />
 			<input type="text" id="reciaddr" name="board_addr" value="${boardLst.board_addr }" />
+			<a style="color: red;">${addr }</a>
 		</div>
 		<br>
 	</div>
@@ -98,8 +99,6 @@
 	</div>
 </form>
 <script>
-	function SearchAddr(map) { 
-	var newwin = window.open(map, "blank", "width=530, height=680, scrollbars=yes");	
-	}
+	function SearchAddr(map) { var newwin = window.open(map, "blank", "width=530, height=680, scrollbars=yes");	}
 </script>
 <script src="${js }board/boardChkSelect.js"></script>
