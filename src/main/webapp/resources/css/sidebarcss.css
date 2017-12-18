@@ -10,7 +10,7 @@
 	    color: white;
 	}
 	li a:hover:not(.active) {
-	    background-color: #c0c0c0;
+	    
 	    color: #535353;
 	    font-weight: bold;
 	}
@@ -108,7 +108,7 @@ right : 30px;
 .menu-item li:hover {
   background: #eee;
 }
-/*main.css에 있던 얘*/
+/*main.css�뿉 �엳�뜕 �뼐*/
 	.sidebar {
 		list-style-type: none;
 		padding: 0;
